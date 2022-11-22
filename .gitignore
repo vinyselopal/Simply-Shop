@@ -5,8 +5,6 @@
 /package.json
 /frontend/package.json
 /backend/package.json
-# testing
-/coverage
 
 # production
 /build
