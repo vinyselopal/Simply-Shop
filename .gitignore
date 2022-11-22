@@ -1,7 +1,4 @@
-/node_modules
-/frontend/node_modules
-/package.json
-/frontend/package.json
-/backend/package.json
-/notes
-/references
+node_modules
+frontend/node_modules
+notes
+references
