@@ -4,10 +4,12 @@ import ProductPage from './pages/ProductPage.js'
 import Cart from './pages/Cart.js'
 import OrderPlaced from './pages/OrderPlaced.js'
 import Header from './components/Header.js'
+import { CartProvider } from 'react-use-cart'
 function App() {
   return (
     <div className="App">
       <Router>
+        <CartProvider>
         <Header />
         <Routes>
           <Route path='/' element={<Home />}></Route>
@@ -15,6 +17,7 @@ function App() {
           <Route path="/cart" element={<Cart />}></Route>
           <Route path="/order_placed" element={<OrderPlaced />}></Route>
         </Routes>
+        </CartProvider>
       </Router>
     </div>
   );

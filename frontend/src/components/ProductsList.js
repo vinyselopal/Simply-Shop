@@ -1,9 +1,9 @@
-import product from '../inventory.js'
+import products from '../inventory.js'
 import Product from './Product.js'
 
 function ProductsList () {
     return (
-        <Product product={product}></Product>
+        <Product products={products}></Product>
     )
 }
 
