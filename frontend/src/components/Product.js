@@ -1,27 +1,21 @@
+import { Carousel } from 'bootstrap';
 import {Link} from 'react-router-dom'
 import '../styles/product.css'
-function Product({products}) {
+function Product({product, index, Carousel}) {
   return (
-    <ul>
-    {
-      products.map((product, index) => 
-              <li key={index} className="product">
+
+              <li key={index} >
                   <Link to={`/products/product/${product.id}`}>
                   <div className="product-card">
                     <div className="product-image">
-                      <img src={product.image} alt="a brown tshirt" height='100' width='100' />
-                    </div>
-                    <h2>{product.name}</h2>
+                      <img src={product.image} alt="a brown tshirt" height='120' width='120' />
+                      </div>
+                    <p>{product.name}</p>
                     <p>Rs. {product.price}</p>
-
+                    
                   </div>
                 </Link>
-              </li>
-            )
-      }
-            </ul>
-    
-    
+              </li>    
     
   );
 }

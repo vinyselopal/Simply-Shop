@@ -1,4 +1,18 @@
-.product {
-    background-color: aquamarine;
-    width: 200px
+.product-list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    width: 90%;
+    margin: auto
+}
+.product-card {
+    padding: 5px;
+    font-size: 18px;
+}
+.home-product-list {
+    margin: auto
+}
+.home {
+    padding: 20px
 }

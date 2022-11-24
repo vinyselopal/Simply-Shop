@@ -3,9 +3,11 @@
     padding-left: 15px;
     flex: 4;
     margin-right: 15px;
-    padding-bottom: 10px
+    padding-bottom: 10px;
+    padding-top: 10px
 }
 .cart-page-billing {
+    padding-top: 10px;
     background-color: white;
     padding-left: 15px;
     flex: 1;
@@ -47,3 +49,20 @@
     flex-direction: column;
     justify-content: center;
 }
+
+.cart-page-product-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-page-item-quantity {
+    padding-right: 5px;
+    padding-left: 5px
+}
+
+.cart-page-product-update-buttons {
+    display: flex;
+}
+

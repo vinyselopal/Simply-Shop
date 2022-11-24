@@ -2,8 +2,7 @@
     background-color: rgb(2, 2, 50);
     color: white;
     margin: 0;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 5px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -13,8 +12,7 @@
 
 .app-logo {
     color: white;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: larger;
+    margin: auto;
 }
 .cart-logo {
     color: white;
