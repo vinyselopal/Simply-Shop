@@ -48,19 +48,15 @@ function App () {
   return (
     <div className='App'>
       <Router>
-        {
-          cart
-            ? <CartProvider storage={storageProvider}>
-              <Header />
-              <Routes>
-                <Route path='/' element={<Home products={products} />} />
-                <Route path='/products/product/:id' element={<ProductPage products={products} />} />
-                <Route path='/cart' element={<Cart />} />
-                <Route path='/order_placed' element={<OrderPlaced />} />
-              </Routes>
-              </CartProvider>
-            : null
-        }
+        <CartProvider storage={storageProvider}>
+          <Header />
+          <Routes>
+            <Route path='/' element={<Home products={products} />} />
+            <Route path='/products/product/:id' element={<ProductPage products={products} />} />
+            <Route path='/cart' element={<Cart />} />
+            <Route path='/order_placed' element={<OrderPlaced />} />
+          </Routes>
+        </CartProvider>
 
       </Router>
     </div>

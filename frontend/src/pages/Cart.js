@@ -1,6 +1,7 @@
 import products from '../inventory.js'
 import '../styles/cart.css'
 import { CartProvider, useCart } from 'react-use-cart'
+import { useEffect } from 'react'
 
 function Cart () {
   const {
@@ -17,7 +18,7 @@ function Cart () {
     <div className='cart-page'>
       <div className='cart-page-items'>
         {
-        (isEmpty)
+        (isEmpty || !items)
           ? <div className='cart-empty-message'><h2>Shopping Cart empty.</h2><div className='cart-empty-icon'><span className='material-icons'>sentiment_dissatisfied </span><p>feels so light</p></div> </div>
           : <h3>Shopping Cart ({totalUniqueItems})</h3>
       }
