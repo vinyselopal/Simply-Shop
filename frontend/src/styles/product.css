@@ -7,8 +7,10 @@
     margin: auto
 }
 .product-card {
+    margin: 5px;
     padding: 5px;
     font-size: 18px;
+    background-color: white;
 }
 .home-product-list {
     margin: auto

@@ -1,1 +1,2 @@
-define postgres schemas, and seeds.
+-- define postgres schemas, and seeds.
+-- recreate tables because foreign ids mismatched

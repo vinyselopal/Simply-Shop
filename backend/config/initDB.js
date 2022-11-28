@@ -10,7 +10,9 @@ const pool = new Pool({
 
 async function initDB () {
   await pool.query(createUsersTable)
+
   await pool.query(createProductsTable)
+
   await pool.query(createOrdersTable)
 }
 
