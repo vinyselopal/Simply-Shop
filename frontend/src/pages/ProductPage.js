@@ -1,10 +1,8 @@
 import { useSearchParams, Link, useParams } from 'react-router-dom'
 import Product from '../components/Product.js'
-import products from '../inventory.js'
-import { useDispatch } from 'react-redux'
 import { useCart, CartProvider } from 'react-use-cart'
 import { useEffect } from 'react'
-function ProductPage () {
+function ProductPage ({ products }) {
   const { setItems, addItem } = useCart()
   // const [searchParams] = useSearchParams()
 
@@ -24,7 +22,7 @@ function ProductPage () {
     <div className='product-page'>
       <div className='product-card'>
         <div className='product-image'>
-          <img src={product.image} alt='a brown tshirt' height='100' width='100' />
+          <img src={product.image} alt='product image' height='100' width='100' />
         </div>
         <h2>{product.name}</h2>
         <p>Rs. {product.price}</p>

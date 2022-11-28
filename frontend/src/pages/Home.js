@@ -1,17 +1,31 @@
 import { Link } from 'react-router-dom'
 import '../styles/product.css'
 import ProductsList from '../components/ProductsList.js'
-function Home () {
+import { useState, useEffect } from 'react'
+function Home ({ products }) {
   return (
     <div className='home'>
-      <div className='home-product-list'>
-        <h2>List 1</h2>
-        <ProductsList />
-      </div>
-      <div className='home-product-list'>
-        <h2>List 2</h2>
-        <ProductsList />
-      </div>
+      {
+        products
+          ? (
+            <>
+              <div className='home-product-list'>
+                <h2>Electronics</h2>
+                <ProductsList products={products.filter(product => product.category === 'electronics')} />
+              </div>
+              <div className='home-product-list'>
+                <h2>Home Appliances</h2>
+                <ProductsList products={products.filter(product => product.category === 'home-appliances')} />
+              </div>
+              <div className='home-product-list'>
+                <h2>Clothes</h2>
+                <ProductsList products={products.filter(product => product.category === 'clothes')} />
+              </div>
+            </>
+            )
+          : null
+      }
+
     </div>
   )
 }

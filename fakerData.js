@@ -7,13 +7,13 @@ const pool = new Pool({
   database: 'amazon_clone',
   post: 5432
 })
-
+const categories = ['clothes', 'electronics', 'home-appliances']
 async function createProductsData () {
   for (let i = 0; i < 20; i++) {
     const obj = {
 
       description: faker.random.word(),
-      // id: i+1,
+      id: i + 1,
       name: faker.random.word(),
       price: faker.datatype.number(
         {
@@ -28,18 +28,13 @@ async function createProductsData () {
         }
 
       ),
-      image: faker.datatype.number(
+
+      category: categories[faker.datatype.number(
         {
-          min: 1,
-          max: 20
+          min: 0,
+          max: 2
         }
-      ),
-      category_id: faker.datatype.number(
-        {
-          min: 1,
-          max: 20
-        }
-      ),
+      )],
       seller_id: faker.datatype.number(
         {
           min: 1,
@@ -56,9 +51,9 @@ async function createProductsData () {
     }
     try {
       const response = await pool.query(`
-            INSERT INTO products (price, category_id, description, name, count, image, seller_id) 
-            VALUES ($1, $2, $3, $4, $5, $6, $7);`,
-      [obj.price, obj.category_id, obj.description, obj.name, obj.quantity, obj.image, obj.seller_id])
+            INSERT INTO products (price, category, description, name, count, seller_id, ratings, id) 
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`,
+      [obj.price, obj.category, obj.description, obj.name, obj.quantity, obj.seller_id, obj.ratings, obj.id])
       console.log(response)
     } catch (err) {
       console.log(err)
@@ -69,13 +64,20 @@ async function createProductsData () {
 async function createProductImagesData () {
   for (let i = 0; i < 20; i++) {
     const obj = {
-      url: faker.image.imageUrl()
+      id: i + 1,
+      url: faker.image.imageUrl(),
+      product_id: faker.datatype.number(
+        {
+          min: 1,
+          max: 20
+        }
+      )
     }
     try {
       const response = await pool.query(`
-            INSERT INTO product_images (image_url) 
-            VALUES ($1);`,
-      [obj.url])
+            INSERT INTO product_images (id, image_url, product_id) 
+            VALUES ($1, $2, $3);`,
+      [obj.id, obj.url, obj.product_id])
       console.log(response)
     } catch (err) {
       console.log(err)
@@ -86,6 +88,7 @@ async function createProductImagesData () {
 async function createUsersData () {
   for (let i = 0; i < 20; i++) {
     const obj = {
+      id: i + 1,
       first_name: faker.name.firstName(),
       last_name: faker.name.lastName(),
       password: faker.internet.password(),
@@ -96,9 +99,9 @@ async function createUsersData () {
     try {
       const response = await pool.query(`
             INSERT INTO users 
-            (first_name, last_name, password, email_address, address, created_at)
-             VALUES ($1, $2, $3, $4, $5, $6);`,
-      [obj.first_name, obj.last_name, obj.password, obj.email_address, obj.address, obj.created_at])
+            (first_name, last_name, password, email_address, address, created_at, id)
+             VALUES ($1, $2, $3, $4, $5, $6, $7);`,
+      [obj.first_name, obj.last_name, obj.password, obj.email_address, obj.address, obj.created_at, obj.id])
       console.log(response)
     } catch (err) {
       console.log(err)
@@ -111,8 +114,8 @@ async function createOrdersData () {
 
       product_id: faker.datatype.number(
         {
-          min: 81,
-          max: 100
+          min: 1,
+          max: 20
         }
       ),
       user_id: faker.datatype.number(
@@ -137,38 +140,10 @@ async function createOrdersData () {
   }
 }
 
-async function createProductImagesMappingData () {
-  for (let i = 0; i < 20; i++) {
-    const obj = {
-      image_id: faker.datatype.number(
-        {
-          min: 1,
-          max: 20
-        }
-      ),
-      product_id: faker.datatype.number(
-        {
-          min: 81,
-          max: 100
-        }
-      )
-    }
-    try {
-      const response = await pool.query(`
-            INSERT INTO product_images_mapping (image_id, product_id) 
-            VALUES ($1, $2);`,
-      [obj.image_id, obj.product_id])
-      console.log(response)
-    } catch (err) {
-      console.log('data', obj, 'err', err)
-    }
-  }
-}
-
 async function createSellersData () {
   for (let i = 0; i < 20; i++) {
     const obj = {
-
+      id: i + 1,
       company_name: faker.random.word(),
       email_address: faker.internet.email(),
       password: faker.internet.password(),
@@ -177,9 +152,9 @@ async function createSellersData () {
     }
     try {
       const response = await pool.query(`
-            INSERT INTO sellers (company_name, email_address, password, address, created_at) 
-            VALUES ($1, $2, $3, $4, $5);`,
-      [obj.company_name, obj.email_address, obj.password, obj.address, obj.created_at])
+            INSERT INTO sellers (company_name, email_address, password, address, created_at, id) 
+            VALUES ($1, $2, $3, $4, $5, $6);`,
+      [obj.company_name, obj.email_address, obj.password, obj.address, obj.created_at, obj.id])
       console.log(response)
     } catch (err) {
       console.log(err)
@@ -187,27 +162,10 @@ async function createSellersData () {
   }
 }
 
-async function createCategoriesData () {
-  for (let i = 0; i < 20; i++) {
-    const obj = {
-      name: faker.random.word()
-
-    }
-    try {
-      const response = await pool.query(`
-            INSERT INTO categories (name) 
-            VALUES ($1);`,
-      [obj.name])
-      console.log(response)
-    } catch (err) {
-      console.log(err)
-    }
-  }
-}
-
-// createProductImagesData()
+// createUsersData()
+// createSellersData()
 // createProductsData()
+// createProductImagesData()
 // createOrdersData()
 
-createProductsData()
-module.exports = { createProductsData, createUsersData, createOrdersData, createProductImagesData, createProductImagesMappingData, createSellersData, createCategoriesData }
+module.exports = { createProductsData, createUsersData, createOrdersData, createProductImagesData, createSellersData }

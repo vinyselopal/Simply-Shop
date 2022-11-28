@@ -9,6 +9,16 @@ import { useEffect, useState } from 'react'
 
 function App () {
   const [cart, setCart] = useState(null)
+  const [products, setProducts] = useState(null)
+
+  async function getServerProducts () {
+    const response = await (await fetch('http://localhost:8000/products')).json()
+    console.log('products from database api', typeof JSON.parse(response))
+    setProducts(JSON.parse(response))
+  }
+  useEffect(() => {
+    getServerProducts()
+  }, [])
 
   const getServerCart = async () => {
     const initialCart = await (await fetch('http://localhost:8000/cart', { method: 'GET' })).json()
@@ -43,8 +53,8 @@ function App () {
             ? <CartProvider storage={storageProvider}>
               <Header />
               <Routes>
-                <Route path='/' element={<Home />} />
-                <Route path='/products/product/:id' element={<ProductPage />} />
+                <Route path='/' element={<Home products={products} />} />
+                <Route path='/products/product/:id' element={<ProductPage products={products} />} />
                 <Route path='/cart' element={<Cart />} />
                 <Route path='/order_placed' element={<OrderPlaced />} />
               </Routes>
