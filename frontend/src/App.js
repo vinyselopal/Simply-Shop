@@ -11,13 +11,16 @@ function App () {
   const [cart, setCart] = useState(null)
   const [products, setProducts] = useState(null)
 
+  console.log('app start')
   async function getServerProducts () {
     const response = await (await fetch('http://localhost:8000/products')).json()
     console.log('products from database api', typeof JSON.parse(response))
+    localStorage.setItem('products', response)
     setProducts(JSON.parse(response))
   }
   useEffect(() => {
     getServerProducts()
+    console.log('here')
   }, [])
 
   const getServerCart = async () => {
@@ -32,7 +35,7 @@ function App () {
   const storageProvider = (key, initialValue) => {
     const localCart = localStorage.getItem(key)
 
-    return [cart || initialValue, async (str) => {
+    return [localCart || cart || initialValue, async (str) => {
       // custom storage
       localStorage.setItem(key, str)
       const response = await fetch('http://localhost:8000/cart', {

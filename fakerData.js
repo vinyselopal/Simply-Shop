@@ -65,7 +65,7 @@ async function createProductImagesData () {
   for (let i = 0; i < 20; i++) {
     const obj = {
       id: i + 1,
-      url: faker.image.imageUrl(),
+      url: faker.image.image(),
       product_id: faker.datatype.number(
         {
           min: 1,
@@ -165,7 +165,7 @@ async function createSellersData () {
 // createUsersData()
 // createSellersData()
 // createProductsData()
-// createProductImagesData()
+createProductImagesData()
 // createOrdersData()
 
 module.exports = { createProductsData, createUsersData, createOrdersData, createProductImagesData, createSellersData }

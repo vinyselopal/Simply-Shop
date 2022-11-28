@@ -4,15 +4,10 @@ import { useCart, CartProvider } from 'react-use-cart'
 import { useEffect } from 'react'
 function ProductPage ({ products }) {
   const { setItems, addItem } = useCart()
-  // const [searchParams] = useSearchParams()
-
-  // const dispatch = useDispatch()
 
   const { id } = useParams()
-  // console.log(id)
 
-  const product = products.find(product => `${product.id}` === id)
-  // console.log(products)
+  const product = products ? products.find(product => `${product.id}` === id) : JSON.parse(localStorage.getItem('products'))
 
   function addToCart () {
     addItem(product, 1)
