@@ -20,11 +20,12 @@
 }
 
 .header-search-container {
-    width: 90%;
+    width: 60%;
     padding-left: 5px;
     padding-right: 5px;
     display: flex;
     justify-content: center;
+    flex-direction: column;
 }
 .header-search {
     width: 90%;
@@ -36,4 +37,22 @@
 }
 .cart-container {
     text-decoration: none;
+}
+.header-search-suggestions-container {
+    position: absolute;
+    top: 50px;
+    background: white;
+    color: black;
+    width: 500px;
+    padding: 5px
+}
+.header-search-suggestions-list {
+    list-style-type: none;
+}
+
+.header-search:focus {
+    border: orange solid 3px;
+}
+.header-search-button {
+    background-color: orange;
 }

@@ -1,2 +1,3 @@
 -- define postgres schemas, and seeds.
 -- recreate tables because foreign ids mismatched
+-- ask doubt: why on page refresh state passed to component from parent element to the page not available

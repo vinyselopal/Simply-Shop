@@ -4,6 +4,7 @@ import ProductPage from './pages/ProductPage.js'
 import Cart from './pages/Cart.js'
 import OrderPlaced from './pages/OrderPlaced.js'
 import Header from './components/Header.js'
+import SearchResults from './pages/SearchResults.js'
 import { CartProvider } from 'react-use-cart'
 import { useEffect, useState } from 'react'
 
@@ -52,12 +53,13 @@ function App () {
     <div className='App'>
       <Router>
         <CartProvider storage={storageProvider}>
-          <Header />
+          <Header products={products} />
           <Routes>
             <Route path='/' element={<Home products={products} />} />
             <Route path='/products/product/:id' element={<ProductPage products={products} />} />
             <Route path='/cart' element={<Cart />} />
             <Route path='/order_placed' element={<OrderPlaced />} />
+            <Route path='/search_results/:keyword' element={<SearchResults products={products} />} />
           </Routes>
         </CartProvider>
 
