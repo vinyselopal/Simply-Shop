@@ -6,20 +6,22 @@ function ProductsList ({ products }) {
   return (
     <ul className='product-list'>
       {
-                products.map((product, index) => (
-                  <li key={index}>
-                    <Link to={`/products/product/${product.id}`}>
-                      <div className='product-card'>
-                        <div className='product-image'>
-                          <img src={product.image} alt='product image' height='120' width='120' />
-                        </div>
-                        <p>{product.name}</p>
-                        <p>Rs. {product.price}</p>
+                products.map((product, index) => {
+                  return (
+                    <li key={index}>
+                      <Link to={`/products/product/${product.id}`}>
+                        <div className='product-card'>
+                          <div className='product-image'>
+                            <img src={product.image_url} alt='product image' height='120' width='120' />
+                          </div>
+                          <p>{product.name}</p>
+                          <p>Rs. {product.price}</p>
 
-                      </div>
-                    </Link>
-                  </li>
-                )
+                        </div>
+                      </Link>
+                    </li>
+                  )
+                }
                 )
 
             }

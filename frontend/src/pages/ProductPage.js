@@ -17,7 +17,7 @@ function ProductPage ({ products }) {
     <div className='product-page'>
       <div className='product-card'>
         <div className='product-image'>
-          <img src={product.image} alt='product image' height='100' width='100' />
+          <img src={product.image_url} alt='product image' height='100' width='100' />
         </div>
         <h2>{product.name}</h2>
         <p>Rs. {product.price}</p>
