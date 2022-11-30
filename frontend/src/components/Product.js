@@ -1,4 +1,3 @@
-import { Carousel } from 'bootstrap'
 import { Link } from 'react-router-dom'
 import '../styles/product.css'
 function Product ({ product, index, Carousel }) {

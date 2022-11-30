@@ -66,3 +66,19 @@
     display: flex;
 }
 
+.cart-billing-container {
+    margin: 20px;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 50px;
+    width: 100%
+}
+
+.cart-item-button {
+    height: 60%;
+    width: 100%;
+}
+
+

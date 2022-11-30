@@ -1,3 +1,4 @@
--- define postgres schemas, and seeds.
--- recreate tables because foreign ids mismatched
--- ask doubt: why on page refresh state passed to component from parent element to the page not available
+-- add million products using faker.js
+-- use postgres to implement text search on searchbar suggestions (it ll be fast)
+-- sort and filter
+-- pagination and pagination numbering

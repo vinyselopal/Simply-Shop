@@ -16,5 +16,14 @@
     margin: auto
 }
 .home {
-    padding: 20px
+    padding: 20px;
+}
+
+.home-products-container {
+    margin-top: 50px
+}
+
+.product-page {
+    margin: 20px;
+    margin-top: 80px;
 }
