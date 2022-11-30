@@ -9,7 +9,7 @@ const pool = new Pool({
 })
 const categories = ['clothes', 'electronics', 'home-appliances']
 async function createProductsData () {
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 200; i++) {
     const obj = {
 
       description: faker.random.word(),
@@ -38,7 +38,7 @@ async function createProductsData () {
       seller_id: faker.datatype.number(
         {
           min: 1,
-          max: 20
+          max: 200
         }
       ),
       ratings: faker.datatype.float(
@@ -62,14 +62,14 @@ async function createProductsData () {
 }
 
 async function createProductImagesData () {
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 200; i++) {
     const obj = {
       id: i + 1,
       url: faker.image.image(),
       product_id: faker.datatype.number(
         {
           min: 1,
-          max: 20
+          max: 200
         }
       )
     }
@@ -86,7 +86,7 @@ async function createProductImagesData () {
 }
 
 async function createUsersData () {
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 200; i++) {
     const obj = {
       id: i + 1,
       first_name: faker.name.firstName(),
@@ -108,20 +108,21 @@ async function createUsersData () {
     }
   }
 }
+
 async function createOrdersData () {
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 200; i++) {
     const obj = {
 
       product_id: faker.datatype.number(
         {
           min: 1,
-          max: 20
+          max: 200
         }
       ),
       user_id: faker.datatype.number(
         {
           min: 1,
-          max: 20
+          max: 200
         }
       ),
 
@@ -141,7 +142,7 @@ async function createOrdersData () {
 }
 
 async function createSellersData () {
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 200; i++) {
     const obj = {
       id: i + 1,
       company_name: faker.random.word(),
@@ -165,7 +166,9 @@ async function createSellersData () {
 // createUsersData()
 // createSellersData()
 // createProductsData()
-createProductImagesData()
+// createProductImagesData()
 // createOrdersData()
+
+// const createDataArr = [createUsersData, createSellersData, createProductsData, createProductImagesData, createOrdersData]
 
 module.exports = { createProductsData, createUsersData, createOrdersData, createProductImagesData, createSellersData }

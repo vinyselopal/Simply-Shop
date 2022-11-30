@@ -8,6 +8,7 @@ import SearchResults from './pages/SearchResults'
 import { CartProvider } from 'react-use-cart'
 import { useEffect, useState } from 'react'
 import { getServerCart, getServerProducts, updateServerCart } from './apis'
+import ProductsPage from './pages/ProductsPage'
 
 function App () {
   const [cart, setCart] = useState(null)
@@ -49,6 +50,7 @@ function App () {
             <Route path='/cart' element={<Cart />} />
             <Route path='/order_placed' element={<OrderPlaced />} />
             <Route path='/search_results/:keyword' element={<SearchResults products={products} />} />
+            <Route path='/products/:category' element={<ProductsPage products={products} />} />
           </Routes>
         </CartProvider>
 

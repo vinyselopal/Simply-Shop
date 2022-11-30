@@ -1,14 +1,13 @@
-import ProductsPage from '../pages/ProductsPage'
-import { Link } from 'react-router-dom'
+import HomeProducts from '../components/HomeProducts'
 import '../styles/product.css'
-import { useState, useEffect } from 'react'
 function Home ({ products }) {
+  console.log(products)
   return (
     <div className='home'>
       {
         products
           ? (
-            <ProductsPage products={products} />
+            <HomeProducts products={products} />
             )
           : null
       }

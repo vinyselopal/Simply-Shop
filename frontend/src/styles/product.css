@@ -1,6 +1,9 @@
 .product-list {
     list-style-type: none;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(8, 2fr);
+    grid-template-rows: repeat(8, 20vw);
+    grid-gap: 15px;
     flex-direction: row;
     overflow-x: auto;
     width: 90%;

@@ -1,7 +1,6 @@
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import '../styles/product.css'
 import ProductsList from '../components/ProductsList.js'
-import { useState, useEffect } from 'react'
 
 function SearchResults ({ products }) {
   const { keyword } = useParams()

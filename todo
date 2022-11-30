@@ -2,3 +2,5 @@
 -- use postgres to implement text search on searchbar suggestions (it ll be fast)
 -- sort and filter
 -- pagination and pagination numbering
+-- when cant get products atleast display other UI
+-- learn css grids and more
