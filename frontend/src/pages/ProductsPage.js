@@ -7,9 +7,15 @@ function ProductsPage ({ products }) {
   console.log(category)
 
   useEffect(() => {
-    const filteredProducts = products || JSON.parse(localStorage.getItem('products'))
-    setLocalProducts(filteredProducts)
-  }, [products])
+    (async () => {
+      const pagedProducts = await handlePagination(1, category)
+      setLocalProducts(pagedProducts)
+    })()
+  }, [])
+  // useEffect(() => {
+  //   const filteredProducts = products || JSON.parse(localStorage.getItem('products'))
+  //   setLocalProducts(filteredProducts)
+  // }, [products])
 
   function priceLowToHigh (event) {
     setLocalProducts([...localProducts.sort((prev, curr) => prev.price - curr.price)])
@@ -30,7 +36,20 @@ function ProductsPage ({ products }) {
 
       case 'price high to low':
         priceHighToLow()
+        break
+
+      default:
+        break
     }
+  }
+
+  async function handlePagination (page) {
+    const response = await fetch(`http://localhost:8000/products/page/?page=${page}&&category=${category}`)
+    console.log('response', response)
+    const products = await response.json()
+    console.log(JSON.parse(products))
+    setLocalProducts(JSON.parse(products))
+    return JSON.parse(products)
   }
 
   if (!localProducts) {
@@ -38,6 +57,7 @@ function ProductsPage ({ products }) {
       null
     )
   }
+
   return (
     <div className='home-products-container'>
       <div className='home-product-list'>
@@ -47,6 +67,11 @@ function ProductsPage ({ products }) {
           <option>price low to high</option>
         </select>
         <ProductsList products={localProducts} />
+        <div className='home-products-page-buttons'>
+          <button onClick={(event) => handlePagination(event.target.value)} value={1}>1</button>
+          <button onClick={(event) => handlePagination(event.target.value)} value={2}>2</button>
+          <button onClick={(event) => handlePagination(event.target.value)} value={3}>3</button>
+        </div>
       </div>
     </div>
   )

@@ -4,5 +4,4 @@ const createProductImagesTable = 'CREATE TABLE IF NOT EXISTS product_images (id 
 const createOrdersTable = 'CREATE TABLE IF NOT EXISTS orders (id SERIAL PRIMARY KEY, product_id integer REFERENCES products(id), user_id integer REFERENCES users(id), created_at timestamp);'
 const createSellersTable = 'CREATE TABLE IF NOT EXISTS sellers (id SERIAL PRIMARY KEY, company_name text, email_address text, address text, created_at timestamp, password text);'
 const createCategoriesTable = 'CREATE TABLE IF NOT EXISTS categories (id SERIAL PRIMARY KEY, name text);'
-
 module.exports = { createOrdersTable, createUsersTable, createProductsTable, createProductImagesTable, createSellersTable, createCategoriesTable }

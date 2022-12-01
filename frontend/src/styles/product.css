@@ -7,7 +7,8 @@
     flex-direction: row;
     overflow-x: auto;
     width: 90%;
-    margin: auto
+    margin: auto;
+    height: 500px
 }
 .product-card {
     margin: 5px;
@@ -29,4 +30,10 @@
 .product-page {
     margin: 20px;
     margin-top: 80px;
+}
+
+.home-products-page-buttons {
+    margin: auto;
+    display: flex;
+    justify-content: center;
 }

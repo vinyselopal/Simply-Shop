@@ -8,11 +8,11 @@ function HomeProducts ({ products }) {
         <ProductsList products={products.filter(product => product.category === 'electronics')} />
       </div>
       <div className='home-product-list'>
-        <h2>Home Appliances</h2>
+        <h2><Link to='/products/home-appliances'>Home Appliances</Link></h2>
         <ProductsList products={products.filter(product => product.category === 'home-appliances')} />
       </div>
       <div className='home-product-list'>
-        <h2>Clothes</h2>
+        <h2><Link to='products/clothes'>Clothes</Link></h2>
         <ProductsList products={products.filter(product => product.category === 'clothes')} />
       </div>
     </div>
