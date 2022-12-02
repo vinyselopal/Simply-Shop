@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import '../styles/product.css'
 
 function ProductsList ({ products }) {
-  console.log('products', products)
   return (
     <ul className='product-list'>
       {

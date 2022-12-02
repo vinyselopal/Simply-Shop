@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useCart } from 'react-use-cart'
+
 function ProductPage ({ products }) {
   const { addItem } = useCart()
   const { id } = useParams()
@@ -7,7 +8,9 @@ function ProductPage ({ products }) {
     ? products.find(
       product => `${product.id}` === id
     )
-    : JSON.parse(localStorage.getItem('products')) // look into this call to locaStorage
+    : JSON.parse(localStorage.getItem('products')).find(
+      product => `${product.id}` === id
+    )
 
   function addToCart () {
     addItem(product, 1)

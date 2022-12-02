@@ -11,11 +11,11 @@ function SearchBar ({ suggestions, products, setSuggestions }) {
     const keyword = element.value
 
     if (event.type === 'keydown' && event.key !== 'Enter') return
-
     if (!keyword) return
 
     navigate(`/search_results/${keyword}`)
   }
+
   async function getMatchingProducts (keyword) {
     const response = await fetch(`http://localhost:8000/products/matchingProducts/${keyword}`)
     const matchingProducts = await response.json()
@@ -32,6 +32,7 @@ function SearchBar ({ suggestions, products, setSuggestions }) {
     console.log(suggestionsArray)
     suggestionsArray.length ? setSuggestions(suggestionsArray) : setSuggestions(null)
   }
+
   return (
     <div className='header-search-container'>
       <div className='header-searchbar-button-container'>
@@ -79,7 +80,11 @@ function Header ({ products }) {
           </Link>
           <SearchBar suggestions={suggestions} setSuggestions={setSuggestions} products={products} />
           <Link to='/cart' className='cart-container'>
-            <span className='material-icons cart-logo'>shopping_cart <span className='cart-count'>{totalUniqueItems}</span>
+            <span className='material-icons cart-logo'>
+              shopping_cart
+              <span className='cart-count'>
+                {totalUniqueItems}
+              </span>
             </span>
           </Link>
         </div>

@@ -1,6 +1,7 @@
 import ProductsList from '../components/ProductsList.js'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+
 function HomeProducts () {
   const [localProducts, setLocalProducts] = useState([])
   console.log('rerendering')
@@ -13,9 +14,6 @@ function HomeProducts () {
     })()
   }, [])
 
-  useEffect(() => {
-    console.log(localProducts)
-  }, [localProducts])
   async function getProductsOfCategory (category) {
     const response = await fetch(`http://localhost:8000/products/page/?page=1&&category=${category}`)
     console.log('response', response)
@@ -29,8 +27,8 @@ function HomeProducts () {
     const filteredProducts = filteredObjects ? filteredObjects.products : null
     return filteredProducts
   }
-  return (
 
+  return (
     <div className='home-products-container'>
       <div className='home-product-list'>
         <h2><Link to='/products/electronics'>Electronics</Link></h2>

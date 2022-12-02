@@ -1,4 +1,9 @@
-const { getProductsQuery, getProductsInPartsQuery, getProductsCountQuery, getMatchingProductsQuery } = require('./productsModel')
+const {
+  getProductsQuery,
+  getProductsInPartsQuery,
+  getProductsCountQuery,
+  getMatchingProductsQuery
+} = require('./productsModel')
 const { pool } = require('../config/initDB')
 const getProductsFunction = async (req, res) => {
   console.log('in base route', req.url)
@@ -43,4 +48,9 @@ const getMatchingProductsFunction = async (req, res) => {
   }
 }
 
-module.exports = { getProductsFunction, getProductsInPartsFunction, getProductsCountFunction, getMatchingProductsFunction }
+module.exports = {
+  getProductsFunction,
+  getProductsInPartsFunction,
+  getProductsCountFunction,
+  getMatchingProductsFunction
+}

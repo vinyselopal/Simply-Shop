@@ -1,5 +1,11 @@
 const { Pool } = require('pg')
-const { createUsersTable, createProductsTable, createOrdersTable, createProductImagesTable, createSellersTable } = require('./queries')
+const {
+  createUsersTable,
+  createProductsTable,
+  createOrdersTable,
+  createProductImagesTable,
+  createSellersTable
+} = require('./queries')
 
 const pool = new Pool({
   user: 'postgres',

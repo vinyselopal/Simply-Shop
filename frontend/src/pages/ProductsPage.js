@@ -1,11 +1,11 @@
 import ProductsList from '../components/ProductsList.js'
 import { Link, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+
 function ProductsPage ({ products }) {
   const { category } = useParams()
   const [localProducts, setLocalProducts] = useState(null)
   const [pageCount, setPageCount] = useState(0)
-  console.log(category)
 
   useEffect(() => {
     (async () => {
@@ -22,9 +22,9 @@ function ProductsPage ({ products }) {
     const response = await fetch(`http://localhost:8000/products/pages/${category}`)
     const count = await response.json()
     const pageCount = Math.ceil(count / 10)
-    console.log('pageCount after fetch call', pageCount, count)
-    setPageCount(pageCount) // change accordingly
+    setPageCount(pageCount)
   }
+
   function priceLowToHigh (event) {
     setLocalProducts([...localProducts.sort((prev, curr) => prev.price - curr.price)])
     console.log('in low to high')
@@ -74,6 +74,7 @@ function ProductsPage ({ products }) {
     }
     return buttonsArr
   }
+
   return (
     <div className='home-products-container'>
       <div className='home-product-list'>

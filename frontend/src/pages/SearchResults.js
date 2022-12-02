@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react'
 function SearchResults () {
   const { keyword } = useParams()
   const [localProducts, setLocalProducts] = useState(null)
-  console.log('keyword', keyword)
 
   useEffect(() => {
     (async () => await getMatchingProducts(keyword))()

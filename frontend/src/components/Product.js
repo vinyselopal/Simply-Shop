@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import '../styles/product.css'
+
 function Product ({ product, index, Carousel }) {
   return (
 
@@ -11,7 +12,6 @@ function Product ({ product, index, Carousel }) {
           </div>
           <p>{product.name}</p>
           <p>Rs. {product.price}</p>
-
         </div>
       </Link>
     </li>
