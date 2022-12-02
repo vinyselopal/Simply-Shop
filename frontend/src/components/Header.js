@@ -15,17 +15,21 @@ function SearchBar ({ suggestions, products, setSuggestions }) {
     if (!keyword) return
 
     navigate(`/search_results/${keyword}`)
-    setSuggestions(null)
+  }
+  async function getMatchingProducts (keyword) {
+    const response = await fetch(`http://localhost:8000/products/matchingProducts/${keyword}`)
+    const matchingProducts = await response.json()
+    console.log('matchingProducts', matchingProducts)
+    return matchingProducts
   }
 
-  function searchSuggestions (event) {
+  async function searchSuggestions (event) {
     const keyword = event.target.value
     if (!keyword) return
 
-    const suggestionsArray = products.filter(product => {
-      return product.name.toLowerCase() === keyword.toLowerCase()
-    })
+    const suggestionsArray = await getMatchingProducts(keyword)
 
+    console.log(suggestionsArray)
     suggestionsArray.length ? setSuggestions(suggestionsArray) : setSuggestions(null)
   }
   return (

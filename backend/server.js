@@ -12,10 +12,6 @@ app.use(cors())
 
 initDB()
 
-const myLogger = (req, res, next) => {
-  console.log(req)
-  next()
-}
 app.use('/products', productsRouter)
 
 app.get('/cart', (req, res) => {

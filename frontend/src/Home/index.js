@@ -1,16 +1,9 @@
 import HomeProducts from '../components/HomeProducts'
 import '../styles/product.css'
-function Home ({ products }) {
-  console.log(products)
+function Home () {
   return (
     <div className='home'>
-      {
-        products
-          ? (
-            <HomeProducts products={products} />
-            )
-          : null
-      }
+      <HomeProducts />
 
     </div>
   )

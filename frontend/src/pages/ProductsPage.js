@@ -4,19 +4,27 @@ import { useEffect, useState } from 'react'
 function ProductsPage ({ products }) {
   const { category } = useParams()
   const [localProducts, setLocalProducts] = useState(null)
+  const [pageCount, setPageCount] = useState(0)
   console.log(category)
 
   useEffect(() => {
     (async () => {
-      const pagedProducts = await handlePagination(1, category)
-      setLocalProducts(pagedProducts)
+      await getProductsOfCategory()
+      await getProductsCount()
     })()
   }, [])
-  // useEffect(() => {
-  //   const filteredProducts = products || JSON.parse(localStorage.getItem('products'))
-  //   setLocalProducts(filteredProducts)
-  // }, [products])
 
+  async function getProductsOfCategory (category) {
+    await handlePagination(1, category)
+  }
+
+  async function getProductsCount () {
+    const response = await fetch(`http://localhost:8000/products/pages/${category}`)
+    const count = await response.json()
+    const pageCount = Math.ceil(count / 10)
+    console.log('pageCount after fetch call', pageCount, count)
+    setPageCount(pageCount) // change accordingly
+  }
   function priceLowToHigh (event) {
     setLocalProducts([...localProducts.sort((prev, curr) => prev.price - curr.price)])
     console.log('in low to high')
@@ -44,6 +52,7 @@ function ProductsPage ({ products }) {
   }
 
   async function handlePagination (page) {
+    console.log('page', page, pageCount)
     const response = await fetch(`http://localhost:8000/products/page/?page=${page}&&category=${category}`)
     console.log('response', response)
     const products = await response.json()
@@ -58,6 +67,13 @@ function ProductsPage ({ products }) {
     )
   }
 
+  function getPaginationButtons () {
+    const buttonsArr = []
+    for (let i = 1; i <= pageCount; i++) {
+      buttonsArr.push(<button onClick={(event) => handlePagination(event.target.value)} value={i}>{i}</button>)
+    }
+    return buttonsArr
+  }
   return (
     <div className='home-products-container'>
       <div className='home-product-list'>
@@ -68,9 +84,11 @@ function ProductsPage ({ products }) {
         </select>
         <ProductsList products={localProducts} />
         <div className='home-products-page-buttons'>
-          <button onClick={(event) => handlePagination(event.target.value)} value={1}>1</button>
-          <button onClick={(event) => handlePagination(event.target.value)} value={2}>2</button>
-          <button onClick={(event) => handlePagination(event.target.value)} value={3}>3</button>
+          {
+            pageCount ? getPaginationButtons() : null
+
+          }
+
         </div>
       </div>
     </div>

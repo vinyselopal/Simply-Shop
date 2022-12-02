@@ -1,27 +1,35 @@
 import { useParams } from 'react-router-dom'
 import '../styles/product.css'
 import ProductsList from '../components/ProductsList.js'
+import { useEffect, useState } from 'react'
 
-function SearchResults ({ products }) {
+function SearchResults () {
   const { keyword } = useParams()
+  const [localProducts, setLocalProducts] = useState(null)
   console.log('keyword', keyword)
-  const filteredProducts = products
-    ? products.filter(product => {
-      return product.name.toLowerCase() === keyword.toLowerCase()
-    })
-    : null
+
+  useEffect(() => {
+    (async () => await getMatchingProducts(keyword))()
+  }, [])
+
+  async function getMatchingProducts (keyword) {
+    const response = await fetch(`http://localhost:8000/products/matchingProducts/${keyword}`)
+    const matchingProducts = await response.json()
+    console.log('matchingProducts', matchingProducts)
+    setLocalProducts(matchingProducts)
+  }
+
   return (
     <div className='search-results'>
-      {/* styling needs to be like a products page. Need uniformity  */}
       {
-        filteredProducts
+        localProducts
           ? (
             <div className='search-product-list'>
               <h2>Search Results</h2>
               {
-                filteredProducts.length
+                localProducts.length
                   ? (
-                    <ProductsList products={filteredProducts} />
+                    <ProductsList products={localProducts} />
                     )
                   : (
                     <div>
