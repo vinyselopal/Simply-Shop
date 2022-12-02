@@ -3,7 +3,6 @@ const app = express()
 const cors = require('cors')
 
 const productsRouter = require('./products/productsRouter')
-
 const { pool, initDB } = require('./config/initDB.js')
 
 let cart = null

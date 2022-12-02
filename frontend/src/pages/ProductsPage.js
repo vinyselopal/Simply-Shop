@@ -9,7 +9,7 @@ function ProductsPage () {
 
   useEffect(() => {
     (async () => {
-      await getProductsOfCategory()
+      await getProductsOfCategory(category)
       const pageCount = await getProductsCount(category)
       setPageCount(pageCount)
     })()
