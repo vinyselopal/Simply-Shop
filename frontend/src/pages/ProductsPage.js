@@ -1,8 +1,8 @@
 import ProductsList from '../components/ProductsList.js'
 import { Link, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-
-function ProductsPage ({ products }) {
+import { handlePagination, getProductsCount } from '../apis'
+function ProductsPage () {
   const { category } = useParams()
   const [localProducts, setLocalProducts] = useState(null)
   const [pageCount, setPageCount] = useState(0)
@@ -10,19 +10,14 @@ function ProductsPage ({ products }) {
   useEffect(() => {
     (async () => {
       await getProductsOfCategory()
-      await getProductsCount()
+      const pageCount = await getProductsCount(category)
+      setPageCount(pageCount)
     })()
   }, [])
 
   async function getProductsOfCategory (category) {
-    await handlePagination(1, category)
-  }
-
-  async function getProductsCount () {
-    const response = await fetch(`http://localhost:8000/products/pages/${category}`)
-    const count = await response.json()
-    const pageCount = Math.ceil(count / 10)
-    setPageCount(pageCount)
+    const products = await handlePagination(1, category, pageCount)
+    setLocalProducts(products)
   }
 
   function priceLowToHigh (event) {
@@ -34,11 +29,20 @@ function ProductsPage ({ products }) {
     setLocalProducts([...localProducts.sort((prev, curr) => curr.price - prev.price)])
   }
 
+  function getPaginationButtons (pageCount) {
+    const buttonsArr = []
+    for (let i = 1; i <= pageCount; i++) {
+      buttonsArr.push(
+        <button onClick={(event) => handlePagination(event.target.value)} value={i}>{i}
+        </button>
+      )
+    }
+    return buttonsArr
+  }
+
   function handleSortOptions (event) {
-    console.log('in handle sort options', event.target.value)
     switch (event.target.value) {
       case 'price low to high':
-        console.log('in price low to high')
         priceLowToHigh()
         break
 
@@ -51,28 +55,10 @@ function ProductsPage ({ products }) {
     }
   }
 
-  async function handlePagination (page) {
-    console.log('page', page, pageCount)
-    const response = await fetch(`http://localhost:8000/products/page/?page=${page}&&category=${category}`)
-    console.log('response', response)
-    const products = await response.json()
-    console.log(JSON.parse(products))
-    setLocalProducts(JSON.parse(products))
-    return JSON.parse(products)
-  }
-
   if (!localProducts) {
     return (
       null
     )
-  }
-
-  function getPaginationButtons () {
-    const buttonsArr = []
-    for (let i = 1; i <= pageCount; i++) {
-      buttonsArr.push(<button onClick={(event) => handlePagination(event.target.value)} value={i}>{i}</button>)
-    }
-    return buttonsArr
   }
 
   return (

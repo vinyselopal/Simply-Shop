@@ -1,26 +1,37 @@
 import ProductsList from '../components/ProductsList.js'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-
+import { getProductsOfCategory } from '../apis'
 function HomeProducts () {
   const [localProducts, setLocalProducts] = useState([])
-  console.log('rerendering')
 
   useEffect(() => {
     (async () => {
-      await getProductsOfCategory('electronics')
-      await getProductsOfCategory('clothes')
-      await getProductsOfCategory('home-appliances')
+      const electronicsProducts = await getProductsOfCategory('electronics')
+      await setLocalProducts((localProducts) =>
+        [...localProducts,
+          {
+            category: 'electronics',
+            products: JSON.parse(electronicsProducts)
+          }])
+
+      const clothesProducts = await getProductsOfCategory('clothes')
+      await setLocalProducts((localProducts) =>
+        [...localProducts,
+          {
+            category: 'clothes',
+            products: JSON.parse(clothesProducts)
+          }])
+
+      const homeAppliancesProducts = await getProductsOfCategory('home-appliances')
+      await setLocalProducts((localProducts) =>
+        [...localProducts,
+          {
+            category: 'home-appliances',
+            products: JSON.parse(homeAppliancesProducts)
+          }])
     })()
   }, [])
-
-  async function getProductsOfCategory (category) {
-    const response = await fetch(`http://localhost:8000/products/page/?page=1&&category=${category}`)
-    console.log('response', response)
-    const products = await response.json()
-    await setLocalProducts((localProducts) => [...localProducts, { category, products: JSON.parse(products) }])
-    return localProducts
-  }
 
   function getFilteredProducts (category) {
     const filteredObjects = localProducts.find(product => product.category === category)

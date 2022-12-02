@@ -22,3 +22,26 @@ export const updateServerCart = async (cartStr) => {
     headers: { 'content-type': 'application/json' }
   })
 }
+
+export async function handlePagination (page, category, pageCount) {
+  console.log('page', page, pageCount)
+  const response = await fetch(`http://localhost:8000/products/page/?page=${page}&&category=${category}`)
+  console.log('response', response)
+  const products = await response.json()
+  console.log(JSON.parse(products))
+  return JSON.parse(products)
+}
+
+export async function getProductsCount (category) {
+  const response = await fetch(`http://localhost:8000/products/pages/${category}`)
+  const count = await response.json()
+  const pageCount = Math.ceil(count / 10)
+  return pageCount
+}
+
+export async function getProductsOfCategory (category) {
+  const response = await fetch(`http://localhost:8000/products/page/?page=1&&category=${category}`)
+  console.log('response', response)
+  const products = await response.json()
+  return products
+}
