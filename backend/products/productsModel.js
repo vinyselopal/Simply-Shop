@@ -10,7 +10,7 @@ const getProductsQuery = `
 
     ON 
     products.id = product_images.product_id;
-`
+` // use sub queries instead of joins
 
 const getProductsInPartsQuery = (page, category) => {
   return `
@@ -37,7 +37,7 @@ SELECT COUNT (*) FROM products
   WHERE products.category = '${category}'`
 }
 
-const getMatchingProductsQuery = (keyword) => {
+const getMatchingProductsQuery = (keyword) => { // name it search
   return `
   SELECT DISTINCT ON (products.id)
     products.id, products.name, products.category, 
@@ -51,7 +51,7 @@ const getMatchingProductsQuery = (keyword) => {
     ON 
     products.id = product_images.product_id
 
-    WHERE products.name = '${keyword}';`
+    WHERE products.name = '${keyword}';` // ILIKE, use sql params
 }
 
 module.exports = {

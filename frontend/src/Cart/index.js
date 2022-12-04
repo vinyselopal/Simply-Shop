@@ -1,6 +1,5 @@
-import './cart.css'
 import { useCart } from 'react-use-cart'
-import CartItem from './CartItem'
+import CartItem from './components/CartItem'
 
 function Cart () {
   const {

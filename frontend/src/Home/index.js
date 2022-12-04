@@ -1,5 +1,4 @@
-import HomeProducts from '../components/HomeProducts'
-import '../styles/product.css'
+import HomeProducts from './components/HomeProducts'
 
 function Home () {
   return (

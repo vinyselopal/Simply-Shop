@@ -1,4 +1,4 @@
-import ProductsList from '../components/ProductsList.js'
+import ProductsList from './components/ProductsList.js'
 import { Link, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { handlePagination, getProductsCount } from '../apis'
@@ -9,14 +9,15 @@ function ProductsPage () {
 
   useEffect(() => {
     (async () => {
-      await getProductsOfCategory(category)
+      await getProductsOfCategory2(category)
       const pageCount = await getProductsCount(category)
       setPageCount(pageCount)
     })()
   }, [])
 
-  async function getProductsOfCategory (category) {
+  async function getProductsOfCategory2 (category) {
     const products = await handlePagination(1, category, pageCount)
+    console.log('products', products)
     setLocalProducts(products)
   }
 
@@ -29,14 +30,24 @@ function ProductsPage () {
     setLocalProducts([...localProducts.sort((prev, curr) => curr.price - prev.price)])
   }
 
+  async function paginationEventHandler (page, category, pageCount) {
+    const products = await handlePagination(page, category, pageCount)
+    setLocalProducts(products)
+  }
   function getPaginationButtons (pageCount) {
     const buttonsArr = []
     for (let i = 1; i <= pageCount; i++) {
       buttonsArr.push(
-        <button onClick={(event) => handlePagination(event.target.value)} value={i}>{i}
+        <button
+          onClick={(event) => paginationEventHandler(event.target.value, category, pageCount)}
+          value={i}
+          key={i}
+        >
+          {i}
         </button>
       )
     }
+    console.log('buttonsArr', buttonsArr, 'pageCount', pageCount)
     return buttonsArr
   }
 
@@ -72,7 +83,7 @@ function ProductsPage () {
         <ProductsList products={localProducts} />
         <div className='home-products-page-buttons'>
           {
-            pageCount ? getPaginationButtons() : null
+            pageCount ? getPaginationButtons(pageCount) : null
 
           }
 

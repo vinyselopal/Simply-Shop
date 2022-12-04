@@ -1,5 +1,4 @@
 -- add million products using faker.js
--- use postgres to implement text search on searchbar suggestions (it ll be fast)
 -- sort and filter
 -- pagination and pagination numbering
 -- when cant get products atleast display other UI
@@ -7,3 +6,6 @@
 -- group product images into one single group
 -- lazy loading
 -- online/offline sync
+-- error handling in server apis
+-- use optional chaining
+-- dont write query for pageCount

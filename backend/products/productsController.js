@@ -41,7 +41,7 @@ const getMatchingProductsFunction = async (req, res) => {
   const { keyword } = req.params
   const response = await pool.query(getMatchingProductsQuery(keyword))
   console.log('db response', response)
-  const count = response.rows
+  const count = response.rows // change name
   if (!count) res.status(404)
   else {
     res.json(count)

@@ -1,14 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './Home'
-import ProductPage from './pages/ProductPage'
+import ProductPage from './ProductPage'
 import Cart from './Cart'
-import OrderPlaced from './pages/OrderPlaced'
+import Checkout from './Checkout'
 import Header from './components/Header'
-import SearchResults from './pages/SearchResults'
+import SearchResults from './SearchResults'
 import { CartProvider } from 'react-use-cart'
 import { useEffect, useState } from 'react'
 import { getServerCart, getServerProducts, updateServerCart } from './apis'
-import ProductsPage from './pages/ProductsPage'
+import ProductsPage from './ProductsPage'
 
 function App () {
   const [cart, setCart] = useState(null)
@@ -48,7 +48,7 @@ function App () {
             <Route path='/' element={<Home products={products} />} />
             <Route path='/products/product/:id' element={<ProductPage products={products} />} />
             <Route path='/cart' element={<Cart />} />
-            <Route path='/order_placed' element={<OrderPlaced />} />
+            <Route path='/order_placed' element={<Checkout />} />
             <Route path='/search_results/:keyword' element={<SearchResults products={products} />} />
             <Route path='/products/:category' element={<ProductsPage products={products} />} />
           </Routes>

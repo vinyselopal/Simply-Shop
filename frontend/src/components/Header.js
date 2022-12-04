@@ -1,4 +1,3 @@
-import '../styles/header.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from 'react-use-cart'
 import { useState } from 'react'
@@ -36,7 +35,11 @@ function SearchBar ({ suggestions, products, setSuggestions }) {
   return (
     <div className='header-search-container'>
       <div className='header-searchbar-button-container'>
-        <input type='text' className='header-search' onKeyDown={onSearch} onChange={searchSuggestions} />
+        <input
+          type='text'
+          className='header-search'
+          onKeyDown={onSearch} onChange={searchSuggestions}
+        />
         <button onClick={onSearch} className='header-search-button'>
           <span className='material-icons'>search</span>
         </button>
@@ -78,7 +81,11 @@ function Header ({ products }) {
               <p>Amazon</p>
             </div>
           </Link>
-          <SearchBar suggestions={suggestions} setSuggestions={setSuggestions} products={products} />
+          <SearchBar
+            suggestions={suggestions}
+            setSuggestions={setSuggestions}
+            products={products}
+          />
           <Link to='/cart' className='cart-container'>
             <span className='material-icons cart-logo'>
               shopping_cart
