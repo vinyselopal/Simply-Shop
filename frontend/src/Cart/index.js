@@ -1,4 +1,3 @@
-import './cart.css'
 import { useCart } from 'react-use-cart'
 import CartItem from './CartItem'
 

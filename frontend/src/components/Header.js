@@ -1,4 +1,3 @@
-import '../styles/header.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from 'react-use-cart'
 import { useState } from 'react'
