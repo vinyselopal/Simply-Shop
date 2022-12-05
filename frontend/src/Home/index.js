@@ -1,4 +1,4 @@
-import HomeProducts from '../components/HomeProducts'
+import HomeProducts from './HomeProducts'
 
 function Home () {
   return (
