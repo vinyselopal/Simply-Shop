@@ -1,11 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from 'react-use-cart'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getMatchingProducts } from '../apis'
 
 import '../styles/header.css'
 
 function SearchBar ({ suggestions, setSuggestions }) {
+  const [mouseDown, setMouseDown] = useState(false)
+
   const navigate = useNavigate()
   function onSearch (event) {
     const element = document.getElementsByClassName('header-search')[0]
@@ -27,8 +29,8 @@ function SearchBar ({ suggestions, setSuggestions }) {
   }
 
   function hideSuggestions (event) {
-    console.log('here', event)
-    setSuggestions(null)
+    if (!mouseDown) setSuggestions(null)
+    setMouseDown(false)
   }
 
   return (
@@ -54,7 +56,7 @@ function SearchBar ({ suggestions, setSuggestions }) {
               <ul className='header-search-suggestions-list'>{
               suggestions.map((product, index) => {
                 return (
-                  <li key={index}>
+                  <li key={index} onMouseDown={() => setMouseDown(true)}>
                     <Link to={`/products/product/${product.id}`}>
                       {product.name}
                     </Link>
@@ -74,8 +76,6 @@ function SearchBar ({ suggestions, setSuggestions }) {
 function Header ({ products }) {
   const [suggestions, setSuggestions] = useState(null)
   const { totalUniqueItems } = useCart()
-
-  console.log('in header')
 
   return (
 

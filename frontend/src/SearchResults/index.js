@@ -16,26 +16,18 @@ function SearchResults () {
 
   return (
     <div className='search-results'>
-      {
-        localProducts
-          ? (
-            <div className='search-product-list'>
-              <h2>Search Results</h2>
-              {
-                localProducts.length
-                  ? (
-                    <ProductsList products={localProducts} />
-                    )
-                  : (
-                    <div>
-                      <p>Sorry, no matches found</p>
-                    </div>
-                    )
-              }
-            </div>
-            )
-          : null
+      <h2>Search Results</h2> {
+      localProducts.length
+        ? (
+          <ProductsList products={localProducts} />
+          )
+        : (
+          <div>
+            <p>Sorry, no matches found</p>
+          </div>
+          )
       }
+
     </div>
   )
 }
