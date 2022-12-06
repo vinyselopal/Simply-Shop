@@ -1,21 +1,17 @@
 import { useParams } from 'react-router-dom'
 import ProductsList from './components/ProductsList.js'
 import { useEffect, useState } from 'react'
-
+import { getMatchingProducts } from '../apis'
 function SearchResults () {
   const { keyword } = useParams()
   const [localProducts, setLocalProducts] = useState(null)
 
   useEffect(() => {
-    (async () => await getMatchingProducts(keyword))()
+    (async () => {
+      const response = await getMatchingProducts(keyword)
+      setLocalProducts(response)
+    })()
   }, [])
-
-  async function getMatchingProducts (keyword) {
-    const response = await fetch(`http://localhost:8000/products/matchingProducts/${keyword}`)
-    const matchingProducts = await response.json()
-    console.log('matchingProducts', matchingProducts)
-    setLocalProducts(matchingProducts)
-  }
 
   return (
     <div className='search-results'>

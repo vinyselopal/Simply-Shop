@@ -57,6 +57,7 @@
 
 .header-search:focus {
     border: orange solid 3px;
+    box-shadow: 0 0 0 9999px #000000b0
 }
 .header-search-button {
     background-color: orange;

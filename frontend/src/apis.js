@@ -25,7 +25,7 @@ export const updateServerCart = async (cartStr) => {
 
 export async function handlePagination (page, category, pageCount) {
   console.log('page', page, pageCount)
-  const response = await fetch(`http://localhost:8000/products/page/?page=${page}&&category=${category}`)
+  const response = await fetch(`${BASE_URL}/products/page/?page=${page}&&category=${category}`)
   console.log('response', response)
   const products = await response.json()
   console.log(JSON.parse(products))
@@ -33,15 +33,22 @@ export async function handlePagination (page, category, pageCount) {
 }
 
 export async function getProductsCount (category) {
-  const response = await fetch(`http://localhost:8000/products/pages/${category}`)
+  const response = await fetch(`${BASE_URL}/products/pages/${category}`)
   const count = await response.json()
   const pageCount = Math.ceil(count / 10)
   return pageCount
 }
 
 export async function getProductsOfCategory (category) {
-  const response = await fetch(`http://localhost:8000/products/page/?page=1&&category=${category}`)
+  const response = await fetch(`${BASE_URL}/products/page/?page=1&&category=${category}`)
   const products = await response.json()
   console.log('products', products)
   return products
+}
+
+export async function getMatchingProducts (keyword) {
+  const response = await fetch(`${BASE_URL}/products/matchingProducts/${keyword}`)
+  const matchingProducts = await response.json()
+  console.log('matchingProducts', matchingProducts)
+  return matchingProducts
 }

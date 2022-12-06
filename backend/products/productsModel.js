@@ -51,7 +51,7 @@ const getMatchingProductsQuery = (keyword) => {
     ON 
     products.id = product_images.product_id
 
-    WHERE products.name = '${keyword}';`
+    WHERE products.name ILIKE '${keyword}%';`
 }
 
 module.exports = {

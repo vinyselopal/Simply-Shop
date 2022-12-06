@@ -1,10 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from 'react-use-cart'
 import { useState } from 'react'
+import { getMatchingProducts } from '../apis'
 
 import '../styles/header.css'
 
-function SearchBar ({ suggestions, products, setSuggestions }) {
+function SearchBar ({ suggestions, setSuggestions }) {
   const navigate = useNavigate()
 
   function onSearch (event) {
@@ -17,13 +18,6 @@ function SearchBar ({ suggestions, products, setSuggestions }) {
     navigate(`/search_results/${keyword}`)
   }
 
-  async function getMatchingProducts (keyword) {
-    const response = await fetch(`http://localhost:8000/products/matchingProducts/${keyword}`)
-    const matchingProducts = await response.json()
-    console.log('matchingProducts', matchingProducts)
-    return matchingProducts
-  }
-
   async function searchSuggestions (event) {
     const keyword = event.target.value
     if (!keyword) return
@@ -34,10 +28,22 @@ function SearchBar ({ suggestions, products, setSuggestions }) {
     suggestionsArray.length ? setSuggestions(suggestionsArray) : setSuggestions(null)
   }
 
+  function hideSuggestions () {
+    console.log('here')
+    setSuggestions(null)
+  }
+
   return (
     <div className='header-search-container'>
       <div className='header-searchbar-button-container'>
-        <input type='text' className='header-search' onKeyDown={onSearch} onChange={searchSuggestions} />
+        <input
+          type='text'
+          className='header-search'
+          onKeyDown={onSearch}
+          onChange={searchSuggestions}
+          onBlur={hideSuggestions}
+
+        />
         <button onClick={onSearch} className='header-search-button'>
           <span className='material-icons'>search</span>
         </button>

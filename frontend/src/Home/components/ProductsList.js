@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 function ProductsList ({ products }) {
+  if (!products) return null
+
   return (
     <ul className='product-list'>
       {
