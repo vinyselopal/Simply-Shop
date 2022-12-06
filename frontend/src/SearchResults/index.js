@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom'
 import ProductsList from './components/ProductsList.js'
 import { useEffect, useState } from 'react'
 import { getMatchingProducts } from '../apis'
+import './searchResults.css'
 function SearchResults () {
   const { keyword } = useParams()
   const [localProducts, setLocalProducts] = useState(null)

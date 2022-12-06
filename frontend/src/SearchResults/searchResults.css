@@ -1,0 +1,29 @@
+.search-product-list {
+    list-style-type: none;
+    display: flex;    
+    flex-direction: column;
+    margin: auto;
+    justify-content: center;
+    align-items: center
+}
+.search-product-card {
+    margin: 10px;
+    padding: 10px;
+    font-size: 20px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+.search-product-details {
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column
+}
+
+.search-results {
+    margin-top: 70px
+}
+
