@@ -7,7 +7,6 @@ import '../styles/header.css'
 
 function SearchBar ({ suggestions, setSuggestions }) {
   const navigate = useNavigate()
-
   function onSearch (event) {
     const element = document.getElementsByClassName('header-search')[0]
     const keyword = element.value
@@ -21,32 +20,32 @@ function SearchBar ({ suggestions, setSuggestions }) {
   async function searchSuggestions (event) {
     const keyword = event.target.value
     if (!keyword) return
-
     const suggestionsArray = await getMatchingProducts(keyword)
 
     console.log(suggestionsArray)
     suggestionsArray.length ? setSuggestions(suggestionsArray) : setSuggestions(null)
   }
 
-  function hideSuggestions () {
-    console.log('here')
+  function hideSuggestions (event) {
+    console.log('here', event)
     setSuggestions(null)
   }
 
   return (
-    <div className='header-search-container'>
+    <div className='header-search-container' onBlur={hideSuggestions}>
       <div className='header-searchbar-button-container'>
         <input
           type='text'
           className='header-search'
           onKeyDown={onSearch}
           onChange={searchSuggestions}
-          onBlur={hideSuggestions}
-
         />
-        <button onClick={onSearch} className='header-search-button'>
-          <span className='material-icons'>search</span>
-        </button>
+        <div>
+          <button onClick={onSearch} className='header-search-button'>
+            <span className='material-icons'>search</span>
+          </button>
+        </div>
+
       </div>
       {
         suggestions
