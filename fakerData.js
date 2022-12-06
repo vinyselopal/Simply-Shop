@@ -12,7 +12,7 @@ async function createProductsData () {
   for (let i = 0; i < 200; i++) {
     const obj = {
 
-      description: faker.random.word(),
+      description: faker.lorem.sentence(7),
       id: i + 1,
       name: faker.random.word(),
       price: faker.datatype.number(
@@ -165,7 +165,7 @@ async function createSellersData () {
 
 // createUsersData()
 // createSellersData()
-// createProductsData()
+createProductsData()
 // createProductImagesData()
 // createOrdersData()
 

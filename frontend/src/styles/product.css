@@ -1,0 +1,39 @@
+.product-list {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(8, 2fr);
+    grid-template-rows: repeat(8, 20vw);
+    grid-gap: 15px;
+    flex-direction: row;
+    overflow-x: auto;
+    width: 90%;
+    margin: auto;
+    height: 400px;
+}
+.product-card {
+    margin: 5px;
+    padding: 5px;
+    font-size: 18px;
+    background-color: white;
+}
+.home-product-list {
+    margin: auto
+}
+.home {
+    padding: 20px;
+}
+
+.home-products-container {
+    margin-top: 50px
+}
+
+.product-page {
+    margin: 20px;
+    margin-top: 80px;
+}
+
+.home-products-page-buttons {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}

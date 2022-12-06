@@ -1,7 +1,8 @@
-import ProductsList from '../components/ProductsList.js'
+import ProductsList from './components/ProductsList.js'
 import { Link, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { handlePagination, getProductsCount } from '../apis'
+import './category.css'
 function ProductsPage () {
   const { category } = useParams()
   const [localProducts, setLocalProducts] = useState(null)
@@ -11,6 +12,7 @@ function ProductsPage () {
     (async () => {
       await getProductsOfCategory(category)
       const pageCount = await getProductsCount(category)
+      console.log('pageCount', pageCount)
       setPageCount(pageCount)
     })()
   }, [])
@@ -29,11 +31,17 @@ function ProductsPage () {
     setLocalProducts([...localProducts.sort((prev, curr) => curr.price - prev.price)])
   }
 
+  async function paginationEventHandler (page, category, pageCount) {
+    const products = await handlePagination(page, category, pageCount)
+    console.log('products', products)
+    setLocalProducts(products)
+  }
   function getPaginationButtons (pageCount) {
     const buttonsArr = []
+    console.log('pageCount2', pageCount)
     for (let i = 1; i <= pageCount; i++) {
       buttonsArr.push(
-        <button onClick={(event) => handlePagination(event.target.value)} value={i}>{i}
+        <button key={i} onClick={(event) => paginationEventHandler(event.target.value, category, pageCount)} value={i}>{i}
         </button>
       )
     }
@@ -62,23 +70,28 @@ function ProductsPage () {
   }
 
   return (
-    <div className='home-products-container'>
-      <div className='home-product-list'>
-        <h2><Link>{category}</Link></h2>
+    <div className='category-products-container'>
+      <div>
+        <h2><Link style={{ textDecoration: 'none', color: 'black' }}>{category}</Link></h2>
+      </div>
+      <div>
         <select onChange={handleSortOptions}>
           <option>price high to low</option>
           <option>price low to high</option>
         </select>
+      </div>
+      <div>
         <ProductsList products={localProducts} />
-        <div className='home-products-page-buttons'>
-          {
-            pageCount ? getPaginationButtons() : null
+      </div>
+      <div className='category-products-page-buttons'>
+        {
+            pageCount ? getPaginationButtons(pageCount) : null
 
           }
 
-        </div>
       </div>
     </div>
+
   )
 }
 

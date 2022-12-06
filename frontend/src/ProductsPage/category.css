@@ -1,0 +1,38 @@
+.category-products-list {
+    list-style-type: none;
+    display: flex;    
+    flex-direction: row;
+    margin: auto;
+    flex-wrap: wrap
+}
+.category-product-card {
+    margin: 10px;
+    padding: 10px;
+    font-size: 20px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.category {
+    padding: 20px;
+}
+
+.category-products-container {
+    margin: 20px;
+    margin-top: 70px;
+    display: flex;
+    flex-direction: column;
+}
+
+.category-product-page {
+    margin: 20px;
+    margin-top: 80px;
+}
+
+.category-products-page-buttons {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}

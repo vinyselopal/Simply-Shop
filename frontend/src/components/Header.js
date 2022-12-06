@@ -2,6 +2,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from 'react-use-cart'
 import { useState } from 'react'
 
+import '../styles/header.css'
+
 function SearchBar ({ suggestions, products, setSuggestions }) {
   const navigate = useNavigate()
 
@@ -68,27 +70,26 @@ function Header ({ products }) {
   const [suggestions, setSuggestions] = useState(null)
   const { totalUniqueItems } = useCart()
 
+  console.log('in header')
+
   return (
-    products
-      ? (
-        <div className='header'>
-          <Link to='/' style={{ textDecoration: 'none' }}>
-            <div className='app-logo'>
-              <p>Amazon</p>
-            </div>
-          </Link>
-          <SearchBar suggestions={suggestions} setSuggestions={setSuggestions} products={products} />
-          <Link to='/cart' className='cart-container'>
-            <span className='material-icons cart-logo'>
-              shopping_cart
-              <span className='cart-count'>
-                {totalUniqueItems}
-              </span>
-            </span>
-          </Link>
+
+    <div className='header'>
+      <Link to='/' style={{ textDecoration: 'none' }}>
+        <div className='app-logo'>
+          <p>Amazon</p>
         </div>
-        )
-      : null
+      </Link>
+      <SearchBar suggestions={suggestions} setSuggestions={setSuggestions} products={products} />
+      <Link to='/cart' className='cart-container'>
+        <span className='material-icons cart-logo'>
+          shopping_cart
+          <span className='cart-count'>
+            {totalUniqueItems}
+          </span>
+        </span>
+      </Link>
+    </div>
   )
 }
 

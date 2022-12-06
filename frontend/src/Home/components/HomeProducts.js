@@ -1,7 +1,7 @@
-import ProductsList from '../components/ProductsList.js'
+import ProductsList from './ProductsList.js'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { getProductsOfCategory } from '../apis'
+import { getProductsOfCategory } from '../../apis'
 function HomeProducts () {
   const [localProducts, setLocalProducts] = useState([])
 
@@ -42,7 +42,7 @@ function HomeProducts () {
   return (
     <div className='home-products-container'>
       <div className='home-product-list'>
-        <h2><Link to='/products/electronics'>Electronics</Link></h2>
+        <h2><Link to='/products/electronics' style={{ textDecoration: 'none', color: 'black' }}>Electronics</Link></h2>
         {
           getFilteredProducts('electronics')
             ? (
@@ -52,7 +52,7 @@ function HomeProducts () {
         }
       </div>
       <div className='home-product-list'>
-        <h2><Link to='/products/home-appliances'>Home Appliances</Link></h2>
+        <h2><Link to='/products/home-appliances' style={{ textDecoration: 'none', color: 'black' }}>Home Appliances</Link></h2>
         {
           getFilteredProducts('home-appliances')
             ? (
@@ -62,7 +62,7 @@ function HomeProducts () {
         }
       </div>
       <div className='home-product-list'>
-        <h2><Link to='products/clothes'>Clothes</Link></h2>
+        <h2><Link to='products/clothes' style={{ textDecoration: 'none', color: 'black' }}>Clothes</Link></h2>
         {
           getFilteredProducts('clothes')
             ? (

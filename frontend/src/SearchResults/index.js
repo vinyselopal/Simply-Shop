@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom'
-import ProductsList from '../components/ProductsList.js'
+import ProductsList from './components/ProductsList.js'
 import { useEffect, useState } from 'react'
 
 function SearchResults () {

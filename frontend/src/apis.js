@@ -41,7 +41,7 @@ export async function getProductsCount (category) {
 
 export async function getProductsOfCategory (category) {
   const response = await fetch(`http://localhost:8000/products/page/?page=1&&category=${category}`)
-  console.log('response', response)
   const products = await response.json()
+  console.log('products', products)
   return products
 }

@@ -1,5 +1,5 @@
 import { useCart } from 'react-use-cart'
-
+import './cart.css'
 function CartItem ({ item }) {
   const {
     updateItemQuantity,
@@ -9,15 +9,16 @@ function CartItem ({ item }) {
   return (
     <li key={item.id} className='cart-page-item product-card'>
       <div className='cart-page-product-image'>
-        <img src={item.image_url} height='120' width='120' />
+        <img src={item.image_url} height='180' width='150' />
       </div>
       <div className='cart-page-product-details'>
+        <h3>{item.name}</h3>
         <div>{item.description}</div>
         <div className='cart-page-product-update-buttons'>
           <button onClick={() => updateItemQuantity(item.id, item.quantity - 1)} className='cart-item-button'>
             -
           </button>
-          <p className='cart-page-item-quantity'>{item.quantity}</p>
+          <div className='cart-page-item-quantity'> {item.quantity} </div>
           <button onClick={() => updateItemQuantity(item.id, item.quantity + 1)} className='cart-item-button'>
             +
           </button>

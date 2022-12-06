@@ -1,0 +1,70 @@
+.header {
+    background-color: rgb(2, 2, 50);
+    color: white;
+    margin: 0;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    height: 60px;
+}
+
+.app-logo {
+    color: white;
+    margin: auto;
+    font-size: 30px;
+    margin-left: 10px
+}
+.cart-logo {
+    color: white;
+    display: flex;
+    font-size: 30px;
+    margin-right: 10px
+}
+
+.header-search-container {
+    width: 60%;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.header-search {
+    width: 90%;
+    height: 35px
+}
+.cart-count {
+    color: rgb(252, 145, 73);
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: smaller;
+}
+.cart-container {
+    text-decoration: none;
+}
+.header-search-suggestions-container {
+    position: absolute;
+    top: 50px;
+    background: white;
+    color: black;
+    width: 500px;
+    padding: 5px
+}
+.header-search-suggestions-list {
+    list-style-type: none;
+}
+
+.header-search:focus {
+    border: orange solid 3px;
+}
+.header-search-button {
+    background-color: orange;
+    height: 37px
+}
+
+.header-searchbar-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

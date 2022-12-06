@@ -1,5 +1,5 @@
 import { useCart } from 'react-use-cart'
-import CartItem from './CartItem'
+import CartItem from './components/CartItem'
 
 function Cart () {
   const {
@@ -13,10 +13,6 @@ function Cart () {
       <div className='cart-container'>
         <div className='cart-empty-message'>
           <h2>Shopping Cart empty.</h2>
-          <div className='cart-empty-icon'>
-            <span className='material-icons'>sentiment_dissatisfied </span>
-            <p>feels so light</p>
-          </div>
         </div>
       </div>
     )
@@ -32,10 +28,11 @@ function Cart () {
           </ul>
         </div>
         <div className='cart-page-billing'>
-          <h3>Sub-total: {
+          <div className='cart-billing-subtotal'>Sub-total ({totalUniqueItems} items): Rs. {
          items.reduce((prev, curr) => (prev) + (curr.price * curr.quantity), 0)
-         } Rs
-          </h3>
+         }
+          </div>
+          <button className='cart-billing-checkout-button'>Proceed to checkout</button>
         </div>
       </div>
     </div>

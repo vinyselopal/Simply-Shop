@@ -1,0 +1,38 @@
+.product-list {
+    list-style-type: none;
+    display: flex;    
+    flex-direction: row;
+    margin: auto;
+}
+.home-product-card {
+    margin: 10px;
+    padding: 10px;
+    font-size: 20px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.home-product-list {
+    margin: auto;
+}
+.home {
+    padding: 20px;
+}
+
+.home-products-container {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-page {
+    margin: 20px;
+    margin-top: 80px;
+}
+
+.home-products-page-buttons {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}

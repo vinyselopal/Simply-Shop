@@ -1,0 +1,114 @@
+.cart-page-items {
+    background-color: white;
+    padding-left: 15px;
+    margin-right: 15px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    max-width: 1000px
+}
+.cart-page-billing {
+    background-color: white;
+    display: flex;
+    min-width: 250px;
+    max-width: 400px;
+    padding: 10px;
+    flex-direction: column;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    width: 300px;
+    max-height: 150px;
+    justify-content: space-between;
+}
+.cart-page {
+    margin: 20px;
+    padding-top: 5px;
+    display: flex;
+    justify-content: center;
+}
+
+.cart-page-item {
+    padding: 10px;
+    border-bottom: 1px solid rgb(214, 212, 212);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cart-page-items-list {
+    list-style-type: none;
+    padding-right: 10px;
+    padding-left: 0;
+}
+
+.cart-empty-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color:rgb(207, 206, 206);
+    margin: auto;
+    padding: 40px
+}
+.cart-empty-message {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 20px;
+    margin-top: 70px;
+    height: 400px;
+    align-items: center;
+}
+
+.cart-page-product-details {
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    justify-content: center;
+    font-size: 18px;
+    margin-left: 10px;
+    margin-right: 10px
+}
+
+.cart-page-item-product-card {
+    display: flex;
+}
+.cart-page-item-quantity {
+    padding-right: 5px;
+    padding-left: 5px
+}
+
+.cart-page-product-update-buttons {
+    display: flex;
+    align-items: center
+}
+
+.cart-billing-container {
+    margin: 20px;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 50px;
+}
+
+.cart-item-button {
+    all: unset;
+    font-size: 30px
+}
+
+.cart-billing-checkout-button {
+    background: linear-gradient(to bottom,  #f7dfa5, #f0c14b);
+    height: 30px;
+    width: 100%;
+    border: 1px solid;
+    border-radius: 2px;
+    margin-top: 10px;
+    border-color: #a88734 #9c7e31 #846a29;
+    color: #111;
+    cursor: pointer
+}
+
+.cart-billing-subtotal {
+    font-size: 20px;
+}

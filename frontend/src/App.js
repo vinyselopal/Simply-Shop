@@ -4,11 +4,11 @@ import ProductPage from './ProductPage'
 import Cart from './Cart'
 import Checkout from './Checkout'
 import Header from './components/Header'
-import SearchResults from './pages/SearchResults'
+import SearchResults from './SearchResults'
 import { CartProvider } from 'react-use-cart'
 import { useEffect, useState } from 'react'
 import { getServerCart, getServerProducts, updateServerCart } from './apis'
-import ProductsPage from './pages/ProductsPage'
+import ProductsPage from './ProductsPage'
 
 function App () {
   const [cart, setCart] = useState(null)
