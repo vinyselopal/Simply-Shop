@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from 'react-use-cart'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { getMatchingProducts } from '../apis'
 
 import '../styles/header.css'

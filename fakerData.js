@@ -14,7 +14,7 @@ async function createProductsData () {
 
       description: faker.lorem.sentence(7),
       id: i + 1,
-      name: faker.random.word(),
+      name: faker.lorem.sentence(2),
       price: faker.datatype.number(
         {
           min: 100,

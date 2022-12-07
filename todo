@@ -1,9 +1,10 @@
+-- sort should sort products across all pages
+-- fix search button issue
+-- use redux across app
+-- user authentication
+-- payment wth stripe
+-- transactions and edge cases
 -- add million products using faker.js
--- use postgres to implement text search on searchbar suggestions (it ll be fast)
--- sort and filter
--- pagination and pagination numbering
--- when cant get products atleast display other UI
--- learn css grids and more
--- group product images into one single group
+-- filter
 -- lazy loading
 -- online/offline sync
