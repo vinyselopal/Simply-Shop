@@ -1,10 +1,14 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { useCart } from 'react-use-cart'
+import { addItem } from '../redux/cartSlice'
 import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import './product.css'
+
 function ProductPage ({ products }) {
   const navigate = useNavigate()
-  const { addItem, items } = useCart()
+  const dispatch = useDispatch()
+  const items = useSelector((state) => state.cart) // ?
+  console.log('items', items)
   const [addedToCart, setAddedToCart] = useState(false)
   const { id } = useParams()
   const product = products
@@ -17,19 +21,21 @@ function ProductPage ({ products }) {
 
   useEffect(() => {
     console.log(addedToCart)
+    // const stateAfterAdding = useSelector((state) => state.cart)
+    // console.log('stateAfterAdding', stateAfterAdding)
   }, [addedToCart])
 
   function addToCart () {
-    addItem(product, 1)
+    dispatch(addItem(product, 1))
   }
 
   useEffect(() => {
     console.log('items', items, 'product', product)
-    if (items.find(a => a.id === product.id)) {
+    if (items.find(a => a.item.id === product.id)) {
       console.log('here')
       setAddedToCart(true)
     }
-  }, items)
+  }, [items, product])
 
   function goToCart () {
     navigate('/cart')

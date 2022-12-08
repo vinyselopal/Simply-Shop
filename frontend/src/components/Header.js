@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useCart } from 'react-use-cart'
 import { useState } from 'react'
 import { getMatchingProducts } from '../apis'
+import { useSelector } from 'react-redux'
 
 import '../styles/header.css'
 
@@ -75,7 +75,16 @@ function SearchBar ({ suggestions, setSuggestions }) {
 
 function Header ({ products }) {
   const [suggestions, setSuggestions] = useState(null)
-  const { totalUniqueItems } = useCart()
+
+  const cart = useSelector((state) => state.cart)
+
+  const getTotalItems = () => {
+    let total = 0
+    cart.forEach(item => {
+      total += item.quantity
+    })
+    return total
+  }
 
   return (
 
@@ -90,7 +99,8 @@ function Header ({ products }) {
         <span className='material-icons cart-logo'>
           shopping_cart
           <span className='cart-count'>
-            {totalUniqueItems}
+            {getTotalItems()}
+            {/* change to totalUniqueItems */}
           </span>
         </span>
       </Link>

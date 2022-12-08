@@ -1,13 +1,11 @@
-import { useCart } from 'react-use-cart'
 import CartItem from './components/CartItem'
-
+import { useSelector } from 'react-redux'
 function Cart () {
-  const {
-    isEmpty,
-    totalUniqueItems,
-    items
-  } = useCart()
-
+  console.log('state', useSelector((state) => state))
+  const cart = useSelector((state) => state.cart)
+  const isEmpty = cart.length === 0
+  const totalUniqueItems = cart.length
+  console.log('check check', isEmpty, totalUniqueItems)
   if (isEmpty) {
     return (
       <div className='cart-container'>
@@ -24,12 +22,17 @@ function Cart () {
         <div className='cart-page-items'>
           <h3>Shopping Cart ({totalUniqueItems})</h3>
           <ul className='cart-page-items-list'>
-            {items.map((item) => <CartItem item={item} key={item.id} />)}
+            {cart.map((cartItem) => <CartItem cartItem={cartItem} key={cartItem.item.id} />)}
           </ul>
         </div>
         <div className='cart-page-billing'>
           <div className='cart-billing-subtotal'>Sub-total ({totalUniqueItems} items): Rs. {
-         items.reduce((prev, curr) => (prev) + (curr.price * curr.quantity), 0)
+
+         cart.reduce((prev, curr) => {
+           console.log('cart', cart)
+           return (prev) + (curr.item.price * curr.quantity)
+         }, 0)
+
          }
           </div>
           <button className='cart-billing-checkout-button'>Proceed to checkout</button>

@@ -5,10 +5,11 @@ import Cart from './Cart'
 import Checkout from './Checkout'
 import Header from './components/Header'
 import SearchResults from './SearchResults'
-import { CartProvider } from 'react-use-cart'
 import { useEffect, useState } from 'react'
 import { getServerCart, getServerProducts, updateServerCart } from './apis'
 import ProductsPage from './ProductsPage'
+import { Provider } from 'react-redux'
+import { store } from './redux/store'
 
 function App () {
   const [cart, setCart] = useState(null)
@@ -42,7 +43,7 @@ function App () {
   return (
     <div className='App'>
       <Router>
-        <CartProvider storage={storageProvider}>
+        <Provider store={store}>
           <Header products={products} />
           <Routes>
             <Route path='/' element={<Home products={products} />} />
@@ -52,7 +53,7 @@ function App () {
             <Route path='/search_results/:keyword' element={<SearchResults products={products} />} />
             <Route path='/products/:category' element={<ProductsPage products={products} />} />
           </Routes>
-        </CartProvider>
+        </Provider>
 
       </Router>
     </div>

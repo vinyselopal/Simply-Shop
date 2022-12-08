@@ -1,34 +1,31 @@
-import { useCart } from 'react-use-cart'
+import { useDispatch } from 'react-redux'
+import { incrementQuantity, decrementQuantity, removeItem } from '../../redux/cartSlice'
 import './cart.css'
-function CartItem ({ item }) {
-  const {
-    updateItemQuantity,
-    removeItem
-  } = useCart()
-
+function CartItem ({ cartItem }) {
+  const dispatch = useDispatch()
   return (
-    <li key={item.id} className='cart-page-item product-card'>
+    <li key={cartItem.item.id} className='cart-page-item product-card'>
       <div className='cart-page-product-image'>
-        <img src={item.image_url} height='180' width='150' />
+        <img src={cartItem.item.image_url} height='180' width='150' />
       </div>
       <div className='cart-page-product-details'>
-        <h3>{item.name}</h3>
-        <div>{item.description}</div>
+        <h3>{cartItem.item.name}</h3>
+        <div>{cartItem.item.description}</div>
         <div className='cart-page-product-update-buttons'>
-          <button onClick={() => updateItemQuantity(item.id, item.quantity - 1)} className='cart-item-button'>
+          <button onClick={() => dispatch(decrementQuantity(cartItem.item.id))} className='cart-item-button'>
             -
           </button>
-          <div className='cart-page-item-quantity'> {item.quantity} </div>
-          <button onClick={() => updateItemQuantity(item.id, item.quantity + 1)} className='cart-item-button'>
+          <div className='cart-page-item-quantity'> {cartItem.quantity} </div>
+          <button onClick={() => dispatch(incrementQuantity(cartItem.item.id))} className='cart-item-button'>
             +
           </button>
         </div>
         <div>
-          <button onClick={() => removeItem(item.id)}>delete</button>
+          <button onClick={() => dispatch(removeItem(cartItem.item.id))}>delete</button>
         </div>
       </div>
       <div className='cart-page-product-price'>
-        Rs. {item.price}
+        Rs. {cartItem.item.price}
       </div>
     </li>
   )
