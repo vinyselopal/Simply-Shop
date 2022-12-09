@@ -9,3 +9,4 @@
 -- lazy loading
 -- online/offline sync
 -- reflect on cart when a product not available
+-- cart saved in reducers different from the previous npm cart model. so change it.

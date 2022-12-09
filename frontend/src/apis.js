@@ -6,8 +6,8 @@ export async function getServerProducts () {
   return products
 }
 
-export const getServerCart = async () => {
-  const response = await fetch(`${BASE_URL}/cart`, { method: 'GET' })
+export const getServerCart = async (userId) => {
+  const response = await fetch(`${BASE_URL}/cart/${userId}`, { method: 'GET' })
   const initialCart = await response.json()
   return JSON.stringify(initialCart)
 }

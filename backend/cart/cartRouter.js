@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const { getCartFunction, putCartFunction } = require('./cartController')
-router.get('/', getCartFunction)
+router.get('/:userId', getCartFunction)
 
 router.put('/', putCartFunction)
 

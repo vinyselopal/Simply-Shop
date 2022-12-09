@@ -3,8 +3,10 @@ let cart = null
 const { getCartQuery, putCartQuery } = require('./cartModel.js')
 
 const getCartFunction = async (req, res) => {
-  const response = await getCartQuery()
-  if (!response.rows[0]) res.status(404)
+  const { userId } = req.params
+  const response = await getCartQuery(userId)
+  console.log('here and now', response)
+  if (!response.rows[0].cart) res.status(404)
   else {
     res.json(JSON.parse(response.rows[0].cart))
   }

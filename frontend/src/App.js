@@ -6,13 +6,12 @@ import Checkout from './Checkout'
 import Header from './components/Header'
 import SearchResults from './SearchResults'
 import { useEffect, useState } from 'react'
-import { getServerCart, getServerProducts, updateServerCart } from './apis'
+import { getServerProducts } from './apis'
 import ProductsPage from './ProductsPage'
 import { Provider } from 'react-redux'
 import { store } from './redux/store'
 
 function App () {
-  const [cart, setCart] = useState(null)
   const [products, setProducts] = useState(null)
 
   useEffect(() => {
@@ -22,23 +21,6 @@ function App () {
       localStorage.setItem('products', products)
     })()
   }, [])
-
-  useEffect(() => {
-    (async () => {
-      const initialCart = await getServerCart()
-      setCart(initialCart)
-    })()
-  }, [])
-
-  const storageProvider = (key, initialValue) => {
-    const localCart = localStorage.getItem(key)
-
-    return [localCart || cart || initialValue, async (cartStr) => {
-      // custom storage
-      localStorage.setItem(key, cartStr)
-      updateServerCart(cartStr)
-    }]
-  }
 
   return (
     <div className='App'>

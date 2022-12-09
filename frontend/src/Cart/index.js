@@ -1,11 +1,21 @@
 import CartItem from './components/CartItem'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { fetchCartById } from '../redux/cartSlice'
 function Cart () {
-  console.log('state', useSelector((state) => state))
-  const cart = useSelector((state) => state.cart)
+  const dispatch = useDispatch()
+  const [cart, setCart] = useState([])
+
+  dispatch(fetchCartById(1)).then((response) => {
+    console.log('getting the cart from thunk', response)
+    console.log('cart', JSON.parse(response.payload).items)
+    setCart(JSON.parse(response.payload).items)
+  })
+  // const localCart = useSelector((state) => state.cart)
+  console.log('cart2', cart)
   const isEmpty = cart.length === 0
   const totalUniqueItems = cart.length
-  console.log('check check', isEmpty, totalUniqueItems)
+
   if (isEmpty) {
     return (
       <div className='cart-container'>
@@ -22,7 +32,7 @@ function Cart () {
         <div className='cart-page-items'>
           <h3>Shopping Cart ({totalUniqueItems})</h3>
           <ul className='cart-page-items-list'>
-            {cart.map((cartItem) => <CartItem cartItem={cartItem} key={cartItem.item.id} />)}
+            {cart?.map((cartItem) => <CartItem cartItem={cartItem} key={cartItem.item.id} />)}
           </ul>
         </div>
         <div className='cart-page-billing'>

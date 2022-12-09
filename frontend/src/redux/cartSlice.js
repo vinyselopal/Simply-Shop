@@ -1,9 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { getServerCart } from '../apis'
+
+export const fetchCartById = createAsyncThunk(
+  'cart/fetchCartById',
+  async (userId) => {
+    const response = await getServerCart(userId)
+    return response
+  }
+)
 
 const cartSlice = createSlice({
   name: 'cart',
   initialState: {
-    cart: []
+    cart: [],
+    loading: 'idle'
   },
 
   reducers: {
@@ -25,6 +35,11 @@ const cartSlice = createSlice({
       state.cart = filteredCart
     }
 
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchCartById.fulfilled, (state, action) => {
+      state.cart.push(action.payload)
+    })
   }
 })
 
@@ -35,3 +50,4 @@ export const {
   decrementQuantity,
   removeItem
 } = cartSlice.actions
+export const cartAsyncReducer = cartSlice.extraReducers

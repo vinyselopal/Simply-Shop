@@ -1,7 +1,7 @@
 const { pool } = require('../config/initDB')
 
-const getCartQuery = async () => {
-  return await pool.query('SELECT cart FROM users WHERE id = 1;')
+const getCartQuery = async (userId) => {
+  return await pool.query('SELECT cart FROM users WHERE id = $1;', [userId])
 }
 
 const putCartQuery = async (cart, userID) => {
