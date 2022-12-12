@@ -1,8 +1,8 @@
 import HomeProducts from './components/HomeProducts'
-import './home.css'
+import home from './home.module.css'
 function Home () {
   return (
-    <div className='home'>
+    <div className={home.home}>
       <HomeProducts />
 
     </div>

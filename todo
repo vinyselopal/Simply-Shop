@@ -1,3 +1,8 @@
+-- search issue
+-- 10,000 products
+-- redux, cart
+-- performant and optimized code
+-- use redux for state management instead of passing props
 -- sort should sort products across all pages
 -- fix search button issue
 -- use redux across app

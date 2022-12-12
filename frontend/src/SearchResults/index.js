@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom'
 import ProductsList from './components/ProductsList.js'
 import { useEffect, useState } from 'react'
 import { getMatchingProducts } from '../apis'
-import './searchResults.css'
+import searchResultsStyle from './searchResults.module.css'
 function SearchResults () {
   const { keyword } = useParams()
   const [localProducts, setLocalProducts] = useState(null)
@@ -15,9 +15,9 @@ function SearchResults () {
   }, [])
 
   return (
-    <div className='search-results'>
+    <div className={searchResultsStyle['search-results']}>
       <h2>Search Results</h2> {
-      localProducts.length
+      localProducts?.length
         ? (
           <ProductsList products={localProducts} />
           )

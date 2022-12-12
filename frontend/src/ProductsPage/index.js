@@ -2,7 +2,7 @@ import ProductsList from './components/ProductsList.js'
 import { Link, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { handlePagination, getProductsCount } from '../apis'
-import './category.css'
+import categoryStyle from './category.module.css'
 function ProductsPage () {
   const { category } = useParams()
   const [localProducts, setLocalProducts] = useState(null)
@@ -70,7 +70,7 @@ function ProductsPage () {
   }
 
   return (
-    <div className='category-products-container'>
+    <div className={categoryStyle['category-products-container']}>
       <div>
         <h2><Link style={{ textDecoration: 'none', color: 'black' }}>{category}</Link></h2>
       </div>
@@ -83,7 +83,7 @@ function ProductsPage () {
       <div>
         <ProductsList products={localProducts} />
       </div>
-      <div className='category-products-page-buttons'>
+      <div className={categoryStyle['category-products-page-buttons']}>
         {
             pageCount ? getPaginationButtons(pageCount) : null
 

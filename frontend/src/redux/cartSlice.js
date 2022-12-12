@@ -20,12 +20,12 @@ const cartSlice = createSlice({
     addItem: (state, action) => {
       state.cart.push({ item: action.payload, quantity: 1 })
     },
-    incrementQuantity: (state, action) => {
+    incrementQuantity: (state, action) => { // hash map with id keys
       const cartItem = state.cart.find((a) => a.item.id === action.payload)
       cartItem.quantity++
     },
     decrementQuantity: (state, action) => {
-      const cartItem = state.cart.find((a) => a.item.id === action.payload)
+      const cartItem = state.cart.find((a) => a.item.id === action.payload) // name the payload
       if (cartItem.quantity === 1) cartItem.quantity = 1
       else cartItem.quantity--
     },

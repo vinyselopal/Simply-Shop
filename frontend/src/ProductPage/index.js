@@ -2,15 +2,15 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { addItem } from '../redux/cartSlice'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import './product.css'
+import productStyle from './product.module.css'
 
 function ProductPage ({ products }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const items = useSelector((state) => state.cart) // ?
-  console.log('items', items)
   const [addedToCart, setAddedToCart] = useState(false)
   const { id } = useParams()
+
   const product = products
     ? products.find(
       product => `${product.id}` === id
@@ -19,14 +19,8 @@ function ProductPage ({ products }) {
       product => `${product.id}` === id
     )
 
-  useEffect(() => {
-    console.log(addedToCart)
-    // const stateAfterAdding = useSelector((state) => state.cart)
-    // console.log('stateAfterAdding', stateAfterAdding)
-  }, [addedToCart])
-
   function addToCart () {
-    dispatch(addItem(product, 1))
+    dispatch(addItem(product))
   }
 
   useEffect(() => {
@@ -41,9 +35,9 @@ function ProductPage ({ products }) {
     navigate('/cart')
   }
   return (
-    <div className='product-page'>
-      <div className='product-card'>
-        <div className='product-image'>
+    <div className={productStyle['product-page']}>
+      <div className={productStyle['product-card']}>
+        <div className={productStyle['product-image']}>
           <img
             src={product.image_url || 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'}
             alt='product image'
@@ -51,15 +45,15 @@ function ProductPage ({ products }) {
             width='250'
           />
         </div>
-        <div className='product-details'>
+        <div className={productStyle['product-details']}>
           <h2>{product.name}</h2>
           <p>Rs. {product.price}</p>{
             !addedToCart
               ? (
-                <button className='product-cart-button' onClick={addToCart}>Add to Cart</button>
+                <button className={productStyle['product-cart-button']} onClick={addToCart}>Add to Cart</button>
                 )
               : (
-                <button className='product-gotocart-button' onClick={goToCart}>Go to Cart</button>
+                <button className={productStyle['product-gotocart-button']} onClick={goToCart}>Go to Cart</button>
                 )
           }
 

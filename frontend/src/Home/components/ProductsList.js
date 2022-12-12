@@ -1,16 +1,18 @@
 import { Link } from 'react-router-dom'
+import home from '../home.module.css'
+
 function ProductsList ({ products }) {
   if (!products) return null
 
   return (
-    <ul className='product-list'>
+    <ul className={home['product-list']}>
       {
         products.slice(0, 4).map((product, index) => {
           return (
             <li key={index}>
               <Link to={`/products/product/${product.id}`} style={{ textDecoration: 'none', color: 'black' }}>
-                <div className='home-product-card'>
-                  <div className='home-product-image'>
+                <div className={home['home-product-card']}>
+                  <div className={home['home-product-image']}>
                     <img
                       src={product.image_url || 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'}
                       alt={product.name}

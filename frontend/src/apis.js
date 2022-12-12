@@ -9,6 +9,7 @@ export async function getServerProducts () {
 export const getServerCart = async (userId) => {
   const response = await fetch(`${BASE_URL}/cart/${userId}`, { method: 'GET' })
   const initialCart = await response.json()
+  // blank line
   return JSON.stringify(initialCart)
 }
 
@@ -42,13 +43,11 @@ export async function getProductsCount (category) {
 export async function getProductsOfCategory (category) {
   const response = await fetch(`${BASE_URL}/products/page/?page=1&&category=${category}`)
   const products = await response.json()
-  console.log('products', products)
   return products
 }
 
 export async function getMatchingProducts (keyword) {
   const response = await fetch(`${BASE_URL}/products/matchingProducts/${keyword}`)
   const matchingProducts = await response.json()
-  console.log('matchingProducts', matchingProducts)
   return matchingProducts
 }
