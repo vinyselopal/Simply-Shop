@@ -1,17 +1,16 @@
 import CartItem from './components/CartItem'
-import { useDispatch } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
 import { fetchCartById } from '../redux/cartSlice'
 function Cart () {
   const dispatch = useDispatch()
-  const [cart, setCart] = useState([])
 
   useEffect(() => {
     dispatch(fetchCartById(1)).then((response) => {
-      setCart(JSON.parse(response.payload))
     })
   }, [])
 
+  const cart = useSelector(state => state.cart)
   const isEmpty = cart.length === 0
   const totalUniqueItems = cart.length
 

@@ -1,17 +1,32 @@
 import { configureStore, createListenerMiddleware } from '@reduxjs/toolkit'
-import { cartReducer, addItem, updateCartById } from './cartSlice'
+import { cartReducer, addItem, updateCartById, incrementQuantity } from './cartSlice'
 
 const listenerMiddleware = createListenerMiddleware()
 
 listenerMiddleware.startListening({
   actionCreator: addItem,
   effect: (action, listenerAPI) => {
-    console.log('inside listener effect')
     const cartStr = listenerAPI.getState().cart
-    console.log('cartStr in listener', cartStr)
     listenerAPI.dispatch(updateCartById({ cartStr, userID: 1 }))
   }
 })
+
+listenerMiddleware.startListening({
+  actionCreator: incrementQuantity,
+  effect: (action, listenerAPI) => {
+    const cartStr = listenerAPI.getState().cart
+    listenerAPI.dispatch(updateCartById({ cartStr, userID: 1 }))
+  }
+})
+
+listenerMiddleware.startListening({
+  actionCreator: addItem,
+  effect: (action, listenerAPI) => {
+    const cartStr = listenerAPI.getState().cart
+    listenerAPI.dispatch(updateCartById({ cartStr, userID: 1 }))
+  }
+})
+
 export const store = configureStore({
   reducer: cartReducer,
   middleware: (getDefaultMiddleware) =>
