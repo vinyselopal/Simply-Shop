@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { getServerCart } from '../apis'
+import { getServerCart, updateServerCart } from '../apis'
 
 export const fetchCartById = createAsyncThunk(
   'cart/fetchCartById',
@@ -9,6 +9,14 @@ export const fetchCartById = createAsyncThunk(
   }
 )
 
+export const updateCartById = createAsyncThunk(
+  'cart/updateCartById',
+  async (options) => {
+    const { cartStr, userID } = options
+    const response = await updateServerCart(cartStr, userID)
+    return response
+  }
+)
 const cartSlice = createSlice({
   name: 'cart',
   initialState: {
@@ -18,6 +26,7 @@ const cartSlice = createSlice({
 
   reducers: {
     addItem: (state, action) => {
+      console.log('inside addItem action')
       state.cart.push({ item: action.payload, quantity: 1 })
     },
     incrementQuantity: (state, action) => { // hash map with id keys
@@ -38,7 +47,8 @@ const cartSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCartById.fulfilled, (state, action) => {
-      state.cart.push(action.payload)
+      console.log('action payload in extra reducers', JSON.parse(action.payload))
+      state.cart = JSON.parse(action.payload)
     })
   }
 })
@@ -50,4 +60,5 @@ export const {
   decrementQuantity,
   removeItem
 } = cartSlice.actions
+
 export const cartAsyncReducer = cartSlice.extraReducers

@@ -5,6 +5,7 @@ const getCartQuery = async (userId) => {
 }
 
 const putCartQuery = async (cart, userID) => {
+  console.log('in cart model', cart, userID)
   return await pool.query(`UPDATE users
     SET cart = $1 WHERE id = $2;`,
   [cart, userID])

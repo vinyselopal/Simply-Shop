@@ -1,19 +1,17 @@
 import CartItem from './components/CartItem'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { fetchCartById } from '../redux/cartSlice'
 function Cart () {
   const dispatch = useDispatch()
   const [cart, setCart] = useState([])
 
-  // dispatch(fetchCartById(1)).then((response) => {
-  //   console.log('getting the cart from thunk', response)
-  //   console.log('cart', JSON.parse(response.payload).items)
-  //   setCart(JSON.parse(response.payload).items)
-  // })
-  // const localCart = useSelector((state) => state.cart)
+  useEffect(() => {
+    dispatch(fetchCartById(1)).then((response) => {
+      setCart(JSON.parse(response.payload))
+    })
+  }, [])
 
-  console.log('cart2', cart)
   const isEmpty = cart.length === 0
   const totalUniqueItems = cart.length
 

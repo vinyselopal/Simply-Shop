@@ -89,6 +89,8 @@ function Header ({ products }) {
     cart.forEach(item => {
       total += item.quantity
     })
+    console.log('cart in getTotal', cart)
+
     return total
   }
 

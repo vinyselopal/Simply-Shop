@@ -13,15 +13,18 @@ export const getServerCart = async (userId) => {
   return JSON.stringify(initialCart)
 }
 
-export const updateServerCart = async (cartStr) => {
-  return await fetch(`${BASE_URL}/cart`, {
+export const updateServerCart = async (cartStr, userID) => {
+  console.log('in updateServerCart', userID)
+  const response = await fetch(`${BASE_URL}/cart`, {
     method: 'PUT',
     body: JSON.stringify({
       cart: cartStr,
-      userID: 1
+      userID
     }),
     headers: { 'content-type': 'application/json' }
   })
+  const resp = await response.json()
+  console.log('resp', resp)
 }
 
 export async function handlePagination (page, category, pageCount) {

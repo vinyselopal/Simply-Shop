@@ -7,7 +7,7 @@ import productStyle from './product.module.css'
 function ProductPage ({ products }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const items = useSelector((state) => state.cart) // ?
+  const items = useSelector((state) => state.cart)
   const [addedToCart, setAddedToCart] = useState(false)
   const { id } = useParams()
 
@@ -20,6 +20,7 @@ function ProductPage ({ products }) {
     )
 
   function addToCart () {
+    console.log('addToCart')
     dispatch(addItem(product))
   }
 
