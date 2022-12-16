@@ -5,6 +5,8 @@ import Cart from './Cart'
 import Checkout from './Checkout'
 import Header from './components/Header'
 import SearchResults from './SearchResults'
+import Signin from './Signin'
+import Signup from './Signup'
 import { useEffect, useState } from 'react'
 import { getServerProducts } from './apis'
 import ProductsPage from './ProductsPage'
@@ -35,6 +37,8 @@ function App () {
             <Route path='/order_placed' element={<Checkout />} />
             <Route path='/search_results/:keyword' element={<SearchResults products={products} />} />
             <Route path='/products/:category' element={<ProductsPage products={products} />} />
+            <Route path='/signin' element={<Signin />} />
+            <Route path='/signup' element={<Signup />} />
           </Routes>
         </Provider>
 

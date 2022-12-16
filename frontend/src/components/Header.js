@@ -10,7 +10,7 @@ function SearchBar ({ suggestions, setSuggestions }) {
 
   const navigate = useNavigate()
   function onSearch (event) {
-    const element = document.getElementsByClassName('header-search')[0]
+    const element = document.getElementsByClassName(header['header-search'])[0]
     const keyword = element.value
 
     if (event.type === 'keydown' && event.key !== 'Enter') return
@@ -47,6 +47,7 @@ function SearchBar ({ suggestions, setSuggestions }) {
           className={header['header-search']}
           onKeyDown={onSearch}
           onChange={searchSuggestions}
+          autoComplete='off'
         />
         <div>
           <button onClick={onSearch} className={header['header-search-button']}>
@@ -103,6 +104,11 @@ function Header ({ products }) {
         </div>
       </Link>
       <SearchBar suggestions={suggestions} setSuggestions={setSuggestions} products={products} />
+      <Link to='/signin'>
+        <div>
+          <p>signin</p>
+        </div>
+      </Link>
       <Link to='/cart' className={header['cart-container']}>
         <span className='material-icons cart-logo'>
           shopping_cart

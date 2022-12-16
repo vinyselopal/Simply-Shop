@@ -1,5 +1,3 @@
-const cart = null
-
 const { getCartQuery, putCartQuery } = require('./cartModel.js')
 
 const getCartFunction = async (req, res) => {
