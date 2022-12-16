@@ -3,15 +3,22 @@ import {
   Link,
   useNavigate
 } from 'react-router-dom'
-
+import { useDispatch } from 'react-redux'
+import { setToken, setUserID } from '../redux/cartSlice'
 import signin from './signin.module.css'
 
-const SignIn = ({ setToken, setUserName, setUserID }) => {
+const SignIn = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   async function loginHandler () {
     const userID = document.getElementsByClassName('signin-userID')[0].value
     const password = document.getElementsByClassName('signin-password')[0].value
 
+    if (userID === '' || password === '') {
+      const errorElement = document.getElementsByClassName('signin-error')[0]
+      errorElement.innerHTML = '<p>empty username or password</p>'
+      return
+    }
     const response = await fetch('http://localhost:8000/login',
       {
         method: 'POST',
@@ -22,13 +29,12 @@ const SignIn = ({ setToken, setUserName, setUserID }) => {
     const creds = await response.json()
 
     if (response.status === 200) {
-      setUserName(() => creds.user_name)
-      setUserID(() => creds.user_id)
-      setToken(() => creds.accessToken)
-      localStorage.setItem('userName', JSON.stringify(creds.user_name))
-      localStorage.setItem('userID', JSON.stringify(creds.user_id))
+      console.log('access token', creds.accessToken)
       localStorage.setItem('token', JSON.stringify(creds.accessToken))
-      navigate('/chats')
+      dispatch(setToken(creds.accessToken))
+      dispatch(setUserID(userID))
+
+      navigate('/')
       window.location.reload()
     } else {
       document.querySelector('body').innerHTML = creds
@@ -51,6 +57,7 @@ const SignIn = ({ setToken, setUserName, setUserID }) => {
       <Link to='/signup'>
         <p>signup</p>
       </Link>
+      <div className='signin-error' />
     </div>
   )
 }

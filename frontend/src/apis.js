@@ -6,10 +6,10 @@ export async function getServerProducts () {
   return products
 }
 
-export const getServerCart = async (userId) => {
-  const response = await fetch(`${BASE_URL}/cart/${userId}`, { method: 'GET' })
+export const getServerCart = async (token) => {
+  const response = await fetch(`${BASE_URL}/cart`, { method: 'GET', headers: { Authorization: `Bearer ${token}` } })
   const initialCart = await response.json()
-  // blank line
+
   return JSON.stringify(initialCart)
 }
 

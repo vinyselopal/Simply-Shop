@@ -21,7 +21,9 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState: {
     cart: [],
-    loading: 'idle'
+    loading: 'idle',
+    token: JSON.parse(localStorage.getItem('token')),
+    userID: JSON.parse(localStorage.getItem('userID'))
   },
 
   reducers: {
@@ -42,6 +44,12 @@ const cartSlice = createSlice({
       console.log('action payload', action.payload)
       const filteredCart = state.cart.filter((a) => a.item.id !== action.payload)
       state.cart = filteredCart
+    },
+    setToken: (state, action) => {
+      state.token = action.payload
+    },
+    setUserID: (state, action) => {
+      state.userID = action.payload
     }
 
   },
@@ -58,7 +66,9 @@ export const {
   addItem,
   incrementQuantity,
   decrementQuantity,
-  removeItem
+  removeItem,
+  setToken,
+  setUserID
 } = cartSlice.actions
 
 export const cartAsyncReducer = cartSlice.extraReducers

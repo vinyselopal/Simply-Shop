@@ -16,7 +16,8 @@ import './styles/index.css'
 
 function App () {
   const [products, setProducts] = useState(null)
-
+  const [token, setToken] = useState(null)
+  const [userID, setUserID] = useState(null)
   useEffect(() => {
     (async () => {
       const products = await getServerProducts()
@@ -37,7 +38,7 @@ function App () {
             <Route path='/order_placed' element={<Checkout />} />
             <Route path='/search_results/:keyword' element={<SearchResults products={products} />} />
             <Route path='/products/:category' element={<ProductsPage products={products} />} />
-            <Route path='/signin' element={<Signin />} />
+            <Route path='/signin' element={<Signin setToken={setToken} setUserID={setUserID} />} />
             <Route path='/signup' element={<Signup />} />
           </Routes>
         </Provider>
