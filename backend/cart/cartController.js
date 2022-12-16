@@ -1,7 +1,7 @@
 const { getCartQuery, putCartQuery } = require('./cartModel.js')
 
 const getCartFunction = async (req, res) => {
-  const { userId } = req.params
+  const userId = req.userId
   const response = await getCartQuery(userId)
   if (!response.rows[0].cart) res.status(404)
   else {

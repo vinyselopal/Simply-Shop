@@ -11,13 +11,14 @@ const loginFunction = async (req, res) => {
     res.end()
   } else {
     bcrypt.compare(req.body.password, creds.password, function (err, result) {
+      console.log('result of bcrypt compare', result, creds.password)
       if (err) throw err
       if (!result) {
         res.status(400).json(creds)
       } else {
-        const accessToken = generateAccessToken({ user_name: creds.user_name, user_id: creds.user_id })
+        const accessToken = generateAccessToken({ user_id: creds.user_id })
         console.log('inside login auth')
-        res.json({ accessToken, user_name: creds.user_name, user_id: creds.user_id })
+        res.json({ accessToken })
       }
     })
   }
