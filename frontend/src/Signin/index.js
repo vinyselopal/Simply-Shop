@@ -16,7 +16,7 @@ const SignIn = () => {
 
     if (userID === '' || password === '') {
       const errorElement = document.getElementsByClassName('signin-error')[0]
-      errorElement.innerHTML = '<p>empty username or password</p>'
+      errorElement.innerHTML = '<p>empty username or password</p>' // use conditional render
       return
     }
     const response = await fetch('http://localhost:8000/login',
@@ -35,9 +35,9 @@ const SignIn = () => {
       dispatch(setUserID(userID))
 
       navigate('/')
-      window.location.reload()
+      window.location.reload() // remove
     } else {
-      document.querySelector('body').innerHTML = creds
+      document.body.innerHTML = creds // dont use innerhtml and look at naming
     }
   }
 

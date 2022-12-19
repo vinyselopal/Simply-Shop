@@ -1,6 +1,8 @@
 import { useDispatch } from 'react-redux'
 import { incrementQuantity, decrementQuantity, removeItem } from '../../redux/cartSlice'
 import './cart.css'
+
+// use thunk to change server first
 function CartItem ({ cartItem }) {
   const dispatch = useDispatch()
   return (

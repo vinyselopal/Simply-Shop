@@ -1,9 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { getMatchingProducts } from '../apis'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import header from '../styles/header.module.css'
+import { setToken } from '../redux/cartSlice'
 
 function SearchBar ({ suggestions, setSuggestions }) {
   const [mouseDown, setMouseDown] = useState(false)
@@ -82,9 +83,16 @@ function SearchBar ({ suggestions, setSuggestions }) {
 
 function Header ({ products }) {
   const [suggestions, setSuggestions] = useState(null)
-
   const cart = useSelector((state) => state.cart)
 
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  function logoutHandler () {
+    dispatch(setToken(null))
+    localStorage.removeItem('token')
+    navigate('/signin')
+  }
   const getTotalItems = () => {
     let total = 0
     cart.forEach(item => {
@@ -104,11 +112,21 @@ function Header ({ products }) {
         </div>
       </Link>
       <SearchBar suggestions={suggestions} setSuggestions={setSuggestions} products={products} />
-      <Link to='/signin'>
-        <div>
-          <p>signin</p>
-        </div>
-      </Link>
+
+      {
+            useSelector(state => state.token)
+              ? (
+                <button onClick={logoutHandler}>Logout</button>
+                )
+              : (
+                <Link to='/signin'>
+                  <div>
+                    <p>signin</p>
+                  </div>
+                </Link>
+                )
+          }
+
       <Link to='/cart' className={header['cart-container']}>
         <span className='material-icons cart-logo'>
           shopping_cart

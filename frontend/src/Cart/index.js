@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { fetchCartById } from '../redux/cartSlice'
 function Cart () {
   const dispatch = useDispatch()
-  const token = useSelector(state => state.token)
+  const token = useSelector(state => state.token) // abstract selectors
 
   useEffect(() => {
     if (token) dispatch(fetchCartById(token)).then((response) => console.log('response by fetchCartById', response))

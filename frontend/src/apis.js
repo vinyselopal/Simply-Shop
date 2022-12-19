@@ -13,7 +13,7 @@ export const getServerCart = async (token) => {
   return JSON.stringify(initialCart)
 }
 
-export const updateServerCart = async (cartStr, userID) => {
+export const updateServerCart = async (cartStr, userID, token) => {
   console.log('in updateServerCart', userID)
   const response = await fetch(`${BASE_URL}/cart`, {
     method: 'PUT',
@@ -21,7 +21,7 @@ export const updateServerCart = async (cartStr, userID) => {
       cart: cartStr,
       userID
     }),
-    headers: { 'content-type': 'application/json' }
+    headers: { 'content-type': 'application/json', Authorization: `Bearer ${token}` }
   })
   const resp = await response.json()
   console.log('resp', resp)

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import signup from './signup.module.css'
 
 const SignUp = () => {
@@ -41,6 +42,9 @@ const SignUp = () => {
       {/* <label>Upload your picture</label> */}
       {/* <input type="file" className="signup-imageUpload" name="imageUpload" /> */}
       <input type='button' className='signup-submit' onClick={signupHandler} defaultValue='Signup' />
+      <Link to='/signin'>
+        <p>signin</p>
+      </Link>
     </div>
   )
 }

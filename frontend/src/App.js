@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom'
 import Home from './Home'
 import ProductPage from './ProductPage'
 import Cart from './Cart'
@@ -14,9 +14,16 @@ import { Provider } from 'react-redux'
 import { store } from './redux/store'
 import './styles/index.css'
 
+const HomeTemplate = () => {
+  return (
+    <div>
+      <Header />
+      <Outlet />
+    </div>
+  )
+}
 function App () {
   const [products, setProducts] = useState(null)
-  const [token, setToken] = useState(null)
   const [userID, setUserID] = useState(null)
   useEffect(() => {
     (async () => {
@@ -30,19 +37,19 @@ function App () {
     <div className='App'>
       <Router>
         <Provider store={store}>
-          <Header products={products} />
           <Routes>
-            <Route path='/' element={<Home products={products} />} />
-            <Route path='/products/product/:id' element={<ProductPage products={products} />} />
-            <Route path='/cart' element={<Cart />} />
-            <Route path='/order_placed' element={<Checkout />} />
-            <Route path='/search_results/:keyword' element={<SearchResults products={products} />} />
-            <Route path='/products/:category' element={<ProductsPage products={products} />} />
-            <Route path='/signin' element={<Signin setToken={setToken} setUserID={setUserID} />} />
+            <Route path='' element={<HomeTemplate />}>
+              <Route path='/' element={<Home products={products} />} />
+              <Route path='/products/product/:id' element={<ProductPage products={products} />} />
+              <Route path='/cart' element={<Cart />} />
+              <Route path='/order_placed' element={<Checkout />} />
+              <Route path='/search_results/:keyword' element={<SearchResults products={products} />} />
+              <Route path='/products/:category' element={<ProductsPage products={products} />} />
+            </Route>
+            <Route path='/signin' element={<Signin setUserID={setUserID} />} />
             <Route path='/signup' element={<Signup />} />
           </Routes>
         </Provider>
-
       </Router>
     </div>
   )

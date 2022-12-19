@@ -2,7 +2,9 @@ require('dotenv').config()
 const jwt = require('jsonwebtoken')
 
 function generateAccessToken (obj) {
-  return jwt.sign(obj, process.env.ACCESS_TOKEN, { expiresIn: '3000s' })
+  console.log("payload", obj)
+  const accessToken = jwt.sign(obj, process.env.ACCESS_TOKEN, { expiresIn: '3000s' })
+  return accessToken
 }
 
 function validatePassword (password) {
