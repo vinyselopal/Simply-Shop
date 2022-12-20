@@ -7,6 +7,7 @@ const productsRouter = require('./products/productsRouter')
 const cartRouter = require('./cart/cartRouter')
 const loginRouter = require('./login/loginRouter')
 const signupRouter = require('./signup/signupRouter')
+const ordersRouter = require('./orders/ordersRouter.js')
 const { initDB } = require('./config/initDB.js')
 
 require('dotenv').config()
@@ -31,6 +32,7 @@ function jwtAuthMiddleware (req, res, next) {
 
 app.use('/products', productsRouter)
 app.use('/cart', jwtAuthMiddleware, cartRouter)
+app.use('/orders', jwtAuthMiddleware, ordersRouter)
 app.use('/login', loginRouter)
 app.use('/register', signupRouter)
 

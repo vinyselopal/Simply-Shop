@@ -6,8 +6,27 @@ export async function getServerProducts () {
   return products
 }
 
+export async function createOrder (token, productsIdArray) {
+  console.log('productsIdArray', productsIdArray)
+  const reqBody = {
+    productsIdArray
+  }
+  const response = await fetch(`${BASE_URL}/orders`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify(reqBody)
+  })
+  console.log(response)
+}
+
 export const getServerCart = async (token) => {
-  const response = await fetch(`${BASE_URL}/cart`, { method: 'GET', headers: { Authorization: `Bearer ${token}` } })
+  const response = await fetch(`${BASE_URL}/cart`, {
+    method: 'GET',
+    headers: { Authorization: `Bearer ${token}` }
+  })
   const initialCart = await response.json()
 
   return JSON.stringify(initialCart)
@@ -21,7 +40,10 @@ export const updateServerCart = async (cartStr, userID, token) => {
       cart: cartStr,
       userID
     }),
-    headers: { 'content-type': 'application/json', Authorization: `Bearer ${token}` }
+    headers: {
+      'content-type': 'application/json',
+      Authorization: `Bearer ${token}`
+    }
   })
   const resp = await response.json()
   console.log('resp', resp)
