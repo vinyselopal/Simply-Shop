@@ -29,23 +29,27 @@ const SignUp = () => {
   }
 
   return (
-    <div className={signup.signup}>
-      <div className='signup-usr'>
-        <label>Email</label>
-        <input type='text' className='signup-email' />
+    <>
+      <Link to='/' className='flex flex-col justify-center items-center text-3xl no-underline text-black mt-7'>Amazon</Link>
+      <div className='m-auto w-96 p-4 border-2 border-solid'>
+        <strong><h2>Sign In</h2></strong>
+        <div className='signup-usr'>
+          <div>Email</div>
+          <input type='text' className='signup-email border-2 border-solid w-full' />
+        </div>
+        <div className='signup-pwd' />
+        <div>Password</div>
+        <input className='signup-password signin-password border-2 border-solid w-full' name='password' type='password' />
+        <div>Confirm Password</div>
+        <input className='signup-confirmPassword border-2 border-solid w-full' name='password' type='password' /><span><button>show</button></span>
+        {/* <label>Upload your picture</label> */}
+        {/* <input type="file" className="signup-imageUpload" name="imageUpload" /> */}
+        <input type='button' className='signup-submit bg-amber-400 w-full mt-4' onClick={signupHandler} defaultValue='Signup' />
+        <Link to='/signin'>
+          <p>signin</p>
+        </Link>
       </div>
-      <div className='signup-pwd' />
-      <label>Password</label>
-      <input className='signup-password' name='password' type='password' />
-      <label>Confirm Password</label>
-      <input className='signup-confirmPassword' name='password' type='password' /><span><button>show</button></span>
-      {/* <label>Upload your picture</label> */}
-      {/* <input type="file" className="signup-imageUpload" name="imageUpload" /> */}
-      <input type='button' className='signup-submit' onClick={signupHandler} defaultValue='Signup' />
-      <Link to='/signin'>
-        <p>signin</p>
-      </Link>
-    </div>
+    </>
   )
 }
 

@@ -112,13 +112,6 @@ async function createUsersData () {
 async function createOrdersData () {
   for (let i = 0; i < 200; i++) {
     const obj = {
-
-      product_id: faker.datatype.number(
-        {
-          min: 1,
-          max: 200
-        }
-      ),
       user_id: faker.datatype.number(
         {
           min: 1,
@@ -130,9 +123,39 @@ async function createOrdersData () {
     }
     try {
       const response = await pool.query(`
-            INSERT INTO orders (product_id, user_id, created_at) 
-            VALUES ($1, $2, $3);`,
-      [obj.product_id, obj.user_id, obj.created_at])
+            INSERT INTO orders (user_id, created_at) 
+            VALUES ($1, $2);`,
+      [obj.user_id, obj.created_at])
+
+      console.log(response)
+    } catch (err) {
+      console.log('data', obj, 'err', err)
+    }
+  }
+}
+
+async function createOrdersMappingData () {
+  for (let i = 0; i < 200; i++) {
+    const obj = {
+      order_id: faker.datatype.number(
+        {
+          min: 1,
+          max: 200
+        }
+      ),
+      product_id: faker.datatype.number(
+        {
+          min: 1,
+          max: 200
+        }
+      )
+
+    }
+    try {
+      const response = await pool.query(`
+            INSERT INTO orders_mapping (order_id, product_id) 
+            VALUES ($1, $2);`,
+      [obj.order_id, obj.product_id])
 
       console.log(response)
     } catch (err) {
@@ -165,10 +188,11 @@ async function createSellersData () {
 
 // createUsersData()
 // createSellersData()
-createProductsData()
+// createProductsData()
 // createProductImagesData()
 // createOrdersData()
+// createOrdersMappingData()
 
 // const createDataArr = [createUsersData, createSellersData, createProductsData, createProductImagesData, createOrdersData]
 
-module.exports = { createProductsData, createUsersData, createOrdersData, createProductImagesData, createSellersData }
+module.exports = { createProductsData, createUsersData, createOrdersMappingData, createProductImagesData, createSellersData, createOrdersData }

@@ -8,9 +8,15 @@ const createUsersTable = `CREATE TABLE IF NOT EXISTS users
      created_at timestamp, 
      cart text
 );`
-
-const createProductsTable = `CREATE TABLE IF NOT EXISTS products 
+const createOrdersTable = `CREATE TABLE IF NOT EXISTS orders
 (id SERIAL PRIMARY KEY, 
+    user_id integer REFERENCES users(id), 
+    created_at timestamp
+);`
+
+const createProductsTable = `
+    CREATE TABLE IF NOT EXISTS products 
+    (id SERIAL PRIMARY KEY, 
     name text, 
     category text, 
     seller_id integer REFERENCES sellers(id), 
@@ -20,17 +26,17 @@ const createProductsTable = `CREATE TABLE IF NOT EXISTS products
     ratings decimal CHECK(ratings <= 5 AND ratings >= 0)
 );`
 
-const createProductImagesTable = `CREATE TABLE IF NOT EXISTS product_images 
-(id SERIAL PRIMARY KEY, 
+const createProductImagesTable = `
+    CREATE TABLE IF NOT EXISTS product_images 
+    (id SERIAL PRIMARY KEY, 
     image_url text, 
     product_id integer REFERENCES products(id)
 );`
 
-const createOrdersTable = `CREATE TABLE IF NOT EXISTS orders 
-(id SERIAL PRIMARY KEY, 
-    product_id integer REFERENCES products(id), 
-    user_id integer REFERENCES users(id), 
-    created_at timestamp
+const createOrdersMappingTable = `
+    CREATE TABLE IF NOT EXISTS orders_mapping
+    (order_id integer REFERENCES orders(id), 
+    product_id integer REFERENCES products(id)
 );`
 
 const createSellersTable = `CREATE TABLE IF NOT EXISTS sellers 
@@ -48,10 +54,11 @@ const createCategoriesTable = `CREATE TABLE IF NOT EXISTS categories
 );`
 
 module.exports = {
-  createOrdersTable,
+  createOrdersMappingTable,
   createUsersTable,
   createProductsTable,
   createProductImagesTable,
   createSellersTable,
-  createCategoriesTable
+  createCategoriesTable,
+  createOrdersTable
 }

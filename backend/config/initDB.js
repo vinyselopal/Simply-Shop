@@ -2,9 +2,10 @@ const { Pool } = require('pg')
 const {
   createUsersTable,
   createProductsTable,
-  createOrdersTable,
+  createOrdersMappingTable,
   createProductImagesTable,
-  createSellersTable
+  createSellersTable,
+  createOrdersTable
 } = require('./queries')
 
 const pool = new Pool({
@@ -24,6 +25,8 @@ async function initDB () {
   await pool.query(createProductImagesTable)
 
   await pool.query(createOrdersTable)
+
+  await pool.query(createOrdersMappingTable)
 }
 
 module.exports = { initDB, pool }

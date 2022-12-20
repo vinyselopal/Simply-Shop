@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom
 import Home from './Home'
 import ProductPage from './ProductPage'
 import Cart from './Cart'
+import OrderPlaced from './OrderPlaced'
 import Checkout from './Checkout'
 import Header from './components/Header'
 import SearchResults from './SearchResults'
@@ -42,12 +43,13 @@ function App () {
               <Route path='/' element={<Home products={products} />} />
               <Route path='/products/product/:id' element={<ProductPage products={products} />} />
               <Route path='/cart' element={<Cart />} />
-              <Route path='/order_placed' element={<Checkout />} />
               <Route path='/search_results/:keyword' element={<SearchResults products={products} />} />
               <Route path='/products/:category' element={<ProductsPage products={products} />} />
             </Route>
             <Route path='/signin' element={<Signin setUserID={setUserID} />} />
             <Route path='/signup' element={<Signup />} />
+            <Route path='/order_placed' element={<OrderPlaced />} />
+            <Route path='/checkout' element={<Checkout />} />
           </Routes>
         </Provider>
       </Router>

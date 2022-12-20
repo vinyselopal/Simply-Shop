@@ -33,15 +33,18 @@ function ProductsPage () {
 
   async function paginationEventHandler (page, category, pageCount) {
     const products = await handlePagination(page, category, pageCount)
-    console.log('products', products)
     setLocalProducts(products)
   }
   function getPaginationButtons (pageCount) {
     const buttonsArr = []
-    console.log('pageCount2', pageCount)
     for (let i = 1; i <= pageCount; i++) {
       buttonsArr.push(
-        <button key={i} onClick={(event) => paginationEventHandler(event.target.value, category, pageCount)} value={i}>{i}
+        <button
+          key={i}
+          onClick={(event) => paginationEventHandler(event.target.value, category, pageCount)}
+          value={i}
+          className='bg-gray-300 p-2 m-2 border-2 border-solid border-black'
+        >{i}
         </button>
       )
     }
@@ -72,7 +75,11 @@ function ProductsPage () {
   return (
     <div className={categoryStyle['category-products-container']}>
       <div>
-        <h2><Link style={{ textDecoration: 'none', color: 'black' }}>{category}</Link></h2>
+        <h2>
+          <Link style={{ textDecoration: 'none', color: 'black' }}>
+            {category}
+          </Link>
+        </h2>
       </div>
       <div>
         <select onChange={handleSortOptions}>

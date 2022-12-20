@@ -21,30 +21,31 @@ export const updateCartById = createAsyncThunk(
 const cartSlice = createSlice({ // name as global
   name: 'cart',
   initialState: {
-    cart: [],
-    loading: 'idle',
+    cart: JSON.parse(localStorage.getItem('cart')) || [],
     token: JSON.parse(localStorage.getItem('token')),
     userID: JSON.parse(localStorage.getItem('userID'))
   },
 
   reducers: {
     addItem: (state, action) => {
-      console.log('inside addItem action')
       state.cart.push({ item: action.payload, quantity: 1 })
+      localStorage.setItem('cart', JSON.stringify(state.cart))
     },
     incrementQuantity: (state, action) => { // hash map with id keys
       const cartItem = state.cart.find((a) => a.item.id === action.payload)
       cartItem.quantity++
+      localStorage.setItem('cart', JSON.stringify(state.cart))
     },
     decrementQuantity: (state, action) => {
       const cartItem = state.cart.find((a) => a.item.id === action.payload) // name the payload
       if (cartItem.quantity === 1) cartItem.quantity = 1
       else cartItem.quantity--
+      localStorage.setItem('cart', JSON.stringify(state.cart))
     },
     removeItem: (state, action) => {
-      console.log('action payload', action.payload)
       const filteredCart = state.cart.filter((a) => a.item.id !== action.payload)
       state.cart = filteredCart
+      localStorage.setItem('cart', JSON.stringify(state.cart))
     },
     setToken: (state, action) => {
       state.token = action.payload

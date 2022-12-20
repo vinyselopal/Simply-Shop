@@ -42,16 +42,16 @@ function SearchBar ({ suggestions, setSuggestions }) {
 
   return (
     <div className={header['header-search-container']} onBlur={hideSuggestions}>
-      <div className={header['header-searchbar-button-container']}>
+      <div className={`${header['header-searchbar-button-container']} flex`}>
         <input
           type='text'
-          className={header['header-search']}
+          className={`${header['header-search']} items-stretch text-black`}
           onKeyDown={onSearch}
           onChange={searchSuggestions}
           autoComplete='off'
         />
         <div>
-          <button onClick={onSearch} className={header['header-search-button']}>
+          <button onClick={onSearch} className='p-1.5 text-black bg-amber-500'>
             <span className='material-icons'>search</span>
           </button>
         </div>
@@ -90,7 +90,10 @@ function Header ({ products }) {
 
   function logoutHandler () {
     dispatch(setToken(null))
+
     localStorage.removeItem('token')
+    localStorage.removeItem('cart')
+
     navigate('/signin')
   }
   const getTotalItems = () => {
@@ -111,23 +114,25 @@ function Header ({ products }) {
           <p>Amazon</p>
         </div>
       </Link>
-      <SearchBar suggestions={suggestions} setSuggestions={setSuggestions} products={products} />
+      <SearchBar
+        suggestions={suggestions}
+        setSuggestions={setSuggestions}
+        products={products}
+      />
 
       {
             useSelector(state => state.token)
               ? (
-                <button onClick={logoutHandler}>Logout</button>
+                <button onClick={logoutHandler} className='py-2 px-3 bg-amber-500 text-black'>Logout</button>
                 )
               : (
-                <Link to='/signin'>
-                  <div>
-                    <p>signin</p>
-                  </div>
+                <Link to='/signin' className='py-2 px-3 bg-amber-500 text-black no-underline'>
+                  signin
                 </Link>
                 )
           }
 
-      <Link to='/cart' className={header['cart-container']}>
+      <Link to='/cart' className={`${header['cart-container']} text-white`}>
         <span className='material-icons cart-logo'>
           shopping_cart
           <span className={header['cart-count']}>

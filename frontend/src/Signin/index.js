@@ -1,7 +1,8 @@
 import React from 'react'
 import {
   Link,
-  useNavigate
+  useNavigate,
+  useSearchParams
 } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setToken, setUserID } from '../redux/cartSlice'
@@ -10,6 +11,7 @@ import signin from './signin.module.css'
 const SignIn = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   async function loginHandler () {
     const userID = document.getElementsByClassName('signin-userID')[0].value
     const password = document.getElementsByClassName('signin-password')[0].value
@@ -34,31 +36,36 @@ const SignIn = () => {
       dispatch(setToken(creds.accessToken))
       dispatch(setUserID(userID))
 
-      navigate('/')
-      window.location.reload() // remove
+      const checkout = searchParams.get('checkout')
+      if (checkout) navigate('/checkout')
+      else navigate('/')
     } else {
       document.body.innerHTML = creds // dont use innerhtml and look at naming
     }
   }
 
   return (
-    <div className={signin.signin}>
-      <div className={signin['signin-usr']}>
-        <label>User ID</label>
-        <input type='text' className='signin-userID' />
-      </div>
-      <div className={signin['signin-pwd']}>
-        <label>Password</label>
-        <input className='signin-password' name='password' type='password' />
-      </div>
+    <>
+      <Link to='/' className='flex flex-col justify-center items-center text-3xl no-underline text-black mt-7'>Amazon</Link>
+      <div className='m-auto w-96 p-4 border-2 border-solid'>
+        <strong><h3>Sign In</h3></strong>
+        <div className={signin['signin-usr']}>
+          <div>User ID</div>
+          <input type='text' className='signin-userID border-2 border-solid w-full' />
+        </div>
+        <div className={signin['signin-pwd']}>
+          <div>Password</div>
+          <input className='signin-password border-2 border-solid w-full' name='password' type='password' />
+        </div>
 
-      <input type='button' className={signin['signin-submit']} onClick={loginHandler} defaultValue='Signin' />
-      {/* <button className="signin-guestSignin" >Sign in as guest</button> */}
-      <Link to='/signup'>
-        <p>signup</p>
-      </Link>
-      <div className='signin-error' />
-    </div>
+        <input type='button' className='bg-amber-400 w-full mt-4' onClick={loginHandler} defaultValue='Sign in' />
+        {/* <button className="signin-guestSignin" >Sign in as guest</button> */}
+        <Link to='/signup'>
+          <p>signup</p>
+        </Link>
+        <div className='signin-error' />
+      </div>
+    </>
   )
 }
 

@@ -1,9 +1,12 @@
-function OrderPlaced () {
+import { useEffect } from 'react'
+
+function Checkout () {
+  useEffect(() => {
+    // createOrder()
+  }, [])
   return (
-    <div className='order-placed'>
-      <p>Order Placed</p>
-    </div>
+    <p>Checkout</p>
   )
 }
 
-export default OrderPlaced
+export default Checkout
