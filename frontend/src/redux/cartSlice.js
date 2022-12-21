@@ -23,7 +23,8 @@ const cartSlice = createSlice({ // name as global
   initialState: {
     cart: JSON.parse(localStorage.getItem('cart')) || [],
     token: JSON.parse(localStorage.getItem('token')),
-    userID: JSON.parse(localStorage.getItem('userID'))
+    userID: JSON.parse(localStorage.getItem('userID')),
+    order: JSON.parse(localStorage.getItem('order'))
   },
 
   reducers: {
@@ -52,6 +53,13 @@ const cartSlice = createSlice({ // name as global
     },
     setUserID: (state, action) => {
       state.userID = action.payload
+    },
+    setOrder: (state, action) => {
+      state.order = action.payload
+      localStorage.setItem('order', JSON.stringify(state.order))
+    },
+    setCart: (state, action) => {
+      state.cart = action.payload
     }
 
   },
@@ -70,7 +78,9 @@ export const {
   decrementQuantity,
   removeItem,
   setToken,
-  setUserID
+  setUserID,
+  setOrder,
+  setCart
 } = cartSlice.actions
 
 export const cartAsyncReducer = cartSlice.extraReducers

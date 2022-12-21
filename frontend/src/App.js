@@ -8,6 +8,7 @@ import Header from './components/Header'
 import SearchResults from './SearchResults'
 import Signin from './Signin'
 import Signup from './Signup'
+import Payment from './Payment'
 import { useEffect, useState } from 'react'
 import { getServerProducts } from './apis'
 import ProductsPage from './ProductsPage'
@@ -50,6 +51,7 @@ function App () {
             <Route path='/signup' element={<Signup />} />
             <Route path='/order_placed' element={<OrderPlaced />} />
             <Route path='/checkout' element={<Checkout />} />
+            <Route path='/payment' element={<Payment />} />
           </Routes>
         </Provider>
       </Router>

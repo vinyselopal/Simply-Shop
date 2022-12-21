@@ -13,16 +13,9 @@ function Cart () {
   }, [])
 
   const cart = useSelector(state => state.cart)
-  const isEmpty = cart.length === 0
-  const totalUniqueItems = cart.length
 
-  const subTotal = cart.reduce((prev, curr) => {
-    return (prev) + (curr.item.price * curr.quantity)
-  }, 0)
+  const isEmpty = !cart || !cart.length
 
-  function checkoutHandler () {
-    if (!token) navigate('/signin?checkout=true')
-  }
   if (isEmpty) {
     return (
       <div className='cart-container'>
@@ -31,6 +24,16 @@ function Cart () {
         </div>
       </div>
     )
+  }
+  const totalUniqueItems = cart.length
+
+  const subTotal = cart.reduce((prev, curr) => {
+    return (prev) + (curr.item.price * curr.quantity)
+  }, 0)
+
+  function checkoutHandler () {
+    if (!token) navigate('/signin?checkout=true')
+    else navigate('/checkout')
   }
 
   return (

@@ -1,13 +1,25 @@
 const {
-  createOrderQuery
+  createOrderQuery,
+  deleteOrderQuery
 } = require('./ordersModel')
 
 const createOrderFunction = async (req, res) => {
   const { productsIdArray } = req.body
   const userID = req.userId
-  console.log('creds', productsIdArray, userID, req.body)
   const response = await createOrderQuery(productsIdArray, userID)
-  console.log('response from post orders ', response)
+  if (response) {
+    res.status(200)
+    res.json(response)
+  } else res.send(500)
 }
 
-module.exports = { createOrderFunction }
+const deleteOrderFunction = async (req, res) => {
+  const { orderID } = req.params
+  const response = await deleteOrderQuery(orderID)
+  if (response) {
+    res.status(200)
+    res.json(response)
+  } else res.send(500)
+}
+
+module.exports = { createOrderFunction, deleteOrderFunction }

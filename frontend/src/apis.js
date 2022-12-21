@@ -7,7 +7,6 @@ export async function getServerProducts () {
 }
 
 export async function createOrder (token, productsIdArray) {
-  console.log('productsIdArray', productsIdArray)
   const reqBody = {
     productsIdArray
   }
@@ -19,7 +18,20 @@ export async function createOrder (token, productsIdArray) {
     },
     body: JSON.stringify(reqBody)
   })
-  console.log(response)
+  const orderID = await response.json()
+  console.log('orderID', orderID)
+  return orderID
+}
+
+export async function cancelOrder (token, orderID) {
+  const response = await fetch(`${BASE_URL}/orders/${orderID}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-type': 'application/json'
+    }
+  })
+  console.log('response from delete order api', response)
 }
 
 export const getServerCart = async (token) => {

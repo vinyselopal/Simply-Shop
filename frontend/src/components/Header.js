@@ -4,7 +4,7 @@ import { getMatchingProducts } from '../apis'
 import { useSelector, useDispatch } from 'react-redux'
 
 import header from '../styles/header.module.css'
-import { setToken } from '../redux/cartSlice'
+import { setToken, setCart, setOrder } from '../redux/cartSlice'
 
 function SearchBar ({ suggestions, setSuggestions }) {
   const [mouseDown, setMouseDown] = useState(false)
@@ -90,18 +90,19 @@ function Header ({ products }) {
 
   function logoutHandler () {
     dispatch(setToken(null))
-
+    dispatch(setCart([]))
+    dispatch(setOrder(null))
     localStorage.removeItem('token')
     localStorage.removeItem('cart')
+    localStorage.removeItem('order')
 
     navigate('/signin')
   }
   const getTotalItems = () => {
     let total = 0
-    cart.forEach(item => {
+    cart?.forEach(item => {
       total += item.quantity
     })
-    console.log('cart in getTotal', cart)
 
     return total
   }
