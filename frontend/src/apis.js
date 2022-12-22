@@ -6,6 +6,19 @@ export async function getServerProducts () {
   return products
 }
 
+export async function placeOrder (token, order) {
+  const orderID = order.orderID
+  const response = await fetch(`${BASE_URL}/orders/${orderID}/placement`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify(order)
+  })
+  console.log(response)
+}
+
 export async function createOrder (token, productsIdArray) {
   const reqBody = {
     productsIdArray

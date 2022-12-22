@@ -4,8 +4,8 @@ const createOrderQuery = async (productsIdArray, userID) => {
   try {
     const response = await pool.query(
       `INSERT INTO orders
-      (user_id, created_at)
-      VALUES ($1, current_timestamp)
+      (user_id, created_at, payment_status)
+      VALUES ($1, current_timestamp, false)
       RETURNING id;
       `, [userID])
 
@@ -43,4 +43,31 @@ const deleteOrderQuery = async (orderID) => {
     console.log(err)
   }
 }
-module.exports = { createOrderQuery, deleteOrderQuery }
+
+const placeOrderQuery = async (orderID, deadline, paymentAmount, products) => {
+  try {
+    await pool.query(
+      `UPDATE orders
+      SET deadline = $1, 
+      payment_amount = $2,
+      payment_status = true
+      WHERE
+      id = $3;
+      `, [deadline, paymentAmount, orderID]
+    )
+
+    for (let i = 0; i < products.length; i++) {
+      await pool.query(
+        `UPDATE products
+        SET count = count - $1
+        WHERE 
+        id = $2;
+        `, [products[i].quantity, products[i].item.id]
+      )
+    }
+    return 'confirmed'
+  } catch (err) {
+    console.log(err)
+  }
+}
+module.exports = { createOrderQuery, deleteOrderQuery, placeOrderQuery }

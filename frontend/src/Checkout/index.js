@@ -26,7 +26,6 @@ function Checkout () {
       }
       dispatch(setOrder(order))
       createOrder(token, productsIdArray).then(orderID => {
-        console.log('orderID', orderID)
         setOrderID(orderID)
         dispatch(setOrder({ ...order, orderID }))
       })
@@ -44,7 +43,6 @@ function Checkout () {
       dispatch(setOrder(order))
       cancellationHandler().then(() => {
         createOrder(token, productsIdArray).then(orderID => {
-          console.log('orderID', orderID)
           setOrderID(orderID)
           dispatch(setOrder({ ...order, orderID }))
         })
@@ -52,8 +50,8 @@ function Checkout () {
     }
   }, [])
 
-  function paymentHandler () {
-    navigate('/payment')
+  function renderOptions () {
+    navigate('/options')
   }
   const cancellationHandler = async () => {
     await cancelOrder(token, orderID)
@@ -73,7 +71,7 @@ function Checkout () {
         <h2 className='pl-5'>Checkout</h2>
       </div>
       <div className='flex justify-center m-4'>
-        <button className='bg-amber-500 p-2 m-2' onClick={paymentHandler}>Make payment</button>
+        <button className='bg-amber-500 p-2 m-2' onClick={renderOptions}>Continue</button>
         <button className='bg-amber-500 p-2 m-2' onClick={cancellationListener}>Cancel order</button>
       </div>
     </div>

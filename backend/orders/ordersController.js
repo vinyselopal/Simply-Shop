@@ -1,6 +1,7 @@
 const {
   createOrderQuery,
-  deleteOrderQuery
+  deleteOrderQuery,
+  placeOrderQuery
 } = require('./ordersModel')
 
 const createOrderFunction = async (req, res) => {
@@ -22,4 +23,14 @@ const deleteOrderFunction = async (req, res) => {
   } else res.send(500)
 }
 
-module.exports = { createOrderFunction, deleteOrderFunction }
+const orderPlacement = async (req, res) => {
+  const { orderID } = req.params
+  const { deadline, paymentAmount, products } = req.body
+  const response = await placeOrderQuery(orderID, deadline, paymentAmount, products)
+  if (response) {
+    res.status(200)
+    res.json(response)
+  } else res.send(500)
+}
+
+module.exports = { createOrderFunction, deleteOrderFunction, orderPlacement }

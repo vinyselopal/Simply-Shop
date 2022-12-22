@@ -11,7 +11,10 @@ const createUsersTable = `CREATE TABLE IF NOT EXISTS users
 const createOrdersTable = `CREATE TABLE IF NOT EXISTS orders
 (id SERIAL PRIMARY KEY, 
     user_id integer REFERENCES users(id), 
-    created_at timestamp
+    created_at timestamp,
+    payment_status boolean NOT NULL,
+    deadline date,
+    payment_amount numeric CHECK(payment_amount > 0)
 );`
 
 const createProductsTable = `
