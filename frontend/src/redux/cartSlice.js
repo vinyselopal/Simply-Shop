@@ -55,6 +55,7 @@ const cartSlice = createSlice({ // name as global
       state.userID = action.payload
     },
     setOrder: (state, action) => {
+      console.log('setOrder')
       state.order = action.payload
       localStorage.setItem('order', JSON.stringify(state.order))
     },

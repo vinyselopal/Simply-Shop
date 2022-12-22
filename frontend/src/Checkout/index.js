@@ -12,54 +12,59 @@ function Checkout () {
   const token = useSelector(state => state.token)
   const order = useSelector(state => state.order)
 
-  const [orderID, setOrderID] = useState(null)
-
-  const productsIdArray = []
-
-  cart.forEach(item => {
-    productsIdArray.push(item.item.id)
-  })
+  const [orderID, setOrderID] = useState(JSON.parse(localStorage.getItem('order'))?.orderID)
 
   useEffect(() => {
     if (!order) {
+      const productsIdArray = []
+
+      cart.forEach(item => {
+        productsIdArray.push(item.item.id)
+      })
       const order = {
         productsIdArray
       }
       dispatch(setOrder(order))
-      let orderID
-      (async () => {
-        await createOrder(token, productsIdArray).then(orderID => {
+      createOrder(token, productsIdArray).then(orderID => {
+        console.log('orderID', orderID)
+        setOrderID(orderID)
+        dispatch(setOrder({ ...order, orderID }))
+      })
+    }
+
+    if (order) {
+      const productsIdArray = []
+
+      cart.forEach(item => {
+        productsIdArray.push(item.item.id)
+      })
+      const order = {
+        productsIdArray
+      }
+      dispatch(setOrder(order))
+      cancellationHandler().then(() => {
+        createOrder(token, productsIdArray).then(orderID => {
           console.log('orderID', orderID)
           setOrderID(orderID)
+          dispatch(setOrder({ ...order, orderID }))
         })
-        dispatch(setOrder({ ...order, orderID }))
-      })()
+      })
     }
   }, [])
-
-  useEffect(() => {
-    if (orderID) {
-      const backListener = () => {
-        console.log('back pressed')
-
-        if (window.confirm('cancel this order?')) {
-          const response = cancelOrder(token, orderID)
-          console.log('response in component after deleting order', response)
-        } else console.log('stay on the page')
-        window.removeEventListener('popstate', backListener)
-      }
-      window.addEventListener('popstate', backListener)
-    }
-  }, [orderID])
 
   function paymentHandler () {
     navigate('/payment')
   }
-
-  function cancellationHandler () {
-    // remove order details from orders table and orders_mapping table
+  const cancellationHandler = async () => {
+    await cancelOrder(token, orderID)
+    dispatch(setOrder(null))
+    localStorage.removeItem('order')
   }
 
+  const cancellationListener = async () => {
+    await cancellationHandler()
+    navigate('/cart')
+  }
   return (
     <div>
       <Link to='/' className='no-underline text-black pl-5 position-absolute'><h2>Amazon</h2></Link>
@@ -69,7 +74,7 @@ function Checkout () {
       </div>
       <div className='flex justify-center m-4'>
         <button className='bg-amber-500 p-2 m-2' onClick={paymentHandler}>Make payment</button>
-        <button className='bg-amber-500 p-2 m-2' onClick={cancellationHandler}>Cancel order</button>
+        <button className='bg-amber-500 p-2 m-2' onClick={cancellationListener}>Cancel order</button>
       </div>
     </div>
   )
