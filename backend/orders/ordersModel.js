@@ -9,7 +9,6 @@ const createOrderQuery = async (productsIdArray, userID) => {
       RETURNING id;
       `, [userID])
 
-    // get order id from response
     const orderID = response.rows[0].id
 
     for (let i = 0; i < productsIdArray.length; i++) {
@@ -26,13 +25,14 @@ const createOrderQuery = async (productsIdArray, userID) => {
 }
 
 const deleteOrderQuery = async (orderID) => {
-  // use transactions here
+  // use transactions here, and soft delete
   try {
     await pool.query(
       `DELETE FROM orders_mapping
       WHERE
       order_id = $1;
       `, [orderID])
+
     await pool.query(
       `DELETE FROM orders
       WHERE

@@ -1,9 +1,11 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { placeOrder } from '../apis'
+import { useSelectorWrapper } from '../utils'
+
 function Payment () {
   const dispatch = useDispatch()
-  const token = useSelector(state => state.token)
-  const order = useSelector(state => state.order)
+  const token = useSelectorWrapper('token')
+  const order = useSelectorWrapper('order')
   console.log(token, order)
 
   async function orderPlacementHandler () {

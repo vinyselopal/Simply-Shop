@@ -1,26 +1,31 @@
 import { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { setOrder } from '../redux/cartSlice'
+import { setOrder } from '../redux/slice'
+import { useSelectorWrapper } from '../utils'
+
 function Options () {
   const [orderState, setOrderState] = useState(null)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const order = useSelector(state => state.order)
-  const cart = useSelector(state => state.cart)
+  const order = useSelectorWrapper('order')
+  const cart = useSelectorWrapper('cart')
 
   useEffect(() => {
     setOrderState(order)
   }, [])
 
   useEffect(() => {
-    console.log('in useeffect')
-    dispatch(setOrder({ ...order, paymentAmount: 500, deadline: toLocaleString(new Date()), products: cart }))
+    console.log('in useEffect')
+    const date = (new Date()).toISOString().substring(0, 10)
+    console.log('date', date)
+    dispatch(setOrder({ ...order, paymentAmount: 500, deadline: date, products: cart }))
   }, [orderState])
 
   function handlePayment () {
     navigate('/payment')
   }
+
   return (
     <div className='flex justify-center'>
       <button onClick={handlePayment} className='bg-amber-500 p-2 m-4'>Continue to payment</button>

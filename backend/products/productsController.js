@@ -17,7 +17,7 @@ const getProductsInPartsFunction = async (req, res) => {
   const products = await getProductsInPartsQuery(page, category)
   if (!products.rows[0]) res.status(404)
   else {
-    res.json(JSON.stringify(products.rows))
+    res.json(products.rows)
   }
 }
 

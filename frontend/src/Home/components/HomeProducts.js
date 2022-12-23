@@ -12,7 +12,7 @@ function HomeProducts () {
     (async () => {
       for (let i = 0; i < categories.length; i++) {
         const response = await getProductsOfCategory(categories[i])
-        const categoryProducts = JSON.parse(response)
+        const categoryProducts = response
 
         const tempObj = {}
         tempObj[categories[i]] = categoryProducts

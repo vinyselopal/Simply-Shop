@@ -1,5 +1,5 @@
 import { configureStore, createListenerMiddleware } from '@reduxjs/toolkit'
-import { cartReducer, addItem, updateCartById, incrementQuantity, decrementQuantity, removeItem } from './cartSlice'
+import { cartReducer, addItem, updateCartById, incrementQuantity, decrementQuantity, removeItem } from './slice'
 
 const listenerMiddleware = createListenerMiddleware()
 

@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { incrementQuantity, decrementQuantity, removeItem } from '../../redux/cartSlice'
+import { incrementQuantity, decrementQuantity, removeItem } from '../../redux/slice'
 import './cart.css'
 
 // use thunk to change server first

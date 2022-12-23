@@ -31,8 +31,8 @@ function ProductsPage () {
     setLocalProducts([...localProducts.sort((prev, curr) => curr.price - prev.price)])
   }
 
-  async function paginationEventHandler (page, category, pageCount) {
-    const products = await handlePagination(page, category, pageCount)
+  async function paginationEventHandler (page, category, limit) {
+    const products = await handlePagination(page, category, limit)
     setLocalProducts(products)
   }
   function getPaginationButtons (pageCount) {
@@ -41,7 +41,7 @@ function ProductsPage () {
       buttonsArr.push(
         <button
           key={i}
-          onClick={(event) => paginationEventHandler(event.target.value, category, pageCount)}
+          onClick={(event) => paginationEventHandler(event.target.value, category, 10)}
           value={i}
           className='bg-gray-300 p-2 m-2 border-2 border-solid border-black'
         >{i}

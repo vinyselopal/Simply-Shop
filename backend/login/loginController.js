@@ -10,7 +10,7 @@ const loginFunction = async (req, res) => {
     res.end()
   } else {
     bcrypt.compare(req.body.password, creds.password, function (err, result) {
-      if (err) throw err // look into implementation bcrypt
+      if (err) throw err
       if (!result) {
         res.status(400).json(creds)
       } else {

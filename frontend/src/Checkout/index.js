@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react'
 import { createOrder, cancelOrder } from '../apis'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { setOrder } from '../redux/cartSlice'
+import { setOrder } from '../redux/slice'
+import { useSelectorWrapper } from '../utils'
 
 function Checkout () {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const cart = useSelector(state => state.cart)
-  const token = useSelector(state => state.token)
-  const order = useSelector(state => state.order)
+  const cart = useSelectorWrapper('cart')
+  const token = useSelectorWrapper('token')
+  const order = useSelectorWrapper('order')
 
   const [orderID, setOrderID] = useState(JSON.parse(localStorage.getItem('order'))?.orderID)
 

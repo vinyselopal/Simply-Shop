@@ -1,10 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { getMatchingProducts } from '../apis'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { useSelectorWrapper } from '../utils'
 
 import header from '../styles/header.module.css'
-import { setToken, setCart, setOrder } from '../redux/cartSlice'
+import { setToken, setCart, setOrder } from '../redux/slice'
 
 function SearchBar ({ suggestions, setSuggestions }) {
   const [mouseDown, setMouseDown] = useState(false)
@@ -83,7 +84,7 @@ function SearchBar ({ suggestions, setSuggestions }) {
 
 function Header ({ products }) {
   const [suggestions, setSuggestions] = useState(null)
-  const cart = useSelector((state) => state.cart)
+  const cart = useSelectorWrapper('cart')
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -122,7 +123,7 @@ function Header ({ products }) {
       />
 
       {
-            useSelector(state => state.token)
+            useSelectorWrapper('token')
               ? (
                 <button onClick={logoutHandler} className='py-2 px-3 bg-amber-500 text-black'>Logout</button>
                 )

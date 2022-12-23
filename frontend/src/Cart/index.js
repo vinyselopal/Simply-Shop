@@ -1,18 +1,19 @@
 import CartItem from './components/CartItem'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
-import { fetchCartById } from '../redux/cartSlice'
+import { fetchCartById } from '../redux/slice'
 import { useNavigate } from 'react-router-dom'
+import { useSelectorWrapper } from '../utils'
 function Cart () {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const token = useSelector(state => state.token) // abstract selectors
+  const token = useSelectorWrapper('token')
 
   useEffect(() => {
     if (token) dispatch(fetchCartById(token))
   }, [])
 
-  const cart = useSelector(state => state.cart)
+  const cart = useSelectorWrapper('cart')
 
   const isEmpty = !cart || !cart.length
 

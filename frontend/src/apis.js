@@ -47,6 +47,7 @@ export async function cancelOrder (token, orderID) {
   console.log('response from delete order api', response)
 }
 
+// need a collection for carts
 export const getServerCart = async (token) => {
   const response = await fetch(`${BASE_URL}/cart`, {
     method: 'GET',
@@ -57,32 +58,24 @@ export const getServerCart = async (token) => {
   return JSON.stringify(initialCart)
 }
 
-export const updateServerCart = async (cartStr, userID, token) => {
-  console.log('in updateServerCart', userID)
-  const response = await fetch(`${BASE_URL}/cart`, {
+export const updateServerCart = async (payload, token) => {
+  await fetch(`${BASE_URL}/cart`, {
     method: 'PUT',
-    body: JSON.stringify({
-      cart: cartStr,
-      userID
-    }),
+    body: JSON.stringify(payload),
     headers: {
       'content-type': 'application/json',
       Authorization: `Bearer ${token}`
     }
   })
-  const resp = await response.json()
-  console.log('resp', resp)
 }
 
-export async function handlePagination (page, category, pageCount) {
-  console.log('page', page, pageCount)
-  const response = await fetch(`${BASE_URL}/products/page/?page=${page}&&category=${category}`)
-  console.log('response', response)
+export async function handlePagination (page, category, limit) {
+  const response = await fetch(`${BASE_URL}/products/page/?page=${page}&limit=${limit}&category=${category}`)
   const products = await response.json()
-  console.log(JSON.parse(products))
-  return JSON.parse(products)
+  return products
 }
 
+// no need for total. just implement next and previous.
 export async function getProductsCount (category) {
   const response = await fetch(`${BASE_URL}/products/pages/${category}`)
   const count = await response.json()

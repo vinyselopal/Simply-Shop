@@ -12,13 +12,13 @@ export const fetchCartById = createAsyncThunk(
 export const updateCartById = createAsyncThunk(
   'cart/updateCartById',
   async (options, thunkAPI) => {
-    const { cartStr, userID } = options
+    const { cart, userID } = options
     const token = thunkAPI.getState().token
-    const response = await updateServerCart(cartStr, userID, token)
+    const response = await updateServerCart({ cart, userID }, token)
     return response
   }
 )
-const cartSlice = createSlice({ // name as global
+const slice = createSlice({
   name: 'cart',
   initialState: {
     cart: JSON.parse(localStorage.getItem('cart')) || [],
@@ -72,7 +72,7 @@ const cartSlice = createSlice({ // name as global
   }
 })
 
-export const cartReducer = cartSlice.reducer
+export const cartReducer = slice.reducer
 export const {
   addItem,
   incrementQuantity,
@@ -82,6 +82,6 @@ export const {
   setUserID,
   setOrder,
   setCart
-} = cartSlice.actions
+} = slice.actions
 
-export const cartAsyncReducer = cartSlice.extraReducers
+export const cartAsyncReducer = slice.extraReducers

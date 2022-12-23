@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import searchResultsStyle from '../searchResults.module.css'
+import { emptyImageUrl } from '../../constants'
 
 function ProductsList ({ products }) {
   return (
@@ -12,7 +13,7 @@ function ProductsList ({ products }) {
                 <div className={searchResultsStyle['search-product-card']}>
                   <div className={searchResultsStyle['search-product-image']}>
                     <img
-                      src={product.image_url || 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'}
+                      src={product.image_url || emptyImageUrl}
                       alt={product.name}
                       height='170'
                       width='150'

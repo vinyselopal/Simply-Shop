@@ -18,3 +18,6 @@ urgent:
 -- campaign
 -- coupons
 -- location based 
+-- change userID handling
+-- store cart as hashmap on client side
+-- naming uniformity

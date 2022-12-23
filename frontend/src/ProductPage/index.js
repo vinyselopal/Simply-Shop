@@ -1,13 +1,15 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { addItem } from '../redux/cartSlice'
+import { addItem } from '../redux/slice'
 import { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import productStyle from './product.module.css'
+import { useSelectorWrapper } from '../utils'
+import { emptyImageUrl } from '../constants'
 
 function ProductPage ({ products }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const items = useSelector((state) => state.cart)
+  const items = useSelectorWrapper('cart')
   const [addedToCart, setAddedToCart] = useState(false)
   const { id } = useParams()
 
@@ -40,7 +42,7 @@ function ProductPage ({ products }) {
       <div className={productStyle['product-card']}>
         <div className={productStyle['product-image']}>
           <img
-            src={product.image_url || 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'}
+            src={product.image_url || emptyImageUrl}
             alt='product image'
             height='300'
             width='250'

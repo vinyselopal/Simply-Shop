@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import home from '../home.module.css'
-
+import { emptyImageUrl } from '../../constants'
 function ProductsList ({ products }) {
   if (!products) return null
 
@@ -14,7 +14,7 @@ function ProductsList ({ products }) {
                 <div className={home['home-product-card']}>
                   <div className={home['home-product-image']}>
                     <img
-                      src={product.image_url || 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'}
+                      src={product.image_url || emptyImageUrl}
                       alt={product.name}
                       height='170'
                       width='150'
