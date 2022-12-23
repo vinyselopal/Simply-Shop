@@ -70,4 +70,5 @@ const placeOrderQuery = async (orderID, deadline, paymentAmount, products) => {
     console.log(err)
   }
 }
+
 module.exports = { createOrderQuery, deleteOrderQuery, placeOrderQuery }

@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { handlePagination, getProductsCount } from '../apis'
 import categoryStyle from './category.module.css'
+
 function ProductsPage () {
   const { category } = useParams()
   const [localProducts, setLocalProducts] = useState(null)
@@ -12,7 +13,6 @@ function ProductsPage () {
     (async () => {
       await getProductsOfCategory(category)
       const pageCount = await getProductsCount(category)
-      console.log('pageCount', pageCount)
       setPageCount(pageCount)
     })()
   }, [])
@@ -22,12 +22,11 @@ function ProductsPage () {
     setLocalProducts(products)
   }
 
-  function priceLowToHigh (event) {
+  function priceLowToHigh () {
     setLocalProducts([...localProducts.sort((prev, curr) => prev.price - curr.price)])
-    console.log('in low to high')
   }
 
-  function priceHighToLow (event) {
+  function priceHighToLow () {
     setLocalProducts([...localProducts.sort((prev, curr) => curr.price - prev.price)])
   }
 
@@ -35,8 +34,10 @@ function ProductsPage () {
     const products = await handlePagination(page, category, limit)
     setLocalProducts(products)
   }
+
   function getPaginationButtons (pageCount) {
     const buttonsArr = []
+
     for (let i = 1; i <= pageCount; i++) {
       buttonsArr.push(
         <button

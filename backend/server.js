@@ -8,6 +8,7 @@ const cartRouter = require('./cart/cartRouter')
 const loginRouter = require('./login/loginRouter')
 const signupRouter = require('./signup/signupRouter')
 const ordersRouter = require('./orders/ordersRouter.js')
+
 const { initDB } = require('./config/initDB.js')
 
 require('dotenv').config()
@@ -20,10 +21,10 @@ initDB()
 function jwtAuthMiddleware (req, res, next) {
   const authHeader = req.headers.authorization
   const token = authHeader && authHeader.split(' ')[1]
-  console.log('token', token)
+
   if (!token) return res.sendStatus(401)
+
   jwt.verify(token, process.env.ACCESS_TOKEN, (err, result) => {
-    console.log('in jwt middleware', result)
     if (err) return res.sendStatus(403)
     req.userId = result.user_id
     next()

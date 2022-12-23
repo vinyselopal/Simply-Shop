@@ -29,50 +29,58 @@ const slice = createSlice({
 
   reducers: {
     addItem: (state, action) => {
-      state.cart.push({ item: action.payload, quantity: 1 })
+      const item = action.payload
+      state.cart.push({ item, quantity: 1 })
       localStorage.setItem('cart', JSON.stringify(state.cart))
     },
     incrementQuantity: (state, action) => { // hash map with id keys
-      const cartItem = state.cart.find((a) => a.item.id === action.payload)
+      const itemID = action.payload
+      const cartItem = state.cart.find((a) => a.item.id === itemID)
       cartItem.quantity++
       localStorage.setItem('cart', JSON.stringify(state.cart))
     },
     decrementQuantity: (state, action) => {
-      const cartItem = state.cart.find((a) => a.item.id === action.payload) // name the payload
+      const itemID = action.payload
+      const cartItem = state.cart.find((a) => a.item.id === itemID)
       if (cartItem.quantity === 1) cartItem.quantity = 1
       else cartItem.quantity--
       localStorage.setItem('cart', JSON.stringify(state.cart))
     },
     removeItem: (state, action) => {
-      const filteredCart = state.cart.filter((a) => a.item.id !== action.payload)
+      const itemID = action.payload
+      const filteredCart = state.cart.filter((a) => a.item.id !== itemID)
       state.cart = filteredCart
       localStorage.setItem('cart', JSON.stringify(state.cart))
     },
     setToken: (state, action) => {
-      state.token = action.payload
+      const token = action.payload
+      state.token = token
     },
     setUserID: (state, action) => {
-      state.userID = action.payload
+      const userID = action.payload
+      state.userID = userID
     },
     setOrder: (state, action) => {
-      console.log('setOrder')
-      state.order = action.payload
+      const order = action.payload
+      state.order = order
       localStorage.setItem('order', JSON.stringify(state.order))
     },
     setCart: (state, action) => {
-      state.cart = action.payload
+      const cart = action.payload
+      state.cart = cart
     }
 
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCartById.fulfilled, (state, action) => {
-      console.log('action payload in extra reducers', JSON.parse(action.payload))
-      state.cart = JSON.parse(action.payload)
+      const cart = action.payload
+      state.cart = JSON.parse(cart)
     })
   }
 })
 
 export const cartReducer = slice.reducer
+
 export const {
   addItem,
   incrementQuantity,

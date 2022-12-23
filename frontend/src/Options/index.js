@@ -6,8 +6,10 @@ import { useSelectorWrapper } from '../utils'
 
 function Options () {
   const [orderState, setOrderState] = useState(null)
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
   const order = useSelectorWrapper('order')
   const cart = useSelectorWrapper('cart')
 
@@ -16,9 +18,7 @@ function Options () {
   }, [])
 
   useEffect(() => {
-    console.log('in useEffect')
     const date = (new Date()).toISOString().substring(0, 10)
-    console.log('date', date)
     dispatch(setOrder({ ...order, paymentAmount: 500, deadline: date, products: cart }))
   }, [orderState])
 

@@ -9,7 +9,13 @@ function ProductsList ({ products }) {
         products.map((product, index) => {
           return (
             <li key={index}>
-              <Link to={`/products/product/${product.id}`} style={{ textDecoration: 'none', color: 'black' }}>
+              <Link
+                to={`/products/product/${product.id}`}
+                style={{
+                  textDecoration: 'none',
+                  color: 'black'
+                }}
+              >
                 <div className={categoryStyle['category-product-card']}>
                   <div className={categoryStyle['category-product-image']}>
                     <img

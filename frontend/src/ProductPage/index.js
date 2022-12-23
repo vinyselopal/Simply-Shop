@@ -22,14 +22,11 @@ function ProductPage ({ products }) {
     )
 
   function addToCart () {
-    console.log('addToCart')
     dispatch(addItem(product))
   }
 
   useEffect(() => {
-    console.log('items', items, 'product', product)
     if (items.find(a => a.item.id === product.id)) {
-      console.log('here')
       setAddedToCart(true)
     }
   }, [items, product])
@@ -53,10 +50,20 @@ function ProductPage ({ products }) {
           <p>Rs. {product.price}</p>{
             !addedToCart
               ? (
-                <button className={productStyle['product-cart-button']} onClick={addToCart}>Add to Cart</button>
+                <button
+                  className={productStyle['product-cart-button']}
+                  onClick={addToCart}
+                >
+                  Add to Cart
+                </button>
                 )
               : (
-                <button className={productStyle['product-gotocart-button']} onClick={goToCart}>Go to Cart</button>
+                <button
+                  className={productStyle['product-gotocart-button']}
+                  onClick={goToCart}
+                >
+                  Go to Cart
+                </button>
                 )
           }
 

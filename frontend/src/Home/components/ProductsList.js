@@ -10,7 +10,13 @@ function ProductsList ({ products }) {
         products.slice(0, 4).map((product, index) => {
           return (
             <li key={index}>
-              <Link to={`/products/product/${product.id}`} style={{ textDecoration: 'none', color: 'black' }}>
+              <Link
+                to={`/products/product/${product.id}`}
+                style={{
+                  textDecoration: 'none',
+                  color: 'blac'
+                }}
+              >
                 <div className={home['home-product-card']}>
                   <div className={home['home-product-image']}>
                     <img

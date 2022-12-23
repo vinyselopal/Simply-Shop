@@ -32,7 +32,6 @@ export async function createOrder (token, productsIdArray) {
     body: JSON.stringify(reqBody)
   })
   const orderID = await response.json()
-  console.log('orderID', orderID)
   return orderID
 }
 
@@ -44,10 +43,9 @@ export async function cancelOrder (token, orderID) {
       'Content-type': 'application/json'
     }
   })
-  console.log('response from delete order api', response)
+  console.log(response)
 }
 
-// need a collection for carts
 export const getServerCart = async (token) => {
   const response = await fetch(`${BASE_URL}/cart`, {
     method: 'GET',
@@ -75,7 +73,6 @@ export async function handlePagination (page, category, limit) {
   return products
 }
 
-// no need for total. just implement next and previous.
 export async function getProductsCount (category) {
   const response = await fetch(`${BASE_URL}/products/pages/${category}`)
   const count = await response.json()
