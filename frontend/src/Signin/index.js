@@ -48,7 +48,7 @@ const SignIn = () => {
   return (
     <>
       <Link to='/' className='flex flex-col justify-center items-center text-3xl no-underline text-black mt-7'>
-        Amazon
+        Simply Shop
       </Link>
       <div className='m-auto w-96 p-4 border-2 border-solid'>
         <strong><h3>Sign In</h3></strong>
@@ -90,7 +90,7 @@ const SignIn = () => {
         {
           loginFailFlag
             ? (
-              <div className='signin-error'>
+              <div className='signin-error text-red-400'>
                 <p>Invalid username or password</p>
               </div>
               )

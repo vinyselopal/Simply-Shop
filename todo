@@ -23,6 +23,7 @@ urgent:
 -- eliminate pageCount and do next and prev instead in products page
 -- error handling
 -- accurate http status code for responses
-
+-- do the same edits as signin for signup page as well
+-- look for more constants
 
 

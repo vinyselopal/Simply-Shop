@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import signup from './signup.module.css'
 
 const SignUp = () => {
   async function signupHandler () {
@@ -30,7 +29,7 @@ const SignUp = () => {
 
   return (
     <>
-      <Link to='/' className='flex flex-col justify-center items-center text-3xl no-underline text-black mt-7'>Amazon</Link>
+      <Link to='/' className='flex flex-col justify-center items-center text-3xl no-underline text-black mt-7'>Simply Shop</Link>
       <div className='m-auto w-96 p-4 border-2 border-solid'>
         <strong><h2>Sign In</h2></strong>
         <div className='signup-usr'>

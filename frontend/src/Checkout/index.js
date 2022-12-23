@@ -66,7 +66,7 @@ function Checkout () {
   }
   return (
     <div>
-      <Link to='/' className='no-underline text-black pl-5 position-absolute'><h2>Amazon</h2></Link>
+      <Link to='/' className='no-underline text-black pl-5 position-absolute'><h2>Simply Shop</h2></Link>
 
       <div className='flex bg-gray-300 justify-center p-2'>
         <h2 className='pl-5'>Checkout</h2>

@@ -45,11 +45,11 @@ function SearchBar ({ suggestions, setSuggestions }) {
   }
 
   return (
-    <div className={header['header-search-container']} onBlur={hideSuggestions}>
-      <div className={`${header['header-searchbar-button-container']} flex`}>
+    <div className={`${header['header-search-container']} flex`} onBlur={hideSuggestions}>
+      <div className={`${header['header-searchbar-button-container']} flex w-100`}>
         <input
           type='text'
-          className={`${header['header-search']} items-stretch text-black`}
+          className={`${header['header-search']} items-stretch text-black p-1 h-100%`}
           onKeyDown={onSearch}
           onChange={searchSuggestions}
           autoComplete='off'
@@ -57,7 +57,7 @@ function SearchBar ({ suggestions, setSuggestions }) {
         <div>
           <button
             onClick={onSearch}
-            className='p-1.5 text-black bg-amber-500'
+            className='p-1.5 text-black bg-amber-500 h-100%'
           >
             <span className='material-icons'>search</span>
           </button>
@@ -119,10 +119,10 @@ function Header ({ products }) {
 
   return (
 
-    <div className={header.header}>
+    <div className={`${header.header}`}>
       <Link to='/' style={{ textDecoration: 'none' }}>
         <div className={header['app-logo']}>
-          <p>Amazon</p>
+          <p className='m-0'>Simply Shop</p>
         </div>
       </Link>
       <SearchBar
@@ -136,7 +136,7 @@ function Header ({ products }) {
               ? (
                 <button
                   onClick={logoutHandler}
-                  className='py-2 px-3 bg-amber-500 text-black'
+                  className='py-1 px-2 bg-amber-500 text-black'
                 >
                   Logout
                 </button>
@@ -144,7 +144,7 @@ function Header ({ products }) {
               : (
                 <Link
                   to='/signin'
-                  className='py-2 px-3 bg-amber-500 text-black no-underline'
+                  className='py-1.5 px-2 bg-amber-500 text-black no-underline'
                 >
                   signin
                 </Link>
