@@ -68,7 +68,7 @@ export const updateServerCart = async (payload, token) => {
 }
 
 export async function handlePagination (page, category, limit) {
-  const response = await fetch(`${BASE_URL}/products/page/?page=${page}&limit=${limit}&category=${category}`)
+  const response = await fetch(`${BASE_URL}/products/page/?page=${page}&limit=${limit}&category=${category}&sortby=price&order=ASC`)
   const products = await response.json()
   return products
 }
@@ -81,7 +81,7 @@ export async function getProductsCount (category) {
 }
 
 export async function getProductsOfCategory (category) {
-  const response = await fetch(`${BASE_URL}/products/page/?page=1&&category=${category}`)
+  const response = await fetch(`${BASE_URL}/products/page/?page=1&category=${category}&sortby=price&order=ASC`)
   const products = await response.json()
   return products
 }

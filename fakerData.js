@@ -186,10 +186,10 @@ async function createSellersData () {
   }
 }
 
-createUsersData()
+// createUsersData()
 // createSellersData()
 // createProductsData()
-// createProductImagesData()
+createProductImagesData()
 // createOrdersData()
 // createOrdersMappingData()
 

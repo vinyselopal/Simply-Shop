@@ -17,10 +17,11 @@ const getProductsQuery = async () => {
   `)
 }
 
-const getProductsInPartsQuery = async (page, category) => {
+const getProductsInPartsASCQuery = async (page, category, order, sortby) => {
   const offset = (page - 1) * 10
   return await pool.query(
     `
+    SELECT * FROM (
     SELECT DISTINCT ON(products.id)
       products.id, products.name, products.category, 
       products.seller_id, products.description, 
@@ -34,7 +35,8 @@ const getProductsInPartsQuery = async (page, category) => {
       products.id = product_images.product_id 
   
       WHERE products.category = $1
-      ORDER BY products.id LIMIT 10 OFFSET $2 ;
+      ORDER BY products.id LIMIT 10 OFFSET $2
+      ) p ORDER BY p.${sortby} ${order};
   `
     , [category, offset])
 }
@@ -77,7 +79,7 @@ const getMatchingProductsQuery = async (keywords) => {
 
 module.exports = {
   getProductsQuery,
-  getProductsInPartsQuery,
+  getProductsInPartsASCQuery,
   getProductsCountQuery,
   getMatchingProductsQuery
 }
