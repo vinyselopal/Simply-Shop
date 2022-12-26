@@ -9,7 +9,7 @@ const pool = new Pool({
 })
 const categories = ['clothes', 'electronics', 'home-appliances']
 async function createProductsData () {
-  for (let i = 0; i < 200; i++) {
+  for (let i = 0; i < 10000; i++) {
     const obj = {
 
       description: faker.lorem.sentence(7),
@@ -62,14 +62,14 @@ async function createProductsData () {
 }
 
 async function createProductImagesData () {
-  for (let i = 0; i < 200; i++) {
+  for (let i = 0; i < 10000; i++) {
     const obj = {
       id: i + 1,
       url: faker.image.image(),
       product_id: faker.datatype.number(
         {
           min: 1,
-          max: 200
+          max: 10000
         }
       )
     }
@@ -86,7 +86,7 @@ async function createProductImagesData () {
 }
 
 async function createUsersData () {
-  for (let i = 0; i < 200; i++) {
+  for (let i = 0; i < 10000; i++) {
     const obj = {
       id: i + 1,
       first_name: faker.name.firstName(),
@@ -110,12 +110,12 @@ async function createUsersData () {
 }
 
 async function createOrdersData () {
-  for (let i = 0; i < 200; i++) {
+  for (let i = 0; i < 10000; i++) {
     const obj = {
       user_id: faker.datatype.number(
         {
           min: 1,
-          max: 200
+          max: 10000
         }
       ),
 
@@ -135,18 +135,18 @@ async function createOrdersData () {
 }
 
 async function createOrdersMappingData () {
-  for (let i = 0; i < 200; i++) {
+  for (let i = 0; i < 10000; i++) {
     const obj = {
       order_id: faker.datatype.number(
         {
           min: 1,
-          max: 200
+          max: 10000
         }
       ),
       product_id: faker.datatype.number(
         {
           min: 1,
-          max: 200
+          max: 10000
         }
       )
 
@@ -165,7 +165,7 @@ async function createOrdersMappingData () {
 }
 
 async function createSellersData () {
-  for (let i = 0; i < 200; i++) {
+  for (let i = 0; i < 10000; i++) {
     const obj = {
       id: i + 1,
       company_name: faker.random.word(),
@@ -186,7 +186,7 @@ async function createSellersData () {
   }
 }
 
-// createUsersData()
+createUsersData()
 // createSellersData()
 // createProductsData()
 // createProductImagesData()

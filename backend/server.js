@@ -20,12 +20,12 @@ initDB()
 
 function jwtAuthMiddleware (req, res, next) {
   const authHeader = req.headers.authorization
-  const token = authHeader && authHeader.split(' ')[1]
+  const token = authHeader && authHeader.split(' ')[1] // send 401 when authHeader not valid
 
   if (!token) return res.sendStatus(401)
 
-  jwt.verify(token, process.env.ACCESS_TOKEN, (err, result) => {
-    if (err) return res.sendStatus(403)
+  jwt.verify(token, process.env.ACCESS_TOKEN, (err, result) => { // promisify
+    if (err) return res.sendStatus(403) // 401.
     req.userId = result.user_id
     next()
   })

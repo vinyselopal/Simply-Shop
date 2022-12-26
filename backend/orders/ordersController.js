@@ -11,7 +11,7 @@ const createOrderFunction = async (req, res) => {
   if (response) {
     res.status(200)
     res.json(response)
-  } else res.send(500)
+  } else res.sendStatus(500)
 }
 
 const deleteOrderFunction = async (req, res) => {
@@ -20,7 +20,7 @@ const deleteOrderFunction = async (req, res) => {
   if (response) {
     res.status(200)
     res.json(response)
-  } else res.send(500)
+  } else res.sendStatus(500)
 }
 
 const orderPlacement = async (req, res) => {
@@ -30,7 +30,7 @@ const orderPlacement = async (req, res) => {
   if (response) {
     res.status(200)
     res.json(response)
-  } else res.send(500)
+  } else res.sendStatus(500)
 }
 
 module.exports = { createOrderFunction, deleteOrderFunction, orderPlacement }

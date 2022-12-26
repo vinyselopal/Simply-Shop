@@ -47,7 +47,7 @@ const getProductsCountQuery = async (category) => {
     , [category])
 }
 
-const getMatchingProductsQuery = async (keyword) => {
+const getMatchingProductsQuery = async (keywords) => {
   return await pool.query(
     `
     SELECT DISTINCT ON (products.id)
@@ -62,9 +62,17 @@ const getMatchingProductsQuery = async (keyword) => {
       ON 
       products.id = product_images.product_id
   
-      WHERE products.name ILIKE any (array[$1, $2]) ;
+      WHERE products.name ILIKE any ($1) ;
     `
-    , [`${keyword}%`, `% ${keyword}%`])
+    , [keywords.map((keyword, index) => {
+      console.log(index, `% ${keyword}%`, `${keyword}%`)
+      if (index === 0) {
+        console.log('zero')
+        return `${keyword}%`
+      }
+      console.log('not zero')
+      return `% ${keyword}%`
+    })])
 }
 
 module.exports = {

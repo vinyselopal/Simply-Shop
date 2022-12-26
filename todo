@@ -1,10 +1,9 @@
 urgent:
 -- make pages look good
--- search issue
--- 10,000 products
+-- 10,000 products *
 -- performant and optimized code
 -- use redux for state management instead of passing props
--- sort should sort products across all pages
+-- sort should sort products across all pages *
 -- payment wth stripe
 -- transactions and edge cases
 -- filter
@@ -17,7 +16,7 @@ urgent:
 -- location based 
 -- change userID handling
 -- store cart as hashmap on client side
--- naming uniformity
+-- naming uniformity *
 -- cart total items change to total unique items everywhere
 -- separate collection for cart
 -- eliminate pageCount and do next and prev instead in products page
@@ -25,5 +24,18 @@ urgent:
 -- accurate http status code for responses
 -- do the same edits as signin for signup page as well
 -- look for more constants
+-- Use custom breakpoints
 
-
+-- follow present tense format for commits lke asking git to do something *
+-- standard request and response formats for apis
+-- dont send error message in response *
+-- dont send password to client *
+-- options request
+-- dont use localstorage for storing jwt but cookies *
+-- learn about encryption and hash
+-- read about jwt
+-- use case of jwt over sessions
+-- email verification
+-- sign in and sign up should be in auth, lot of similar funcs
+-- features from demo: categories, filters, search
+-- commit before leaving geekskool

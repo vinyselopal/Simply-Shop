@@ -32,8 +32,8 @@ const getProductsCountFunction = async (req, res) => {
 }
 
 const getMatchingProductsFunction = async (req, res) => {
-  const { keyword } = req.params
-  const response = await getMatchingProductsQuery(keyword)
+  const { keywords } = req.params
+  const response = await getMatchingProductsQuery(keywords.split(' '))
   const count = response.rows
   if (!count) res.status(404)
   else {
