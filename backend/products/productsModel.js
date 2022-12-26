@@ -35,8 +35,8 @@ const getProductsInPartsASCQuery = async (page, category, order, sortby) => {
       products.id = product_images.product_id 
   
       WHERE products.category = $1
-      ORDER BY products.id LIMIT 10 OFFSET $2
-      ) p ORDER BY p.${sortby} ${order};
+      ORDER BY products.id
+      ) p ORDER BY p.${sortby} ${order}  LIMIT 10 OFFSET $2;
   `
     , [category, offset])
 }

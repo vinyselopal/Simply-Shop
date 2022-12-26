@@ -8,6 +8,7 @@ function ProductsPage () {
   const { category } = useParams()
   const [localProducts, setLocalProducts] = useState(null)
   const [pageCount, setPageCount] = useState(0)
+  const [page, setPage] = useState(1)
 
   useEffect(() => {
     (async () => {
@@ -18,22 +19,28 @@ function ProductsPage () {
   }, [])
 
   async function getProductsOfCategory (category) {
-    const products = await handlePagination(1, category, pageCount)
+    const products = await handlePagination(1, category, pageCount, 'price', 'ASC')
     setLocalProducts(products)
   }
 
-  function priceLowToHigh () {
-    setLocalProducts([...localProducts.sort((prev, curr) => prev.price - curr.price)])
+  async function priceLowToHigh () {
+    const products = await handlePagination(1, category, pageCount, 'price', 'ASC')
+    setLocalProducts(products)
   }
 
-  function priceHighToLow () {
-    setLocalProducts([...localProducts.sort((prev, curr) => curr.price - prev.price)])
+  async function priceHighToLow () {
+    const products = await handlePagination(1, category, pageCount, 'price', 'DESC')
+    setLocalProducts(products)
   }
 
   async function paginationEventHandler (page, category, limit) {
-    const products = await handlePagination(page, category, limit)
+    const products = await handlePagination(page, category, limit, 'price', 'ASC')
     setLocalProducts(products)
   }
+
+  useEffect(() => {
+    (async () => paginationEventHandler(page, category, 10))()
+  }, [page])
 
   function getPaginationButtons (pageCount) {
     const buttonsArr = []
@@ -42,7 +49,7 @@ function ProductsPage () {
       buttonsArr.push(
         <button
           key={i}
-          onClick={(event) => paginationEventHandler(event.target.value, category, 10)}
+          onClick={(event) => setPage(i)}
           value={i}
           className='bg-gray-300 p-2 m-2 border-2 border-solid border-black'
         >{i}
@@ -52,14 +59,14 @@ function ProductsPage () {
     return buttonsArr
   }
 
-  function handleSortOptions (event) {
+  async function handleSortOptions (event) {
     switch (event.target.value) {
       case 'price low to high':
-        priceLowToHigh()
+        await priceLowToHigh()
         break
 
       case 'price high to low':
-        priceHighToLow()
+        await priceHighToLow()
         break
 
       default:

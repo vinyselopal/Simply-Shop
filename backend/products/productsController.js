@@ -14,7 +14,6 @@ const getProductsFunction = async (req, res) => {
 
 const getProductsInPartsFunction = async (req, res) => {
   const { page, category, sortby, order } = req.query
-
   const products = await getProductsInPartsASCQuery(page, category, order, sortby)
   if (!products.rows[0]) res.status(404)
   else {
