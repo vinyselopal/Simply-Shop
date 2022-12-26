@@ -43,20 +43,25 @@ function ProductsPage () {
   }, [page])
 
   function getPaginationButtons (pageCount) {
-    const buttonsArr = []
-
-    for (let i = 1; i <= pageCount; i++) {
-      buttonsArr.push(
+    return (
+      <>
         <button
-          key={i}
-          onClick={(event) => setPage(i)}
-          value={i}
-          className='bg-gray-300 p-2 m-2 border-2 border-solid border-black'
-        >{i}
+          onClick={() => page - 1 > 0 && setPage(page - 1)}
+        >
+          Prev
         </button>
-      )
-    }
-    return buttonsArr
+        <button
+          value={page}
+          className='bg-gray-300 p-2 m-2 border-2 border-solid border-black'
+        >{page}
+        </button>
+        <button
+          onClick={() => page + 1 < pageCount && setPage(page + 1)}
+        >
+          Next
+        </button>
+      </>
+    )
   }
 
   async function handleSortOptions (event) {
