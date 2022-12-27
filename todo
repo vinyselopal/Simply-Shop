@@ -1,9 +1,7 @@
 urgent:
 -- make pages look good
--- 10,000 products *
 -- performant and optimized code
 -- use redux for state management instead of passing props
--- sort should sort products across all pages *
 -- payment wth stripe
 -- transactions and edge cases
 -- filter

@@ -9,6 +9,10 @@ function ProductsPage () {
   const [localProducts, setLocalProducts] = useState(null)
   const [pageCount, setPageCount] = useState(0)
   const [page, setPage] = useState(1)
+  const [sort, setSort] = useState({
+    sortby: 'id',
+    order: 'ASC'
+  })
 
   useEffect(() => {
     (async () => {
@@ -19,22 +23,19 @@ function ProductsPage () {
   }, [])
 
   async function getProductsOfCategory (category) {
-    const products = await handlePagination(1, category, pageCount, 'price', 'ASC')
+    const products = await handlePagination(1, category, pageCount, sort.sortby, sort.order)
     setLocalProducts(products)
   }
 
-  async function priceLowToHigh () {
-    const products = await handlePagination(1, category, pageCount, 'price', 'ASC')
-    setLocalProducts(products)
-  }
-
-  async function priceHighToLow () {
-    const products = await handlePagination(1, category, pageCount, 'price', 'DESC')
-    setLocalProducts(products)
-  }
+  useEffect(() => {
+    (async () => {
+      const products = await handlePagination(1, category, pageCount, sort.sortby, sort.order)
+      setLocalProducts(products)
+    })()
+  }, [sort])
 
   async function paginationEventHandler (page, category, limit) {
-    const products = await handlePagination(page, category, limit, 'price', 'ASC')
+    const products = await handlePagination(page, category, limit, sort.sortby, sort.order)
     setLocalProducts(products)
   }
 
@@ -66,12 +67,25 @@ function ProductsPage () {
 
   async function handleSortOptions (event) {
     switch (event.target.value) {
+      case 'featured':
+        setSort({
+          sortby: 'id',
+          order: 'ASC'
+        })
+        break
+
       case 'price low to high':
-        await priceLowToHigh()
+        setSort({
+          sortby: 'price',
+          order: 'ASC'
+        })
         break
 
       case 'price high to low':
-        await priceHighToLow()
+        setSort({
+          sortby: 'price',
+          order: 'DESC'
+        })
         break
 
       default:
@@ -96,8 +110,10 @@ function ProductsPage () {
       </div>
       <div>
         <select onChange={handleSortOptions}>
+          <option selected>featured</option>
           <option>price high to low</option>
           <option>price low to high</option>
+
         </select>
       </div>
       <div>
@@ -105,7 +121,9 @@ function ProductsPage () {
       </div>
       <div className={categoryStyle['category-products-page-buttons']}>
         {
-            pageCount ? getPaginationButtons(pageCount) : null
+            pageCount
+              ? getPaginationButtons(pageCount)
+              : null
 
           }
 
