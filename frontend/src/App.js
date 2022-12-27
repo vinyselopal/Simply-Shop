@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom'
 import Home from './Home'
-import ProductPage from './ProductPage'
+import ProductDetails from './ProductDetails'
 import Cart from './Cart'
 import OrderPlaced from './OrderPlaced'
 import Checkout from './Checkout'
@@ -12,7 +12,7 @@ import Payment from './Payment'
 import Options from './Options'
 import { useEffect, useState } from 'react'
 import { getServerProducts } from './apis'
-import ProductsPage from './ProductsPage'
+import CategoryResults from './CategoryResults'
 import { Provider } from 'react-redux'
 import { store } from './redux/store'
 import './styles/index.css'
@@ -43,10 +43,10 @@ function App () {
           <Routes>
             <Route path='' element={<HomeTemplate />}>
               <Route path='/' element={<Home products={products} />} />
-              <Route path='/products/product/:id' element={<ProductPage products={products} />} />
+              <Route path='/products/product/:id' element={<ProductDetails products={products} />} />
               <Route path='/cart' element={<Cart />} />
               <Route path='/search_results/:keyword' element={<SearchResults products={products} />} />
-              <Route path='/products/:category' element={<ProductsPage products={products} />} />
+              <Route path='/products/:category' element={<CategoryResults products={products} />} />
             </Route>
             <Route path='/signin' element={<Signin setUserID={setUserID} />} />
             <Route path='/signup' element={<Signup />} />

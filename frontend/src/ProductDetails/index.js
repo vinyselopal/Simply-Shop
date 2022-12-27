@@ -6,7 +6,7 @@ import productStyle from './product.module.css'
 import { useSelectorWrapper } from '../utils'
 import { emptyImageUrl } from '../constants'
 
-function ProductPage ({ products }) {
+function ProductDetails ({ products }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const items = useSelectorWrapper('cart')
@@ -74,4 +74,4 @@ function ProductPage ({ products }) {
   )
 }
 
-export default ProductPage
+export default ProductDetails

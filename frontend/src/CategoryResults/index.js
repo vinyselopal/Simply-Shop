@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { handlePagination, getProductsCount } from '../apis'
 import categoryStyle from './category.module.css'
 
-function ProductsPage () {
+function CategoryResults () {
   const { category } = useParams()
   const [localProducts, setLocalProducts] = useState(null)
   const [pageCount, setPageCount] = useState(0)
@@ -133,4 +133,4 @@ function ProductsPage () {
   )
 }
 
-export default ProductsPage
+export default CategoryResults
