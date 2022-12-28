@@ -1,22 +1,37 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-
+import { passwordIsValid } from '../utils'
 const SignUp = () => {
-  async function signupHandler () {
-    const email = document.getElementsByClassName('signup-email')[0].value
-    const password = document.getElementsByClassName('signup-password')[0].value
-    const confirmPassword = document.getElementsByClassName('signup-confirmPassword')[0].value
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [emptyFlag, setEmptyFlag] = useState(false)
+  const [passwordsDontMatch, setPasswordsDontMatch] = useState(false)
+  const [invalidPassword, setInvalidPassword] = useState(false)
 
-    if (password !== confirmPassword) {
-      document.querySelector('body').innerHTML = 'passwords dont match'
+  useEffect(() => {
+    console.log(email, password, confirmPassword)
+  }, [email, password, confirmPassword])
+
+  async function signupHandler () {
+    console.log(email, password, confirmPassword)
+
+    if (email === '' || password === '') {
+      setEmptyFlag(true)
       return
     }
+    if (password !== confirmPassword) {
+      setPasswordsDontMatch(true)
+      return
+    }
+
+    if (!passwordIsValid(password)) setInvalidPassword(true)
 
     const response = await fetch(
       'http://localhost:8000/register',
       {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: { 'Content-type': 'application/json' },
         body: JSON.stringify({ email, password })
       }
     )
@@ -29,24 +44,75 @@ const SignUp = () => {
 
   return (
     <>
-      <Link to='/' className='flex flex-col justify-center items-center text-3xl no-underline text-black mt-7'>Simply Shop</Link>
+      <Link
+        to='/'
+        className='flex flex-col justify-center items-center text-3xl no-underline text-black mt-7'
+      >
+        Simply Shop
+      </Link>
       <div className='m-auto w-96 p-4 border-2 border-solid'>
-        <strong><h2>Sign In</h2></strong>
+        <strong><h2>Sign Up</h2></strong>
         <div className='signup-usr'>
           <div>Email</div>
-          <input type='text' className='signup-email border-2 border-solid w-full' />
+          <input
+            type='text'
+            className='signup-email border-2 border-solid w-full'
+            onChange={(event) => setEmail(event.target.value)}
+          />
         </div>
         <div className='signup-pwd' />
         <div>Password</div>
-        <input className='signup-password signin-password border-2 border-solid w-full' name='password' type='password' />
+        <input
+          className='signup-password signin-password border-2 border-solid w-full'
+          onChange={(event) => setPassword(event.target.value)}
+          name='password'
+          type='password'
+        />
         <div>Confirm Password</div>
-        <input className='signup-confirmPassword border-2 border-solid w-full' name='password' type='password' /><span><button>show</button></span>
-        {/* <label>Upload your picture</label> */}
-        {/* <input type="file" className="signup-imageUpload" name="imageUpload" /> */}
-        <input type='button' className='signup-submit bg-amber-400 w-full mt-4' onClick={signupHandler} defaultValue='Signup' />
+        <input
+          className='signup-confirmPassword border-2 border-solid w-full'
+          onChange={(event) => setConfirmPassword(event.target.value)}
+          name='password'
+          type='password'
+        />
+        <span><button>show</button></span>
+        <input
+          type='button'
+          className='signup-submit bg-amber-400 w-full mt-4'
+          onClick={signupHandler}
+          defaultValue='Signup'
+        />
         <Link to='/signin'>
           <p>signin</p>
         </Link>
+        {
+          emptyFlag
+            ? (
+              <div className='signin-error text-red-400'>
+                <strong><p>empty email or password</p></strong>
+              </div>
+              )
+            : null
+        }
+        {
+          passwordsDontMatch
+            ? (
+              <div className='signin-error text-red-400'>
+                <p>Passwords dont match</p>
+              </div>
+              )
+            : null
+        }
+        {
+          invalidPassword
+            ? (
+              <div className='signin-error text-red-400'>
+                <p>Type stronger password</p>
+              </div>
+              )
+            : null
+        }
+
       </div>
     </>
   )

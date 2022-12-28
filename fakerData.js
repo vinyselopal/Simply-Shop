@@ -88,7 +88,6 @@ async function createProductImagesData () {
 async function createUsersData () {
   for (let i = 0; i < 10000; i++) {
     const obj = {
-      id: i + 1,
       first_name: faker.name.firstName(),
       last_name: faker.name.lastName(),
       password: faker.internet.password(),
@@ -99,9 +98,9 @@ async function createUsersData () {
     try {
       const response = await pool.query(`
             INSERT INTO users 
-            (first_name, last_name, password, email_address, address, created_at, id)
-             VALUES ($1, $2, $3, $4, $5, $6, $7);`,
-      [obj.first_name, obj.last_name, obj.password, obj.email_address, obj.address, obj.created_at, obj.id])
+            (first_name, last_name, password, email_address, address, created_at)
+             VALUES ($1, $2, $3, $4, $5, $6);`,
+      [obj.first_name, obj.last_name, obj.password, obj.email_address, obj.address, obj.created_at])
       console.log(response)
     } catch (err) {
       console.log(err)
@@ -186,10 +185,10 @@ async function createSellersData () {
   }
 }
 
-// createUsersData()
+createUsersData()
 // createSellersData()
 // createProductsData()
-createProductImagesData()
+// createProductImagesData()
 // createOrdersData()
 // createOrdersMappingData()
 

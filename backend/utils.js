@@ -6,10 +6,4 @@ function generateAccessToken (obj) {
   return accessToken
 }
 
-function validatePassword (password) {
-  const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
-  if (!regex.test(password)) return 'password invalid'
-  return 'valid'
-}
-
-module.exports = { generateAccessToken, validatePassword }
+module.exports = { generateAccessToken }

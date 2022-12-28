@@ -14,7 +14,6 @@ urgent:
 -- location based 
 -- change userID handling
 -- store cart as hashmap on client side
--- naming uniformity *
 -- cart total items change to total unique items everywhere
 -- separate collection for cart
 -- eliminate pageCount and do next and prev instead in products page
@@ -24,7 +23,6 @@ urgent:
 -- look for more constants
 -- Use custom breakpoints
 
--- follow present tense format for commits lke asking git to do something *
 -- standard request and response formats for apis
 -- dont send error message in response *
 -- dont send password to client *
@@ -37,3 +35,6 @@ urgent:
 -- sign in and sign up should be in auth, lot of similar funcs
 -- features from demo: categories, filters, search
 -- commit before leaving geekskool
+-- register a user
+-- use user email instead of name or userID
+-- email address checker on client side

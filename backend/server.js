@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const jwt = require('jsonwebtoken')
-
+// const pino = require('express-pino-logger')
 const productsRouter = require('./products/productsRouter')
 const cartRouter = require('./cart/cartRouter')
 const loginRouter = require('./login/loginRouter')
@@ -13,7 +13,14 @@ const { initDB } = require('./config/initDB.js')
 
 require('dotenv').config()
 
+// app.use(pino)
 app.use(express.json())
+
+app.use((req, res, next) => {
+  console.log('in middleware', req.body)
+  next()
+})
+
 app.use(cors())
 
 initDB()

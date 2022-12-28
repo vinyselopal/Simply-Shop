@@ -1,27 +1,50 @@
-const { validatePassword } = require('../utils')
-const { validateEmail, insertUser } = require('./signupModel')
+const { checkEmailAlreadyRegistered, insertUser } = require('./signupModel')
 const bcrypt = require('bcrypt')
 
 const saltRounds = 10
 
-// use better pattern for validating fields
-// validation response format (create a standard), json schema. error handling
-const signupFunction = async (req, res) => { // {name suggestions: signupUser}
-  const checkedUser = await validateEmail(req.body.email) // naming
-
-  if (!checkedUser) {
-    res.status(400).json('user already exists') // not a 400, why?
-  } else {
-    const validated = validatePassword(req.body.password) // return boolean
-    if (validated === 'valid') {
-      const salt = await bcrypt.genSalt(saltRounds)
-      const hashedPass = await bcrypt.hash(req.body.password, salt)
-      await insertUser(req.body.email, hashedPass)
-      res.status(200).json(validated) // remove .status
-    } else {
-      res.status(400).json(validated)
-    }
+const responses = {
+  emailAlreadyRegistered: {
+    statusCode: 409,
+    message: 'email already registered'
+  },
+  registrationSuccessful: {
+    statusCode: 201,
+    message: 'registration successful'
+  },
+  emailConfirmationSent: {
+    statusCode: 202,
+    message: 'email confirmation sent'
+  },
+  serverError: {
+    statusCode: 500,
+    message: 'Server error'
   }
 }
 
-module.exports = { signupFunction }
+const registerUser = async (req, res) => {
+  console.log('registerRouter')
+  const emailExists = await checkEmailAlreadyRegistered(req.body.email)
+
+  if (emailExists instanceof Error) {
+    return res.status(responses.serverError.statusCode)
+      .json(responses.serverError.message)
+  }
+  if (emailExists) {
+    return res.status(responses.emailAlreadyRegistered.statusCode)
+      .json(responses.emailAlreadyRegistered.message)
+  }
+
+  const salt = await bcrypt.genSalt(saltRounds)
+  const hashedPassword = await bcrypt.hash(req.body.password, salt)
+  const userInserted = await insertUser(req.body.email, hashedPassword)
+
+  if (userInserted instanceof Error) {
+    return res.status(responses.serverError.statusCode)
+      .json(responses.serverError.message)
+  }
+  res.status(responses.registrationSuccessful.statusCode)
+    .json(responses.registrationSuccessful.message)
+}
+
+module.exports = { registerUser }
