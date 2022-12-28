@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { passwordIsValid } from '../utils'
+import { passwordIsValid, emailIsValid } from '../utils'
 const SignUp = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -8,24 +8,24 @@ const SignUp = () => {
   const [emptyFlag, setEmptyFlag] = useState(false)
   const [passwordsDontMatch, setPasswordsDontMatch] = useState(false)
   const [invalidPassword, setInvalidPassword] = useState(false)
-
-  useEffect(() => {
-    console.log(email, password, confirmPassword)
-  }, [email, password, confirmPassword])
+  const [invalidEmail, setInvalidEmail] = useState(false)
 
   async function signupHandler () {
-    console.log(email, password, confirmPassword)
-
     if (email === '' || password === '') {
-      setEmptyFlag(true)
-      return
-    }
-    if (password !== confirmPassword) {
-      setPasswordsDontMatch(true)
-      return
+      return setEmptyFlag(true)
     }
 
-    if (!passwordIsValid(password)) setInvalidPassword(true)
+    if (password !== confirmPassword) {
+      return setPasswordsDontMatch(true)
+    }
+
+    if (!emailIsValid(email)) {
+      return setInvalidEmail(true)
+    }
+
+    if (!passwordIsValid(password)) {
+      return setInvalidPassword(true)
+    }
 
     const response = await fetch(
       'http://localhost:8000/register',
@@ -36,7 +36,7 @@ const SignUp = () => {
       }
     )
     const message = await response.json()
-    if (response.ok) window.location.href = 'http://localhost:3000'
+    if (response.ok) window.location.href = 'http://localhost:3000/signin'
     else {
       document.querySelector('body').innerHTML = message
     }
@@ -108,6 +108,15 @@ const SignUp = () => {
             ? (
               <div className='signin-error text-red-400'>
                 <p>Type stronger password</p>
+              </div>
+              )
+            : null
+        }
+        {
+          invalidEmail
+            ? (
+              <div className='signin-error text-red-400'>
+                <p>Invalid email</p>
               </div>
               )
             : null
