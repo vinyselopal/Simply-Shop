@@ -4,13 +4,10 @@ import {
   useNavigate,
   useSearchParams
 } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { setToken } from '../redux/slice'
 import signin from './signin.module.css'
 import { emailIsValid } from '../utils'
 
 const SignIn = () => {
-  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
 
@@ -33,19 +30,19 @@ const SignIn = () => {
       {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password }),
+        credentials: 'include'
       })
 
     const parsedResponse = await response.json()
 
-    if (response.status === 404) {
+    if (response.status !== 200) {
       setLoginFailMessage(parsedResponse)
       return
     }
 
-    localStorage.setItem('token', JSON.stringify(parsedResponse.accessToken))
-    dispatch(setToken(parsedResponse.accessToken))
-
+    localStorage.setItem('loggedIn', true)
+    localStorage.removeItem('cart')
     const checkout = searchParams.get('checkout')
     if (checkout) navigate('/checkout')
     else navigate('/')

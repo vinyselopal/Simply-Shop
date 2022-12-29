@@ -4,7 +4,7 @@ import { getServerCart, updateServerCart } from '../apis'
 export const fetchCartById = createAsyncThunk(
   'cart/fetchCartById',
   async () => {
-    const response = await getServerCart() // use userID from token
+    const response = await getServerCart()
     return response
   }
 )

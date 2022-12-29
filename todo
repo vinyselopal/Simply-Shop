@@ -38,3 +38,4 @@ urgent:
 -- register a user
 -- use user email instead of name or userID
 -- email address checker on client side
+-- replace cart upon signin

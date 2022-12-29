@@ -30,9 +30,13 @@ const loginUser = async (req, res) => {
   try {
     await comparePasswords(req.body.password, creds.password)
     const accessToken = generateAccessToken({
-      user_id: creds.id
+      userID: creds.id,
+      email: req.body.email
+      // other info
     })
-    res.json({ accessToken })
+
+    res.cookie('accessToken', accessToken, { httpOnly: true })
+      .json('logged in successfully')
   } catch (err) {
     res.status(responseMap.invalidPassword.statusCode)
       .json(responseMap.invalidPassword.message) // change the way of sending token

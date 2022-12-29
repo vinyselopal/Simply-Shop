@@ -10,7 +10,7 @@ function Cart () {
   const token = useSelectorWrapper('token')
 
   useEffect(() => {
-    if (token) dispatch(fetchCartById(token))
+    dispatch(fetchCartById(token))
   }, [])
 
   const cart = useSelectorWrapper('cart')

@@ -1,8 +1,9 @@
 const { getCartQuery, putCartQuery } = require('./cartModel.js')
 
 const getCartFunction = async (req, res) => {
-  const userId = req.userId
-  const response = await getCartQuery(userId)
+  console.log('in get cart')
+  const userID = req.userID
+  const response = await getCartQuery(userID)
   if (!response?.rows[0]?.cart) res.status(404)
   else {
     res.json(JSON.parse(response.rows[0].cart))
@@ -10,10 +11,11 @@ const getCartFunction = async (req, res) => {
 }
 
 const putCartFunction = async (req, res) => {
+  console.log('in put cart')
   const cart = req.body.cart
   try {
     const response = await putCartQuery(JSON.stringify(cart),
-      req.body.userID)
+      req.userID)
     res.status(200)
     res.json(response)
   } catch (err) {

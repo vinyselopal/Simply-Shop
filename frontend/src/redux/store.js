@@ -6,32 +6,32 @@ const listenerMiddleware = createListenerMiddleware()
 listenerMiddleware.startListening({
   actionCreator: addItem,
   effect: (action, listenerAPI) => {
-    const cartStr = listenerAPI.getState().cart
-    listenerAPI.dispatch(updateCartById({ cartStr }))
+    const cart = listenerAPI.getState().cart
+    listenerAPI.dispatch(updateCartById({ cart }))
   }
 })
 
 listenerMiddleware.startListening({
   actionCreator: incrementQuantity,
   effect: (action, listenerAPI) => {
-    const cartStr = listenerAPI.getState().cart
-    listenerAPI.dispatch(updateCartById({ cartStr }))
+    const cart = listenerAPI.getState().cart
+    listenerAPI.dispatch(updateCartById({ cart }))
   }
 })
 
 listenerMiddleware.startListening({
   actionCreator: decrementQuantity,
   effect: (action, listenerAPI) => {
-    const cartStr = listenerAPI.getState().cart
-    listenerAPI.dispatch(updateCartById({ cartStr }))
+    const cart = listenerAPI.getState().cart
+    listenerAPI.dispatch(updateCartById({ cart }))
   }
 })
 
 listenerMiddleware.startListening({
   actionCreator: removeItem,
   effect: (action, listenerAPI) => {
-    const cartStr = listenerAPI.getState().cart
-    listenerAPI.dispatch(updateCartById({ cartStr }))
+    const cart = listenerAPI.getState().cart
+    listenerAPI.dispatch(updateCartById({ cart }))
   }
 })
 

@@ -6,7 +6,7 @@ const {
 
 const createOrderFunction = async (req, res) => {
   const { productsIdArray } = req.body
-  const userID = req.userId
+  const userID = req.userID
   const response = await createOrderQuery(productsIdArray, userID)
   if (response) {
     res.status(200)

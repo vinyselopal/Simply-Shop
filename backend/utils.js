@@ -13,6 +13,11 @@ function generateAccessToken (obj) {
   return accessToken
 }
 
+function logoutHandler (req, res, next) {
+  res.clearCookie('accessToken')
+  res.sendStatus(200)
+}
+
 const transport = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
@@ -45,15 +50,18 @@ async function getHashedPassword (password) {
 }
 
 function jwtAuthMiddleware (req, res, next) {
-  const authHeader = req.headers.authorization
-  const token = authHeader && authHeader.split(' ')[1] // send 401 when authHeader not valid
-
-  if (!token) return res.sendStatus(401)
+  console.log('in jwt middleware', req.cookies)
+  const token = req.cookies.accessToken
+  if (!token) return res.sendStatus(403)
 
   try {
     const result = jwt.verify(token, process.env.ACCESS_TOKEN)
-    req.userId = result.user_id // change this to email
+    console.log(result)
+    req.email = result.email // change this to email
+    req.userID = result.userID
+    console.log('inside jwtAuth', result)
   } catch (err) {
+    console.log('in jwt err', err)
     return res.sendStatus(401)
   }
   next()
@@ -80,5 +88,6 @@ module.exports = {
   getHashedPassword,
   jwtAuthMiddleware,
   confirmationAuth,
-  comparePasswords
+  comparePasswords,
+  logoutHandler
 }

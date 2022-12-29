@@ -1,14 +1,16 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import { getMatchingProducts } from '../apis'
+import { getMatchingProducts, logoutFromServer } from '../apis'
 import { useDispatch } from 'react-redux'
 import { useSelectorWrapper } from '../utils'
+import { useCookies } from 'react-cookie'
 
 import header from '../styles/header.module.css'
 import { setToken, setCart, setOrder } from '../redux/slice'
 
 function SearchBar ({ suggestions, setSuggestions }) {
   const [mouseDown, setMouseDown] = useState(false)
+  const [setCookie, removeCookie, cookies] = useCookies(['accessToken'])
 
   const navigate = useNavigate()
 
@@ -95,12 +97,15 @@ function Header ({ products }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  function logoutHandler () {
-    dispatch(setToken(null))
+  async function logoutHandler () {
+    const response = await logoutFromServer()
+
+    if (!response.ok) return
+
     dispatch(setCart([]))
     dispatch(setOrder(null))
 
-    localStorage.removeItem('token')
+    localStorage.setItem('loggedIn', false)
     localStorage.removeItem('cart')
     localStorage.removeItem('order')
 
@@ -132,7 +137,7 @@ function Header ({ products }) {
       />
 
       {
-            useSelectorWrapper('token')
+            JSON.parse(localStorage.getItem('loggedIn'))
               ? (
                 <button
                   onClick={logoutHandler}
