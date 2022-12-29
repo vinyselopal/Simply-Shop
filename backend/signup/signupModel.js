@@ -12,4 +12,11 @@ async function insertUser (email, hashedPass) {
   console.log('response from insertUser', response)
   return response.rowCount
 }
-module.exports = { checkEmailAlreadyRegistered, insertUser }
+
+async function changeUserStatus (email) {
+  const response = await pool.query('UPDATE users SET status = \'active\' WHERE email_address = $1;', [email])
+  console.log('after updating user status', response)
+  return response
+}
+
+module.exports = { checkEmailAlreadyRegistered, insertUser, changeUserStatus }

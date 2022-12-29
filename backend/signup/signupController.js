@@ -1,34 +1,5 @@
-const { checkEmailAlreadyRegistered, insertUser } = require('./signupModel')
-const bcrypt = require('bcrypt')
-const config = require('../auth.config')
-
-const nodemailer = require('nodemailer')
-const saltRounds = 10
-
-const user = config.user
-const pass = config.pass
-
-const transport = nodemailer.createTransport({
-  service: 'Gmail',
-  auth: {
-    user,
-    pass
-  }
-})
-
-const sendConfirmationEmail = (name, email, confirmationCode) => {
-  console.log('Check')
-  transport.sendMail({
-    from: user,
-    to: email,
-    subject: 'Please confirm your account',
-    html: `<h1>Email Confirmation</h1>
-        <h2>Hello ${name}</h2>
-        <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
-        <a href=http://localhost:8000/signup/confirm/${confirmationCode}> Click here</a>
-        </div>`
-  }).catch(err => console.log(err))
-}
+const { checkEmailAlreadyRegistered, insertUser, changeUserStatus } = require('./signupModel')
+const { sendConfirmationEmail, getHashedPassword } = require('../utils')
 
 const responses = {
   emailAlreadyRegistered: {
@@ -53,6 +24,19 @@ const responses = {
   }
 }
 
+const confirmUser = async (req, res) => {
+  const email = req.email
+  const userConfirmed = await changeUserStatus(email)
+
+  if (userConfirmed instanceof Error) {
+    return res.status(responses.serverError.statusCode)
+      .json(responses.serverError.message)
+  }
+
+  res.status(responses.registrationSuccessful.statusCode)
+    .json(responses.registrationSuccessful.message)
+}
+
 const registerUser = async (req, res) => {
   console.log('registerRouter')
   const emailExists = await checkEmailAlreadyRegistered(req.body.email)
@@ -66,8 +50,7 @@ const registerUser = async (req, res) => {
       .json(responses.emailAlreadyRegistered.message)
   }
 
-  const salt = await bcrypt.genSalt(saltRounds)
-  const hashedPassword = await bcrypt.hash(req.body.password, salt)
+  const hashedPassword = await getHashedPassword(req.body.password)
   const userInserted = await insertUser(req.body.email, hashedPassword)
 
   if (userInserted instanceof Error) {
@@ -75,7 +58,7 @@ const registerUser = async (req, res) => {
       .json(responses.serverError.message)
   }
 
-  const emailConfirmationResponse = await sendConfirmationEmail('viny', 'viny0698@gmail.com', 'secret')
+  const emailConfirmationResponse = await sendConfirmationEmail(req.body.email)
 
   if (emailConfirmationResponse instanceof Error) {
     return res.status(responses.emailConfirmationFailed.statusCode)
@@ -84,9 +67,6 @@ const registerUser = async (req, res) => {
 
   return res.status(responses.emailConfirmationSent.statusCode)
     .json(responses.emailConfirmationSent.message)
-
-  // res.status(responses.registrationSuccessful.statusCode)
-  //   .json(responses.registrationSuccessful.message)
 }
 
-module.exports = { registerUser }
+module.exports = { registerUser, confirmUser }

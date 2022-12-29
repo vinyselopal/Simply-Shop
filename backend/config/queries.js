@@ -6,7 +6,8 @@ const createUsersTable = `CREATE TABLE IF NOT EXISTS users
      email_address text, 
      address text, 
      created_at timestamp, 
-     cart text
+     cart text,
+     status text
 );`
 
 // updated_at field (standard across tables), expected_delivery, values and not references for orders
