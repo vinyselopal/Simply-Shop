@@ -1,9 +1,13 @@
 const { pool } = require('../config/initDB')
 
-async function loginCreds (userID) {
+async function getLoginCreds (email) {
   // only get password. name the response differently
-  const response = await pool.query('SELECT id, password from users WHERE id=$1;', [userID])
-  return response.rows[0]
+  try {
+    const response = await pool.query('SELECT id, password from users WHERE email_address=$1;', [email])
+    return response.rows[0]
+  } catch (err) {
+    return err
+  }
 }
 
-module.exports = { loginCreds }
+module.exports = { getLoginCreds }

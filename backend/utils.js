@@ -1,4 +1,5 @@
 require('dotenv').config()
+
 const jwt = require('jsonwebtoken')
 const nodemailer = require('nodemailer')
 const config = require('./auth.config')
@@ -49,20 +50,35 @@ function jwtAuthMiddleware (req, res, next) {
 
   if (!token) return res.sendStatus(401)
 
-  jwt.verify(token, process.env.ACCESS_TOKEN, (err, result) => { // promisify
-    if (err) return res.sendStatus(403) // 401.
+  try {
+    const result = jwt.verify(token, process.env.ACCESS_TOKEN)
     req.userId = result.user_id // change this to email
-    next()
-  })
+  } catch (err) {
+    return res.sendStatus(401)
+  }
+  next()
 }
 
 function confirmationAuth (req, res, next) {
   const { token } = req.params
-  jwt.verify(token, process.env.ACCESS_TOKEN, (err, result) => { // promisify
-    if (err) return res.sendStatus(403) // 401.
-    req.email = result.email// change this to email
+  try {
+    const result = jwt.verify(token, process.env.ACCESS_TOKEN)
+    req.email = result.email
     next()
-  })
+  } catch (err) {
+    return res.sendStatus(401)
+  }
 }
 
-module.exports = { generateAccessToken, sendConfirmationEmail, getHashedPassword, jwtAuthMiddleware, confirmationAuth }
+async function comparePasswords (loginPassword, storedPassword) {
+  await bcrypt.compare(loginPassword, storedPassword)
+}
+
+module.exports = {
+  generateAccessToken,
+  sendConfirmationEmail,
+  getHashedPassword,
+  jwtAuthMiddleware,
+  confirmationAuth,
+  comparePasswords
+}
