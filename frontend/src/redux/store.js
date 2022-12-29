@@ -7,7 +7,7 @@ listenerMiddleware.startListening({
   actionCreator: addItem,
   effect: (action, listenerAPI) => {
     const cartStr = listenerAPI.getState().cart
-    listenerAPI.dispatch(updateCartById({ cartStr, userID: 1 }))
+    listenerAPI.dispatch(updateCartById({ cartStr }))
   }
 })
 
@@ -15,7 +15,7 @@ listenerMiddleware.startListening({
   actionCreator: incrementQuantity,
   effect: (action, listenerAPI) => {
     const cartStr = listenerAPI.getState().cart
-    listenerAPI.dispatch(updateCartById({ cartStr, userID: 1 }))
+    listenerAPI.dispatch(updateCartById({ cartStr }))
   }
 })
 
@@ -23,7 +23,7 @@ listenerMiddleware.startListening({
   actionCreator: decrementQuantity,
   effect: (action, listenerAPI) => {
     const cartStr = listenerAPI.getState().cart
-    listenerAPI.dispatch(updateCartById({ cartStr, userID: 1 }))
+    listenerAPI.dispatch(updateCartById({ cartStr }))
   }
 })
 
@@ -31,7 +31,7 @@ listenerMiddleware.startListening({
   actionCreator: removeItem,
   effect: (action, listenerAPI) => {
     const cartStr = listenerAPI.getState().cart
-    listenerAPI.dispatch(updateCartById({ cartStr, userID: 1 }))
+    listenerAPI.dispatch(updateCartById({ cartStr }))
   }
 })
 

@@ -27,7 +27,6 @@ const HomeTemplate = () => {
 }
 function App () {
   const [products, setProducts] = useState(null)
-  const [userID, setUserID] = useState(null)
   useEffect(() => {
     (async () => {
       const products = await getServerProducts()
@@ -48,7 +47,7 @@ function App () {
               <Route path='/search_results/:keyword' element={<SearchResults products={products} />} />
               <Route path='/products/:category' element={<CategoryResults products={products} />} />
             </Route>
-            <Route path='/signin' element={<Signin setUserID={setUserID} />} />
+            <Route path='/signin' element={<Signin />} />
             <Route path='/signup' element={<Signup />} />
             <Route path='/order_placed' element={<OrderPlaced />} />
             <Route path='/checkout' element={<Checkout />} />

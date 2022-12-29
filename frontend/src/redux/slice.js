@@ -3,8 +3,8 @@ import { getServerCart, updateServerCart } from '../apis'
 
 export const fetchCartById = createAsyncThunk(
   'cart/fetchCartById',
-  async (userId) => {
-    const response = await getServerCart(userId)
+  async () => {
+    const response = await getServerCart() // use userID from token
     return response
   }
 )
@@ -12,9 +12,9 @@ export const fetchCartById = createAsyncThunk(
 export const updateCartById = createAsyncThunk(
   'cart/updateCartById',
   async (options, thunkAPI) => {
-    const { cart, userID } = options
+    const { cart } = options
     const token = thunkAPI.getState().token
-    const response = await updateServerCart({ cart, userID }, token)
+    const response = await updateServerCart({ cart }, token)
     return response
   }
 )
@@ -23,7 +23,6 @@ const slice = createSlice({
   initialState: {
     cart: JSON.parse(localStorage.getItem('cart')) || [],
     token: JSON.parse(localStorage.getItem('token')),
-    userID: JSON.parse(localStorage.getItem('userID')),
     order: JSON.parse(localStorage.getItem('order'))
   },
 
@@ -56,10 +55,7 @@ const slice = createSlice({
       const token = action.payload
       state.token = token
     },
-    setUserID: (state, action) => {
-      const userID = action.payload
-      state.userID = userID
-    },
+
     setOrder: (state, action) => {
       const order = action.payload
       state.order = order
@@ -87,7 +83,6 @@ export const {
   decrementQuantity,
   removeItem,
   setToken,
-  setUserID,
   setOrder,
   setCart
 } = slice.actions

@@ -5,58 +5,68 @@ import {
   useSearchParams
 } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { setToken, setUserID } from '../redux/slice'
+import { setToken } from '../redux/slice'
 import signin from './signin.module.css'
+import { emailIsValid } from '../utils'
 
 const SignIn = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
 
-  const [userID, updateUserID] = useState('')
+  const [email, updateEmail] = useState('')
   const [password, setPassword] = useState('')
   const [emptyFlag, setEmptyFlag] = useState(false)
-  const [loginFailFlag, setLoginFailFlag] = useState(false)
+  const [invalidEmail, setInvalidEmail] = useState(false)
+  const [loginFailMessage, setLoginFailMessage] = useState('')
 
   async function loginHandler () {
-    if (userID === '' || password === '') {
+    if (email === '' || password === '') {
       setEmptyFlag(true)
       return
     }
+    if (!emailIsValid(email)) {
+      return setInvalidEmail(true)
+    }
+
     const response = await fetch('http://localhost:8000/login',
       {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ userID, password })
+        body: JSON.stringify({ email, password })
       })
 
-    const creds = await response.json()
+    const parsedResponse = await response.json()
 
-    if (response.status === 200) {
-      localStorage.setItem('token', JSON.stringify(creds.accessToken))
-      dispatch(setToken(creds.accessToken))
-      dispatch(setUserID(userID))
-
-      const checkout = searchParams.get('checkout')
-      if (checkout) navigate('/checkout')
-      else navigate('/')
-    } else {
-      setLoginFailFlag(true)
+    if (response.status === 404) {
+      setLoginFailMessage(parsedResponse)
+      return
     }
+
+    localStorage.setItem('token', JSON.stringify(parsedResponse.accessToken))
+    dispatch(setToken(parsedResponse.accessToken))
+
+    const checkout = searchParams.get('checkout')
+    if (checkout) navigate('/checkout')
+    else navigate('/')
   }
 
   return (
     <>
-      <Link to='/' className='flex flex-col justify-center items-center text-3xl no-underline text-black mt-7'>
+      <Link
+        to='/'
+        className='flex flex-col justify-center items-center text-3xl no-underline text-black mt-7'
+      >
         Simply Shop
       </Link>
       <div className='m-auto w-96 p-4 border-2 border-solid'>
         <strong><h3>Sign In</h3></strong>
         <div className={signin['signin-usr']}>
-          <div>User ID</div>
+          <div>Email</div>
           <input
-            type='text' className='signin-userID border-2 border-solid w-full'
-            onChange={(event) => updateUserID(event.target.value)}
+            type='text'
+            className='signin-Email border-2 border-solid w-full'
+            onChange={(event) => updateEmail(event.target.value)}
           />
         </div>
         <div className={signin['signin-pwd']}>
@@ -88,10 +98,19 @@ const SignIn = () => {
             : null
         }
         {
-          loginFailFlag
+          loginFailMessage
             ? (
               <div className='signin-error text-red-400'>
-                <p>Invalid username or password</p>
+                <p>{loginFailMessage}</p>
+              </div>
+              )
+            : null
+        }
+        {
+          invalidEmail
+            ? (
+              <div className='signin-error text-red-400'>
+                <p>Invalid email</p>
               </div>
               )
             : null

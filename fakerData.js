@@ -93,14 +93,15 @@ async function createUsersData () {
       password: faker.internet.password(),
       email_address: faker.internet.email(),
       address: faker.address.streetAddress(),
-      created_at: faker.datatype.datetime()
+      created_at: faker.datatype.datetime(),
+      status: 'pending'
     }
     try {
       const response = await pool.query(`
             INSERT INTO users 
-            (first_name, last_name, password, email_address, address, created_at)
-             VALUES ($1, $2, $3, $4, $5, $6);`,
-      [obj.first_name, obj.last_name, obj.password, obj.email_address, obj.address, obj.created_at])
+            (first_name, last_name, password, email_address, address, created_at, status)
+             VALUES ($1, $2, $3, $4, $5, $6, $7);`,
+      [obj.first_name, obj.last_name, obj.password, obj.email_address, obj.address, obj.created_at, obj.status])
       console.log(response)
     } catch (err) {
       console.log(err)

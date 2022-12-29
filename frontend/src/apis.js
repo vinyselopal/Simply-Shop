@@ -51,8 +51,8 @@ export const getServerCart = async (token) => {
     method: 'GET',
     headers: { Authorization: `Bearer ${token}` }
   })
-  const initialCart = await response.json()
 
+  const initialCart = await response.json()
   return JSON.stringify(initialCart)
 }
 
