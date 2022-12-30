@@ -25,3 +25,4 @@ urgent:
 -- sign in and sign up should be in auth, lot of similar funcs
 -- features from demo: categories, filters, search
 -- pick up location using maps and store data
+-- learn context api 
