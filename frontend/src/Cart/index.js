@@ -33,7 +33,8 @@ function Cart () {
   }, 0)
 
   function checkoutHandler () {
-    if (!token) navigate('/signin?checkout=true')
+    const loggedIn = JSON.parse(localStorage.getItem('loggedIn'))
+    if (!loggedIn) navigate('/signin?checkout=true')
     else navigate('/checkout')
   }
 

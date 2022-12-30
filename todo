@@ -1,13 +1,11 @@
 urgent:
 -- make pages look good
--- performant and optimized code
--- use redux for state management instead of passing props
 -- payment wth stripe
 -- transactions and edge cases
 -- filter
 -- lazy loading
 -- online/offline sync
--- reflect on cart when a product not available
+-- reflect on cart when a product not available 
 -- cart saved in reducers different from the previous npm cart model. so change it.
 -- campaign
 -- coupons
@@ -16,26 +14,14 @@ urgent:
 -- store cart as hashmap on client side
 -- cart total items change to total unique items everywhere
 -- separate collection for cart
--- eliminate pageCount and do next and prev instead in products page
--- error handling
--- accurate http status code for responses
--- do the same edits as signin for signup page as well
 -- look for more constants
 -- Use custom breakpoints
 
--- standard request and response formats for apis
--- dont send error message in response *
--- dont send password to client *
 -- options request
--- dont use localstorage for storing jwt but cookies *
 -- learn about encryption and hash
 -- read about jwt
 -- use case of jwt over sessions
 -- email verification
 -- sign in and sign up should be in auth, lot of similar funcs
 -- features from demo: categories, filters, search
--- commit before leaving geekskool
--- register a user
--- use user email instead of name or userID
--- email address checker on client side
--- replace cart upon signin
+-- pick up location using maps and store data

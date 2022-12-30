@@ -186,12 +186,36 @@ async function createSellersData () {
   }
 }
 
-createUsersData()
+async function createAddressesUsersMappingData () {
+  for (let i = 0; i < 10000; i++) {
+    const obj = {
+      address: faker.address.streetAddress(),
+      userID: faker.datatype.number(
+        {
+          min: 1,
+          max: 10000
+        }
+      )
+    }
+    try {
+      const response = await pool.query(`
+            INSERT INTO addresses_users_mapping (address, user_id ) 
+            VALUES ($1, $2);`,
+      [obj.address, obj.userID])
+      console.log(response)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
+// createUsersData()
 // createSellersData()
 // createProductsData()
 // createProductImagesData()
 // createOrdersData()
 // createOrdersMappingData()
+createAddressesUsersMappingData()
 
 // const createDataArr = [createUsersData, createSellersData, createProductsData, createProductImagesData, createOrdersData]
 

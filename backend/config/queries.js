@@ -17,7 +17,8 @@ const createOrdersTable = `CREATE TABLE IF NOT EXISTS orders
     payment_status boolean NOT NULL,
     deadline date,
     payment_amount numeric CHECK(payment_amount > 0),
-    created_at timestamp
+    created_at timestamp,
+    updated_at timestamp
 );`
 
 // no sellers
@@ -60,6 +61,11 @@ const createCategoriesTable = `CREATE TABLE IF NOT EXISTS categories
     name text
 );`
 
+const createAddressesUsersMappingTable = `CREATE TABLE IF NOT EXISTS addresses_users_mapping
+(address text,
+    user_id integer REFERENCES users(id)
+);`
+
 module.exports = {
   createOrdersMappingTable,
   createUsersTable,
@@ -67,5 +73,6 @@ module.exports = {
   createProductImagesTable,
   createSellersTable,
   createCategoriesTable,
-  createOrdersTable
+  createOrdersTable,
+  createAddressesUsersMappingTable
 }

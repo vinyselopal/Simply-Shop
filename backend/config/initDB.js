@@ -5,7 +5,8 @@ const {
   createOrdersMappingTable,
   createProductImagesTable,
   createSellersTable,
-  createOrdersTable
+  createOrdersTable,
+  createAddressesUsersMappingTable
 } = require('./queries')
 
 const pool = new Pool({
@@ -27,6 +28,8 @@ async function initDB () {
   await pool.query(createOrdersTable)
 
   await pool.query(createOrdersMappingTable)
+
+  await pool.query(createAddressesUsersMappingTable)
 }
 
 module.exports = { initDB, pool }
