@@ -25,9 +25,9 @@ function Checkout () {
             <div className='border-2 border-solid flex flex-col p-4'>
 
               {
-                addresses.map((address, index) => (
-                 
-                ))
+                // addresses.map((address, index) => (
+
+                // ))
               }
             </div>
           </div>

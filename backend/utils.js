@@ -78,8 +78,8 @@ function confirmationAuth (req, res, next) {
   }
 }
 
-async function comparePasswords (loginPassword, storedPassword) {
-  await bcrypt.compare(loginPassword, storedPassword)
+function comparePasswords (loginPassword, storedPassword) {
+  return bcrypt.compare(loginPassword, storedPassword)
 }
 
 module.exports = {

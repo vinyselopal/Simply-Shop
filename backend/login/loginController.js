@@ -1,4 +1,4 @@
-const { getLoginCreds } = require('./loginModel')
+const { getLoginCredsFromDB } = require('./loginModel')
 const { generateAccessToken, comparePasswords } = require('../utils.js')
 
 const responseMap = {
@@ -15,12 +15,12 @@ const responseMap = {
     message: 'invalid username'
   }
 }
-const loginUser = async (req, res) => {
-  const creds = await getLoginCreds(req.body.email)
+const loginUserController = async (req, res) => {
+  const creds = await getLoginCredsFromDB(req.body.email)
 
   if (!creds) {
     return res.status(responseMap.invalidEmail.statusCode)
-      .json(responseMap.invalidEmail.message)
+      .json(responseMap.invalidEmail.message) // create a function
   }
   if (creds instanceof Error) {
     return res.status(responseMap.serverError.statusCode)
@@ -28,19 +28,21 @@ const loginUser = async (req, res) => {
   }
 
   try {
-    await comparePasswords(req.body.password, creds.password)
-    const accessToken = generateAccessToken({
-      userID: creds.id,
-      email: req.body.email
-      // other info
-    })
-
-    res.cookie('accessToken', accessToken, { httpOnly: true })
-      .json('logged in successfully')
-  } catch (err) {
+    if (await comparePasswords(req.body.password, creds.password)) {
+      const accessToken = generateAccessToken({
+        userID: creds.id,
+        email: req.body.email
+        // other info
+      })
+      return res.cookie('accessToken', accessToken, { httpOnly: true })
+        .json('logged in successfully')
+    }
     res.status(responseMap.invalidPassword.statusCode)
-      .json(responseMap.invalidPassword.message) // change the way of sending token
+      .json(responseMap.invalidPassword.message)
+  } catch (err) {
+    res.status(responseMap.serverError.statusCode)
+      .json(responseMap.serverError.message)
   }
 }
 
-module.exports = { loginUser }
+module.exports = { loginUserController }

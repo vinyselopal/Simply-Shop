@@ -1,49 +1,49 @@
 const {
-  getProductsQuery,
-  getProductsInPartsASCQuery,
-  getProductsCountQuery,
-  getMatchingProductsQuery
+  getProductsFromDB,
+  getFilteredProductsASCFromDB,
+  getProductsCountFromDB,
+  getSearchedProductsFromDB
 } = require('./productsModel')
-const getProductsFunction = async (req, res) => {
-  const products = await getProductsQuery()
-  if (!products.rows[0]) res.status(404)
+const getProductsController = async (req, res) => {
+  const products = await getProductsFromDB()
+  if (!products.rows[0]) res.sendStatus(404)
   else {
     res.json(JSON.stringify(products.rows))
-  }
+  } // remove (frontend too)
 }
 
-const getProductsInPartsFunction = async (req, res) => {
+const getFilteredProductsController = async (req, res) => {
   const { page, category, sortby, order } = req.query
-  const products = await getProductsInPartsASCQuery(page, category, order, sortby)
-  if (!products.rows[0]) res.status(404)
+  const products = await getFilteredProductsASCFromDB(page, category, order, sortby)
+  if (!products.rows[0]) res.sendStatus(404)
   else {
     res.json(products.rows)
   }
 }
 
-const getProductsCountFunction = async (req, res) => {
+const getProductsCountController = async (req, res) => {
   const { category } = req.params
-  const response = await getProductsCountQuery(category)
-  const count = response.rows[0].count
-  if (!count) res.status(404)
+  const response = await getProductsCountFromDB(category)
+  const count = response.rows[0].count // get result from model
+  if (!count) res.sendStatus(404) // inconsistent braces, return.
   else {
     res.json(count)
   }
 }
 
-const getMatchingProductsFunction = async (req, res) => {
+const getSearchedProductsController = async (req, res) => {
   const { keywords } = req.params
-  const response = await getMatchingProductsQuery(keywords.split(' '))
+  const response = await getSearchedProductsFromDB(keywords.split(' '))
   const count = response.rows
-  if (!count) res.status(404)
+  if (!count) res.sendStatus(404)
   else {
     res.json(count)
   }
 }
 
 module.exports = {
-  getProductsFunction,
-  getProductsInPartsFunction,
-  getProductsCountFunction,
-  getMatchingProductsFunction
+  getProductsController,
+  getFilteredProductsController,
+  getProductsCountController,
+  getSearchedProductsController
 }

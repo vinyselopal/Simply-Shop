@@ -4,7 +4,7 @@ const getCartFunction = async (req, res) => {
   console.log('in get cart')
   const userID = req.userID
   const response = await getCartQuery(userID)
-  if (!response?.rows[0]?.cart) res.status(404)
+  if (!response?.rows[0]?.cart) res.sendStatus(404)
   else {
     res.json(JSON.parse(response.rows[0].cart))
   }
@@ -19,7 +19,7 @@ const putCartFunction = async (req, res) => {
     res.status(200)
     res.json(response)
   } catch (err) {
-    res.status(400)
+    res.sendStatus(400)
   }
 }
 

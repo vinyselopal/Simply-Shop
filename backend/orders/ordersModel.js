@@ -1,6 +1,6 @@
 const { pool } = require('../config/initDB')
 
-const createOrderQuery = async (productsIdArray, userID) => {
+const createOrderInDB = async (productsIdArray, userID) => {
   try {
     const response = await pool.query(
       `INSERT INTO orders
@@ -24,7 +24,7 @@ const createOrderQuery = async (productsIdArray, userID) => {
   }
 }
 
-const deleteOrderQuery = async (orderID) => {
+const deleteOrderInDB = async (orderID) => {
   // use transactions here, and soft delete
   try {
     await pool.query(
@@ -44,7 +44,7 @@ const deleteOrderQuery = async (orderID) => {
   }
 }
 
-const placeOrderQuery = async (orderID, deadline, paymentAmount, products) => {
+const placeOrderInDB = async (orderID, deadline, paymentAmount, products) => {
   try {
     await pool.query(
       `UPDATE orders
@@ -71,4 +71,4 @@ const placeOrderQuery = async (orderID, deadline, paymentAmount, products) => {
   }
 }
 
-module.exports = { createOrderQuery, deleteOrderQuery, placeOrderQuery }
+module.exports = { createOrderInDB, deleteOrderInDB, placeOrderInDB }

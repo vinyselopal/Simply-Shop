@@ -1,6 +1,6 @@
 const { pool } = require('../config/initDB')
 
-const getProductsQuery = async () => {
+const getProductsFromDB = async () => {
   return await pool.query(
   `
       SELECT DISTINCT ON (products.id)
@@ -17,7 +17,7 @@ const getProductsQuery = async () => {
   `)
 }
 
-const getProductsInPartsASCQuery = async (page, category, order, sortby) => {
+const getFilteredProductsASCFromDB = async (page, category, order, sortby) => {
   const offset = (page - 1) * 10
   return await pool.query(
     `
@@ -41,7 +41,7 @@ const getProductsInPartsASCQuery = async (page, category, order, sortby) => {
     , [category, offset])
 }
 
-const getProductsCountQuery = async (category) => {
+const getProductsCountFromDB = async (category) => {
   return await pool.query(
     `
   SELECT COUNT (*) FROM products 
@@ -49,7 +49,7 @@ const getProductsCountQuery = async (category) => {
     , [category])
 }
 
-const getMatchingProductsQuery = async (keywords) => {
+const getSearchedProductsFromDB = async (keywords) => {
   return await pool.query(
     `
     SELECT DISTINCT ON (products.id)
@@ -78,8 +78,8 @@ const getMatchingProductsQuery = async (keywords) => {
 }
 
 module.exports = {
-  getProductsQuery,
-  getProductsInPartsASCQuery,
-  getProductsCountQuery,
-  getMatchingProductsQuery
+  getProductsFromDB,
+  getFilteredProductsASCFromDB,
+  getProductsCountFromDB,
+  getSearchedProductsFromDB
 }

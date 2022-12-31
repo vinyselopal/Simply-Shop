@@ -26,3 +26,12 @@ urgent:
 -- features from demo: categories, filters, search
 -- pick up location using maps and store data
 -- learn context api 
+-- pagination bug
+-- static images
+-- feature for quicker nav pagination
+-- get total items to show on category page
+-- api routes should have api in  remove page from some apis
+-- offset instead of page 
+-- get count along with products instead of a separate api
+-- fix sign up response and redirect on confirmation
+-- Response message be json no string

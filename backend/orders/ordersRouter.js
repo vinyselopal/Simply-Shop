@@ -2,12 +2,12 @@ const express = require('express')
 const router = express.Router()
 
 const {
-  createOrderFunction,
-  deleteOrderFunction,
-  orderPlacement
+  createOrderController,
+  deleteOrderController,
+  orderPlacementController
 } = require('./ordersController')
 
-router.post('/', createOrderFunction)
-router.delete('/:orderID', deleteOrderFunction)
-router.put('/:orderID/placement', orderPlacement)
+router.post('/', createOrderController)
+router.delete('/:orderID', deleteOrderController)
+router.put('/:orderID/placement', orderPlacementController)
 module.exports = router
