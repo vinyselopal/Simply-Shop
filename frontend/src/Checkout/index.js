@@ -71,16 +71,20 @@ function Checkout () {
               ? (
                 <div className='border-2 border-solid flex flex-col p-4'>
                   {
-                    addresses.map((address, index) => (
-                      <div key={index}>
-                        <input
-                          type='radio'
-                          value={address}
-                          name='address'
-                          onChange={() => setAddress(address)}
-                        /> {address}
-                      </div>
-                    ))
+                    addresses.map((ele, index) =>
+                      (
+                        <div key={index}>
+                          <input
+                            type='radio'
+                            value={ele}
+                            name='address'
+                            checked={address === ele}
+                            onChange={() => setAddress(ele)}
+                          /> {ele}
+                        </div>
+                      )
+
+                    )
                   }
                 </div>
                 )
@@ -96,16 +100,20 @@ function Checkout () {
               ? (
                 <div className='border-2 border-solid flex flex-col p-4'>
                   {
-                    paymentMethods.map((method, index) => (
-                      <div key={index}>
-                        <input
-                          type='radio'
-                          value={method}
-                          name='payment method'
-                          onChange={() => setPaymentMethod(method)}
-                        /> {method}
-                      </div>
-                    ))
+                    paymentMethods.map((method, index) =>
+                      (
+                        <div key={index}>
+                          <input
+                            type='radio'
+                            value={method}
+                            name='payment method'
+                            checked={paymentMethod === method}
+                            onChange={() => setPaymentMethod(method)}
+                          /> {method}
+                        </div>
+                      )
+
+                    )
                   }
                 </div>
                 )
