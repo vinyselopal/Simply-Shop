@@ -7,10 +7,10 @@ const createOrderController = async (req, res) => {
   console.log('req.body', req.body)
   const { productsIdArray, paymentAmount, expectedDelivery } = req.body
   const userID = req.userID
-  const response = await createOrderInDB(productsIdArray, userID, paymentAmount, expectedDelivery)
-  if (response) {
+  const orderID = await createOrderInDB(productsIdArray, userID, paymentAmount, expectedDelivery)
+  if (orderID) {
     res.status(200)
-      .json(response)
+      .json({ orderID })
   } else res.sendStatus(500)
 }
 

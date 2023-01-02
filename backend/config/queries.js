@@ -10,15 +10,15 @@ const createUsersTable = `CREATE TABLE IF NOT EXISTS users
      status text
 );`
 
-// updated_at field (standard across tables), expected_delivery, values and not references for orders
 const createOrdersTable = `CREATE TABLE IF NOT EXISTS orders
 (id SERIAL PRIMARY KEY, 
     user_id integer REFERENCES users(id), 
     payment_status boolean NOT NULL,
-    deadline date,
+    expected_delivery date,
     payment_amount numeric CHECK(payment_amount > 0),
     created_at timestamp,
-    updated_at timestamp
+    updated_at timestamp,
+    product_ids integer []
 );`
 
 // no sellers

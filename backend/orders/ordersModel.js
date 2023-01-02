@@ -1,24 +1,27 @@
 const { pool } = require('../config/initDB')
 
 const createOrderInDB = async (productsIdArray, userID, paymentAmount, expectedDelivery) => {
+  console.log('in createOrderDb')
   try {
     const response = await pool.query(
       `INSERT INTO orders
-      (user_id, created_at, expected_delivery, payment_amount, payment_status)
-      VALUES ($1, current_timestamp, $2, $3, true)
+      (user_id, created_at, expected_delivery, payment_amount, payment_status, product_ids)
+      VALUES ($1, current_timestamp, $2, $3, true, $4)
       RETURNING id;
-      `, [userID, expectedDelivery, paymentAmount])
+      `, [userID, expectedDelivery, paymentAmount, productsIdArray])
 
     const orderID = response.rows[0].id
-
-    for (let i = 0; i < productsIdArray.length; i++) {
-      await pool.query(
-        `INSERT INTO orders_mapping
-        (order_id, product_id)
-        VALUES ($1, $2);
-        `, [orderID, productsIdArray[i]])
-    }
+    console.log('orderID', orderID)
     return orderID
+
+  //   for (let i = 0; i < productsIdArray.length; i++) {
+  //     await pool.query(
+  //       `INSERT INTO orders_mapping
+  //       (order_id, product_id)
+  //       VALUES ($1, $2);
+  //       `, [orderID, productsIdArray[i]])
+  //   }
+  //   return orderID
   } catch (err) {
     console.log(err)
   }
