@@ -1,13 +1,13 @@
 const {
   createOrderInDB,
-  deleteOrderInDB,
-  placeOrderInDB
+  deleteOrderInDB
 } = require('./ordersModel')
 
 const createOrderController = async (req, res) => {
-  const { productsIdArray } = req.body
+  console.log('req.body', req.body)
+  const { productsIdArray, paymentAmount, expectedDelivery } = req.body
   const userID = req.userID
-  const response = await createOrderInDB(productsIdArray, userID)
+  const response = await createOrderInDB(productsIdArray, userID, paymentAmount, expectedDelivery)
   if (response) {
     res.status(200)
       .json(response)
@@ -23,14 +23,4 @@ const deleteOrderController = async (req, res) => {
   } else res.sendStatus(500)
 }
 
-const orderPlacementController = async (req, res) => {
-  const { orderID } = req.params
-  const { deadline, paymentAmount, products } = req.body
-  const response = await placeOrderInDB(orderID, deadline, paymentAmount, products)
-  if (response) {
-    res.status(200)
-      .json(response)
-  } else res.sendStatus(500)
-}
-
-module.exports = { createOrderController, deleteOrderController, orderPlacementController }
+module.exports = { createOrderController, deleteOrderController }

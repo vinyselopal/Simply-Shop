@@ -1,13 +1,13 @@
 const { pool } = require('../config/initDB')
 
-const createOrderInDB = async (productsIdArray, userID) => {
+const createOrderInDB = async (productsIdArray, userID, paymentAmount, expectedDelivery) => {
   try {
     const response = await pool.query(
       `INSERT INTO orders
-      (user_id, created_at, payment_status)
-      VALUES ($1, current_timestamp, false)
+      (user_id, created_at, expected_delivery, payment_amount, payment_status)
+      VALUES ($1, current_timestamp, $2, $3, true)
       RETURNING id;
-      `, [userID])
+      `, [userID, expectedDelivery, paymentAmount])
 
     const orderID = response.rows[0].id
 
@@ -22,6 +22,7 @@ const createOrderInDB = async (productsIdArray, userID) => {
   } catch (err) {
     console.log(err)
   }
+  // yet to change products quantity in products table
 }
 
 const deleteOrderInDB = async (orderID) => {

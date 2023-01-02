@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { createOrder, cancelOrder, getUserAddresses } from '../apis'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { setOrder, setOrderAddress, setOrderExpectedDelivery, setOrderPaymentMethod } from '../redux/slice'
 import { useSelectorWrapper } from '../utils'
@@ -11,11 +11,16 @@ function Checkout () {
   const products = useSelectorWrapper('cart')
 
   const [addresses, setAddresses] = useState([])
-  const paymentMethods = ['method1', 'method2']
+  const paymentMethods = ['Cash on delivery']
 
   useEffect(() => {
     (async () => await populateAddresses())()
-    dispatch(setOrder({ products }))
+    dispatch(setOrder({
+      products,
+      expectedDelivery: '2023-01-31',
+      productsIdArray: products.map(product => product.item.id),
+      paymentAmount: 500
+    }))
   }, [])
 
   const populateAddresses = async () => {
@@ -45,8 +50,7 @@ function Checkout () {
   const [paymentMethod, setPaymentMethod] = useState(paymentMethods[0])
   const [selector, setSelector] = useState(0)
 
-  const handlePlaceOrder = () => {
-    console.log('in handlePlaceOrder')
+  const handlePlaceOrder = async () => {
     navigate('/order_placed')
   }
   const storeFieldAndContinue = () => {

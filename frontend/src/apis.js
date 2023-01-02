@@ -6,18 +6,17 @@ export async function getServerProducts () {
   return products
 }
 
-export async function placeOrder (token, order) {
-  const orderID = order.orderID
-  const response = await fetch(`${BASE_URL}/orders/${orderID}/placement`, {
-    method: 'PUT',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-type': 'application/json'
-    },
+export async function placeOrder (order) {
+  const response = await fetch(`${BASE_URL}/orders`, {
+    method: 'POST',
     body: JSON.stringify(order),
-    credentials: 'include'
+    credentials: 'include',
+    headers: {
+      'Content-type': 'application/json'
+    }
   })
   console.log(response)
+  return response
 }
 
 export async function createOrder (token, productsIdArray) {
@@ -115,7 +114,7 @@ export async function logoutFromServer () {
   return response
 }
 
-export async function getUserAddresses () {
+export async function getUserAddresses (order) {
   const response = await fetch(`${BASE_URL}/addresses`, {
     credentials: 'include'
   })
