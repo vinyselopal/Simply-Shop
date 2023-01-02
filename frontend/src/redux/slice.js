@@ -23,7 +23,7 @@ const slice = createSlice({
   initialState: {
     cart: JSON.parse(localStorage.getItem('cart')) || [],
     token: JSON.parse(localStorage.getItem('token')),
-    order: JSON.parse(localStorage.getItem('order'))
+    order: null
   },
 
   reducers: {
@@ -57,6 +57,7 @@ const slice = createSlice({
     },
 
     setOrder: (state, action) => {
+      console.log('setOrder triggered')
       const order = action.payload
       state.order = order
       localStorage.setItem('order', JSON.stringify(state.order))
@@ -64,6 +65,22 @@ const slice = createSlice({
     setCart: (state, action) => {
       const cart = action.payload
       state.cart = cart
+    },
+    setOrderAddress: (state, action) => {
+      console.log('setOrderAddress triggered')
+      const address = action.payload
+      state.order.address = address
+      return state
+    },
+    setOrderPaymentMethod: (state, action) => {
+      console.log('setOrderPaymentMethod triggered')
+      const paymentMethod = action.payload
+      state.order.paymentMethod = paymentMethod
+      return state
+    },
+    setOrderExpectedDelivery: (state, action) => {
+      const expectedDelivery = action.payload
+      state.order.expectedDelivery = expectedDelivery
     }
 
   },
@@ -84,7 +101,10 @@ export const {
   removeItem,
   setToken,
   setOrder,
-  setCart
+  setCart,
+  setOrderAddress,
+  setOrderExpectedDelivery,
+  setOrderPaymentMethod
 } = slice.actions
 
 export const cartAsyncReducer = slice.extraReducers
