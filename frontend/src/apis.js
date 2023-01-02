@@ -114,3 +114,11 @@ export async function logoutFromServer () {
   console.log('in logoout api', response.ok)
   return response
 }
+
+export async function getUserAddresses () {
+  const response = await fetch(`${BASE_URL}/addresses`, {
+    credentials: 'include'
+  })
+  const addresses = await response.json()
+  return addresses
+}

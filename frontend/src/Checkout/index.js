@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { createOrder, cancelOrder } from '../apis'
+import { createOrder, cancelOrder, getUserAddresses } from '../apis'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { setOrder, setOrderAddress, setOrderExpectedDelivery, setOrderPaymentMethod } from '../redux/slice'
@@ -10,10 +10,18 @@ function Checkout () {
   const navigate = useNavigate()
   const products = useSelectorWrapper('cart')
 
+  const [addresses, setAddresses] = useState([])
+  const paymentMethods = ['method1', 'method2']
+
   useEffect(() => {
+    (async () => await populateAddresses())()
     dispatch(setOrder({ products }))
   }, [])
 
+  const populateAddresses = async () => {
+    const addresses = await getUserAddresses()
+    setAddresses(addresses)
+  }
   const selectorOrder = ['address', 'payment', 'placeOrder']
 
   const selectorsButtonsMapping = {
@@ -32,8 +40,6 @@ function Checkout () {
   }
 
   const total = 500
-  const addresses = ['add1', 'add2']
-  const paymentMethods = ['method1', 'method2']
 
   const [address, setAddress] = useState(addresses[0])
   const [paymentMethod, setPaymentMethod] = useState(paymentMethods[0])
@@ -67,7 +73,7 @@ function Checkout () {
               <h4>1. Select a delivery address</h4>
             </button>
             {
-            selectorOrder[selector] === 'address'
+            selectorOrder[selector] === 'address' && addresses
               ? (
                 <div className='border-2 border-solid flex flex-col p-4'>
                   {
@@ -80,7 +86,7 @@ function Checkout () {
                             name='address'
                             checked={address === ele}
                             onChange={() => setAddress(ele)}
-                          /> {ele}
+                          /> {ele.address}
                         </div>
                       )
 

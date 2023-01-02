@@ -9,7 +9,7 @@ const cartRouter = require('./cart/cartRouter')
 const loginRouter = require('./login/loginRouter')
 const signupRouter = require('./signup/signupRouter')
 const ordersRouter = require('./orders/ordersRouter.js')
-
+const addressesRouter = require('./addresses/addressesRouter.js')
 const { jwtAuthMiddleware, logoutHandler } = require('./utils')
 const { initDB } = require('./config/initDB.js')
 
@@ -36,5 +36,6 @@ app.use('/orders', jwtAuthMiddleware, ordersRouter)
 app.use('/login', loginRouter)
 app.get('/logout', logoutHandler)
 app.use('/register', signupRouter)
+app.use('/addresses', jwtAuthMiddleware, addressesRouter)
 
 app.listen(8000, () => console.log('server is running on port 8000'))
