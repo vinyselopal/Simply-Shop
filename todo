@@ -6,10 +6,9 @@ urgent:
 -- lazy loading
 -- online/offline sync
 -- reflect on cart when a product not available 
--- cart saved in reducers different from the previous npm cart model. so change it.
 -- campaign
 -- coupons
--- location based 
+-- location based products recommendation etc.
 -- change userID handling
 -- store cart as hashmap on client side
 -- cart total items change to total unique items everywhere
@@ -21,18 +20,17 @@ urgent:
 -- learn about encryption and hash
 -- read about jwt
 -- use case of jwt over sessions
--- email verification
 -- sign in and sign up should be in auth, lot of similar funcs
 -- features from demo: categories, filters, search
 -- pick up location using maps and store data
--- learn context api 
--- pagination bug
--- static images
--- feature for quicker nav pagination
+-- learn context api *
+-- pagination bug *
+-- static images *
+-- feature for quicker nav pagination (add page numbers, skip to a particular page, etc) *
 -- get total items to show on category page
 -- api routes should have api in url
--- remove page from some apis
--- offset instead of page 
--- get count along with products instead of a separate api
--- fix sign up response and redirect on confirmation
--- Response message be json no string
+-- remove page from some apis *
+-- offset instead of page *
+-- get count along with products instead of a separate api *
+-- fix sign up response and redirect on confirmation *
+-- Response message be json no string *

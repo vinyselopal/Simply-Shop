@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
-// const pino = require('express-pino-logger')
+const logger = require('pino-http')()
 
 const productsRouter = require('./products/productsRouter')
 const cartRouter = require('./cart/cartRouter')
@@ -19,12 +19,14 @@ app.use(cors({
   origin: ['http://localhost:3000', 'http://localhost:3000/products', 'http://localhost:3000/cart'],
   credentials: true
 }))
-// app.use(pino)
 app.use(express.json())
+
 app.use(cookieParser())
 
 app.use((req, res, next) => {
   console.log('in middleware', req.url)
+  logger(req, res)
+  req.log.info('in a custom middleware')
   next()
 })
 
