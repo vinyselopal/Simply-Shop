@@ -13,23 +13,12 @@ const createOrderInDB = async (productsIdArray, userID, paymentAmount, expectedD
     const orderID = response.rows[0].id
     console.log('orderID', orderID)
     return orderID
-
-  //   for (let i = 0; i < productsIdArray.length; i++) {
-  //     await pool.query(
-  //       `INSERT INTO orders_mapping
-  //       (order_id, product_id)
-  //       VALUES ($1, $2);
-  //       `, [orderID, productsIdArray[i]])
-  //   }
-  //   return orderID
   } catch (err) {
     console.log(err)
   }
-  // yet to change products quantity in products table
 }
 
 const deleteOrderInDB = async (orderID) => {
-  // use transactions here, and soft delete
   try {
     await pool.query(
       `DELETE FROM orders_mapping

@@ -4,9 +4,9 @@ const getCartFunction = async (req, res) => {
   const userID = req.userID
   const cart = await getCartQuery(userID)
   try {
-    res.sendStatus(404)
-  } catch (err) {
     res.json({ cart })
+  } catch (err) {
+    res.sendStatus(404)
   }
 }
 

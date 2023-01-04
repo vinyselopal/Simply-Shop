@@ -32,7 +32,6 @@ const loginUserController = async (req, res) => {
       const accessToken = generateAccessToken({
         userID: creds.id,
         email: req.body.email
-        // other info
       })
       return res.cookie('accessToken', accessToken, { httpOnly: true })
         .json({ message: 'logged in successfully' })

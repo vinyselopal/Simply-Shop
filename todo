@@ -15,24 +15,26 @@ urgent:
 -- separate collection for cart
 -- look for more constants
 -- Use custom breakpoints
-
--- options request
--- learn about encryption and hash
--- read about jwt
--- use case of jwt over sessions
--- sign in and sign up should be in auth, lot of similar funcs
--- features from demo: categories, filters, search
 -- pick up location using maps and store data
--- learn context api *
+-- deploy
+-- README
+
+-- learn context api
 -- pagination bug *
--- static images *
+-- static images
 -- feature for quicker nav pagination (add page numbers, skip to a particular page, etc) *
--- get total items to show on category page
--- api routes should have api in url
+-- get total items to show on category page *
 -- offset instead of page *
 -- get count along with products instead of a separate api *
--- redirect on email link click
--- apply pagination to search results too
--- dont place order on orderPlaced page loading
--- solve defaultValue warning issue in frontend
+-- redirect on email link click *
+-- apply pagination to search results too *
+-- dont place order on orderPlaced page loading *
+-- solve defaultValue warning issue in frontend *
 -- divide components into further components as required
+-- change products quantity when order placed
+-- soft delete
+-- more categories
+-- more filters
+-- back button should clear the order from redux state
+-- empty cart when order placed *
+-- get payment amount and all from server
