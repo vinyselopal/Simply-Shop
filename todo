@@ -33,3 +33,6 @@ urgent:
 -- get count along with products instead of a separate api *
 -- fix sign up response and redirect on confirmation *
 -- apply pagination to search results too
+-- dont place order on orderPlaced page loading
+-- solve defaultValue warning issue in frontend
+-- 

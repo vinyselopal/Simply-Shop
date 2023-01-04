@@ -36,7 +36,7 @@ const SignUp = () => {
       }
     )
     const message = await response.json()
-    if (response.ok) window.location.href = 'http://localhost:3000/signin'
+    if (response.ok) window.location.href = 'http://localhost:3000/api/signin'
     else {
       document.querySelector('body').innerHTML = message
     }

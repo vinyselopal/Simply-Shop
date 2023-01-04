@@ -112,7 +112,7 @@ export async function getMatchingProducts (keyword) {
 }
 
 export async function logoutFromServer () {
-  const response = await fetch(`${BASE_URL}/logout`, {
+  const response = await fetch(`${BASE_URL}/api/logout`, {
     credentials: 'include'
   })
   console.log('in logoout api', response.ok)

@@ -26,7 +26,7 @@ const SignIn = () => {
       return setInvalidEmail(true)
     }
 
-    const response = await fetch('http://localhost:8000/login',
+    const response = await fetch('http://localhost:8000/api/login',
       {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
