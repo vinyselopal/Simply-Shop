@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useSelectorWrapper } from '../utils'
 import { placeOrder } from '../apis'
+
 function OrderPlaced () {
   const order = useSelectorWrapper('order')
   const [orderPlaced, setOrderPlaced] = useState(null)
+
   useEffect(() => {
     (async () => {
       const response = await placeOrder(order)
@@ -12,6 +14,7 @@ function OrderPlaced () {
       console.log(response, 'response on order place')
     })()
   })
+
   return (
     orderPlaced === true
       ? (

@@ -20,11 +20,11 @@ const loginUserController = async (req, res) => {
 
   if (!creds) {
     return res.status(responseMap.invalidEmail.statusCode)
-      .json(responseMap.invalidEmail.message) // create a function
+      .json({ message: responseMap.invalidEmail.message }) // create a function
   }
   if (creds instanceof Error) {
     return res.status(responseMap.serverError.statusCode)
-      .json(responseMap.serverError.message)
+      .json({ message: responseMap.serverError.message })
   }
 
   try {
@@ -35,13 +35,13 @@ const loginUserController = async (req, res) => {
         // other info
       })
       return res.cookie('accessToken', accessToken, { httpOnly: true })
-        .json('logged in successfully')
+        .json({ message: 'logged in successfully' })
     }
     res.status(responseMap.invalidPassword.statusCode)
-      .json(responseMap.invalidPassword.message)
+      .json({ message: responseMap.invalidPassword.message })
   } catch (err) {
     res.status(responseMap.serverError.statusCode)
-      .json(responseMap.serverError.message)
+      .json({ message: responseMap.serverError.message })
   }
 }
 

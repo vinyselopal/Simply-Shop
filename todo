@@ -33,4 +33,5 @@ urgent:
 -- offset instead of page *
 -- get count along with products instead of a separate api *
 -- fix sign up response and redirect on confirmation *
--- Response message be json no string *
+-- extract result from database respose in model itself
+-- apply pagination to search results too

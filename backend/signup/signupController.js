@@ -30,24 +30,23 @@ const confirmUser = async (req, res) => {
 
   if (userConfirmed instanceof Error) {
     return res.status(responses.serverError.statusCode)
-      .json(responses.serverError.message)
+      .json({ message: responses.serverError.message })
   }
 
   res.status(responses.registrationSuccessful.statusCode)
-    .json(responses.registrationSuccessful.message)
+    .json({ message: responses.registrationSuccessful.message })
 }
 
 const registerUser = async (req, res) => {
-  console.log('registerRouter')
   const emailExists = await checkEmailAlreadyRegistered(req.body.email)
 
   if (emailExists instanceof Error) {
     return res.status(responses.serverError.statusCode)
-      .json(responses.serverError.message)
+      .json({ message: responses.serverError.message })
   }
   if (emailExists) {
     return res.status(responses.emailAlreadyRegistered.statusCode)
-      .json(responses.emailAlreadyRegistered.message)
+      .json({ message: responses.emailAlreadyRegistered.message })
   }
 
   const hashedPassword = await getHashedPassword(req.body.password)
@@ -55,18 +54,18 @@ const registerUser = async (req, res) => {
 
   if (userInserted instanceof Error) {
     return res.status(responses.serverError.statusCode)
-      .json(responses.serverError.message)
+      .json({ message: responses.serverError.message })
   }
 
   const emailConfirmationResponse = await sendConfirmationEmail(req.body.email)
 
   if (emailConfirmationResponse instanceof Error) {
     return res.status(responses.emailConfirmationFailed.statusCode)
-      .json(responses.emailConfirmationFailed.message)
+      .json({ message: responses.emailConfirmationFailed.message })
   }
 
   return res.status(responses.emailConfirmationSent.statusCode)
-    .json(responses.emailConfirmationSent.message)
+    .json({ message: responses.emailConfirmationSent.message })
 }
 
 module.exports = { registerUser, confirmUser }

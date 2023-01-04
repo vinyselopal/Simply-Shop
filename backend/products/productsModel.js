@@ -19,7 +19,7 @@ const getProductsFromDB = async () => {
 
 const getFilteredProductsASCFromDB = async (page, category, order, sortby) => {
   const offset = (page - 1) * 10
-  return await pool.query(
+  const response = await pool.query(
     `
     SELECT * FROM (
     SELECT DISTINCT ON(products.id)
@@ -39,18 +39,20 @@ const getFilteredProductsASCFromDB = async (page, category, order, sortby) => {
       ) p ORDER BY p.${sortby} ${order}  LIMIT 10 OFFSET $2;
   `
     , [category, offset])
+  return response.rows
 }
 
 const getProductsCountFromDB = async (category) => {
-  return await pool.query(
+  const response = await pool.query(
     `
   SELECT COUNT (*) FROM products 
     WHERE products.category = $1`
     , [category])
+  return response.rows[0].count
 }
 
 const getSearchedProductsFromDB = async (keywords) => {
-  return await pool.query(
+  const response = await pool.query(
     `
     SELECT DISTINCT ON (products.id)
       products.id, products.name, products.category, 
@@ -67,14 +69,13 @@ const getSearchedProductsFromDB = async (keywords) => {
       WHERE products.name ILIKE any ($1) ;
     `
     , [keywords.map((keyword, index) => {
-      console.log(index, `% ${keyword}%`, `${keyword}%`)
       if (index === 0) {
-        console.log('zero')
         return `${keyword}%`
       }
-      console.log('not zero')
       return `% ${keyword}%`
     })])
+
+  return response.rows
 }
 
 module.exports = {

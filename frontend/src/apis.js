@@ -55,7 +55,8 @@ export const getServerCart = async (token) => {
     credentials: 'include'
   })
 
-  const initialCart = await response.json()
+  const parsedResponse = await response.json()
+  const initialCart = parsedResponse.cart
   return JSON.stringify(initialCart)
 }
 
@@ -77,7 +78,8 @@ export async function handlePagination (page, category, limit, sortby, order) {
     {
       credentials: 'include'
     })
-  const products = await response.json()
+  const parsedProducts = await response.json()
+  const products = parsedProducts.products
   return products
 }
 
@@ -85,7 +87,8 @@ export async function getProductsCount (category) {
   const response = await fetch(`${BASE_URL}/products/pages/${category}`, {
     credentials: 'include'
   })
-  const count = await response.json()
+  const parsedResponse = await response.json()
+  const count = parsedResponse.count
   const pageCount = Math.ceil(count / 10)
   return pageCount
 }
@@ -94,7 +97,8 @@ export async function getProductsOfCategory (category) {
   const response = await fetch(`${BASE_URL}/products/page/?page=1&category=${category}&sortby=id&order=ASC`, {
     credentials: 'include'
   })
-  const products = await response.json()
+  const parsedResponse = await response.json()
+  const products = parsedResponse.products
   return products
 }
 
@@ -102,7 +106,8 @@ export async function getMatchingProducts (keyword) {
   const response = await fetch(`${BASE_URL}/products/matchingProducts/${keyword}`, {
     credentials: 'include'
   })
-  const matchingProducts = await response.json()
+  const parsedResponse = await response.json()
+  const matchingProducts = parsedResponse.searchResults
   return matchingProducts
 }
 
@@ -118,6 +123,7 @@ export async function getUserAddresses (order) {
   const response = await fetch(`${BASE_URL}/addresses`, {
     credentials: 'include'
   })
-  const addresses = await response.json()
+  const parsedResponse = await response.json()
+  const addresses = parsedResponse.addresses
   return addresses
 }
