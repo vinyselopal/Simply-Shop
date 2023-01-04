@@ -37,4 +37,4 @@ urgent:
 -- more filters
 -- back button should clear the order from redux state
 -- empty cart when order placed *
--- get payment amount and all from server
+-- get payment amount, methods and all from server

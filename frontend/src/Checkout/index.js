@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { setOrder, setOrderAddress, setOrderExpectedDelivery, setOrderPaymentMethod } from '../redux/slice'
 import { useSelectorWrapper } from '../utils'
+import Addresses from './components/Addresses'
+import PaymentMethods from './components/PaymentMethods'
 
 function Checkout () {
   const dispatch = useDispatch()
@@ -72,64 +74,15 @@ function Checkout () {
       </div>
       <div className='flex flex-row justify-center m-4'>
         <div className='flex flex-col m-4 basis-3/4'>
-          <div className='checkout_address_container'>
-            <button onClick={() => setSelector(0)}>
-              <h4>1. Select a delivery address</h4>
-            </button>
-            {
-            selectorOrder[selector] === 'address' && addresses
-              ? (
-                <div className='border-2 border-solid flex flex-col p-4'>
-                  {
-                    addresses.map((ele, index) =>
-                      (
-                        <div key={index}>
-                          <input
-                            type='radio'
-                            value={ele}
-                            name='address'
-                            checked={address === ele}
-                            onChange={() => setAddress(ele)}
-                          /> {ele.address}
-                        </div>
-                      )
-
-                    )
-                  }
-                </div>
-                )
-              : null
-            }
-          </div>
-          <div className='checkout_payment_container'>
-            <button onClick={() => setSelector(1)}>
-              <h4>2. Payment Method</h4>
-            </button>
-            {
-            selectorOrder[selector] === 'payment'
-              ? (
-                <div className='border-2 border-solid flex flex-col p-4'>
-                  {
-                    paymentMethods.map((method, index) =>
-                      (
-                        <div key={index}>
-                          <input
-                            type='radio'
-                            value={method}
-                            name='payment method'
-                            checked={paymentMethod === method}
-                            onChange={() => setPaymentMethod(method)}
-                          /> {method}
-                        </div>
-                      )
-
-                    )
-                  }
-                </div>
-                )
-              : null
-            }
-          </div>
+          <Addresses
+            setSelector={setSelector}
+            selector={selector}
+            addresses={addresses}
+            selectorOrder={selectorOrder}
+            address={address}
+            setAddress={setAddress}
+          />
+          <PaymentMethods setSelector={setSelector} selector={selector} selectorOrder={selectorOrder} paymentMethods={paymentMethods} paymentMethod={paymentMethod} setPaymentMethod={setPaymentMethod} />
         </div>
         <div className='order_summary basis-1/4 border-2 border-solid p-4 m-4'>
           <h4>Order Summary</h4>
