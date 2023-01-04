@@ -31,8 +31,8 @@ urgent:
 -- api routes should have api in url
 -- offset instead of page *
 -- get count along with products instead of a separate api *
--- fix sign up response and redirect on confirmation *
+-- redirect on email link click
 -- apply pagination to search results too
 -- dont place order on orderPlaced page loading
 -- solve defaultValue warning issue in frontend
--- 
+-- divide components into further components as required

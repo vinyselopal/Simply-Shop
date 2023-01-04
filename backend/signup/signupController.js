@@ -6,10 +6,6 @@ const responses = {
     statusCode: 409,
     message: 'email already registered'
   },
-  registrationSuccessful: {
-    statusCode: 201,
-    message: 'registration successful'
-  },
   emailConfirmationSent: {
     statusCode: 202,
     message: 'email confirmation sent'

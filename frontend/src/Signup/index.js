@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { registerUser } from '../apis'
 import { passwordIsValid, emailIsValid } from '../utils'
+
 const SignUp = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -9,6 +11,8 @@ const SignUp = () => {
   const [passwordsDontMatch, setPasswordsDontMatch] = useState(false)
   const [invalidPassword, setInvalidPassword] = useState(false)
   const [invalidEmail, setInvalidEmail] = useState(false)
+  const [registrationFailedMessage, setRegistrationFailedMessage] = useState(null)
+  const [confirmationSentFlag, setConfirmationSentFlag] = useState(false)
 
   async function signupHandler () {
     if (email === '' || password === '') {
@@ -27,19 +31,34 @@ const SignUp = () => {
       return setInvalidPassword(true)
     }
 
-    const response = await fetch(
-      'http://localhost:8000/register',
-      {
-        method: 'POST',
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      }
-    )
-    const message = await response.json()
-    if (response.ok) window.location.href = 'http://localhost:3000/api/signin'
-    else {
-      document.querySelector('body').innerHTML = message
+    const registrationResponse = await registerUser(email, password)
+
+    if (registrationResponse.statusCode === 202) {
+      setConfirmationSentFlag(true)
+      return
     }
+
+    setRegistrationFailedMessage(registrationResponse.body.message)
+  }
+
+  if (confirmationSentFlag) {
+    return (
+      <div className='flex justify-center flex-column m-4'>
+        <div className='flex justify-center'>
+          <Link to='/'>
+            <h3>Simply Shop</h3>
+          </Link>
+        </div>
+        <div className='flex justify-center m-4 text-xl'>
+          Email Confirmation sent to {email}
+        </div>
+        <div className='flex justify-center'>
+          <Link to='/signin'>
+            sign in
+          </Link>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -121,7 +140,15 @@ const SignUp = () => {
               )
             : null
         }
-
+        {
+          registrationFailedMessage
+            ? (
+              <div className='signin-error text-red-400'>
+                <p>{registrationFailedMessage}</p>
+              </div>
+              )
+            : null
+        }
       </div>
     </>
   )

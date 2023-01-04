@@ -127,3 +127,37 @@ export async function getUserAddresses (order) {
   const addresses = parsedResponse.addresses
   return addresses
 }
+
+export async function loginUser (email, password) {
+  const response = await fetch('http://localhost:8000/api/login',
+    {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+      credentials: 'include'
+    })
+
+  const parsedResponse = await response.json()
+
+  return {
+    statusCode: response.status,
+    body: parsedResponse
+  }
+}
+
+export async function registerUser (email, password) {
+  const response = await fetch(
+    'http://localhost:8000/api/register',
+    {
+      method: 'POST',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    }
+  )
+  console.log(response.status)
+  const parsedResponse = await response.json()
+  return {
+    statusCode: response.status,
+    body: parsedResponse
+  }
+}

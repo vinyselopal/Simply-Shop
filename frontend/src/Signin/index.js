@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom'
 import signin from './signin.module.css'
 import { emailIsValid } from '../utils'
+import { loginUser } from '../apis'
 
 const SignIn = () => {
   const navigate = useNavigate()
@@ -25,22 +26,14 @@ const SignIn = () => {
     if (!emailIsValid(email)) {
       return setInvalidEmail(true)
     }
+    const loginResponse = await loginUser(email, password)
 
-    const response = await fetch('http://localhost:8000/api/login',
-      {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-        credentials: 'include'
-      })
+    console.log(loginResponse, 'login')
 
-    const parsedResponse = await response.json()
-
-    if (response.status !== 200) {
-      setLoginFailMessage(parsedResponse)
+    if (loginResponse.statusCode !== 200) {
+      setLoginFailMessage(loginResponse.body.message)
       return
     }
-
     localStorage.setItem('loggedIn', true)
     localStorage.removeItem('cart')
     const checkout = searchParams.get('checkout')
