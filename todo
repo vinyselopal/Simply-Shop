@@ -29,9 +29,7 @@ urgent:
 -- feature for quicker nav pagination (add page numbers, skip to a particular page, etc) *
 -- get total items to show on category page
 -- api routes should have api in url
--- remove page from some apis *
 -- offset instead of page *
 -- get count along with products instead of a separate api *
 -- fix sign up response and redirect on confirmation *
--- extract result from database respose in model itself
 -- apply pagination to search results too

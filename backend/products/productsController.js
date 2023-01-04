@@ -1,17 +1,8 @@
 const {
-  getProductsFromDB,
   getFilteredProductsASCFromDB,
   getProductsCountFromDB,
   getSearchedProductsFromDB
 } = require('./productsModel')
-
-const getProductsController = async (req, res) => {
-  const products = await getProductsFromDB()
-  if (!products.rows[0]) res.sendStatus(404)
-  else {
-    res.json(JSON.stringify(products.rows))
-  } // remove (frontend too)
-}
 
 const getFilteredProductsController = async (req, res) => {
   const { page, category, sortby, order } = req.query
@@ -44,7 +35,6 @@ const getSearchedProductsController = async (req, res) => {
 }
 
 module.exports = {
-  getProductsController,
   getFilteredProductsController,
   getProductsCountController,
   getSearchedProductsController

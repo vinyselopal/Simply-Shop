@@ -74,7 +74,7 @@ export const updateServerCart = async (payload, token) => {
 }
 
 export async function handlePagination (page, category, limit, sortby, order) {
-  const response = await fetch(`${BASE_URL}/products/page/?page=${page}&limit=${limit}&category=${category}&sortby=${sortby}&order=${order}`,
+  const response = await fetch(`${BASE_URL}/products/?page=${page}&limit=${limit}&category=${category}&sortby=${sortby}&order=${order}`,
     {
       credentials: 'include'
     })
@@ -84,7 +84,7 @@ export async function handlePagination (page, category, limit, sortby, order) {
 }
 
 export async function getProductsCount (category) {
-  const response = await fetch(`${BASE_URL}/products/pages/${category}`, {
+  const response = await fetch(`${BASE_URL}/products/${category}`, {
     credentials: 'include'
   })
   const parsedResponse = await response.json()
@@ -94,7 +94,7 @@ export async function getProductsCount (category) {
 }
 
 export async function getProductsOfCategory (category) {
-  const response = await fetch(`${BASE_URL}/products/page/?page=1&category=${category}&sortby=id&order=ASC`, {
+  const response = await fetch(`${BASE_URL}/products/?page=1&category=${category}&sortby=id&order=ASC`, {
     credentials: 'include'
   })
   const parsedResponse = await response.json()

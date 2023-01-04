@@ -11,7 +11,6 @@ import Signup from './Signup'
 import Payment from './Payment'
 import Options from './Options'
 import { useEffect, useState } from 'react'
-import { getServerProducts } from './apis'
 import CategoryResults from './CategoryResults'
 import { Provider } from 'react-redux'
 import { store } from './redux/store'
@@ -29,7 +28,6 @@ function App () {
   const [products, setProducts] = useState(null)
   useEffect(() => {
     (async () => {
-      const products = await getServerProducts()
       setProducts(JSON.parse(products))
       localStorage.setItem('products', products)
     })()

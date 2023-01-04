@@ -1,22 +1,5 @@
 const { pool } = require('../config/initDB')
 
-const getProductsFromDB = async () => {
-  return await pool.query(
-  `
-      SELECT DISTINCT ON (products.id)
-      products.id, products.name, products.category, 
-      products.seller_id, products.description, 
-      products.count, products.ratings, products.price,
-      product_images.image_url 
-  
-      FROM 
-      products LEFT JOIN product_images 
-  
-      ON 
-      products.id = product_images.product_id;
-  `)
-}
-
 const getFilteredProductsASCFromDB = async (page, category, order, sortby) => {
   const offset = (page - 1) * 10
   const response = await pool.query(
@@ -79,7 +62,6 @@ const getSearchedProductsFromDB = async (keywords) => {
 }
 
 module.exports = {
-  getProductsFromDB,
   getFilteredProductsASCFromDB,
   getProductsCountFromDB,
   getSearchedProductsFromDB
