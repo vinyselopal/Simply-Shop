@@ -7,6 +7,7 @@ const pool = new Pool({
   database: 'amazon_clone',
   post: 5432
 })
+
 const categories = ['clothes', 'electronics', 'home-appliances']
 async function createProductsData () {
   for (let i = 0; i < 10000; i++) {
@@ -65,7 +66,7 @@ async function createProductImagesData () {
   for (let i = 0; i < 10000; i++) {
     const obj = {
       id: i + 1,
-      url: faker.image.image(),
+      url: faker.image.image() + `?lock=${faker.datatype.number()}`,
       product_id: faker.datatype.number(
         {
           min: 1,
@@ -212,10 +213,10 @@ async function createAddressesUsersMappingData () {
 // createUsersData()
 // createSellersData()
 // createProductsData()
-// createProductImagesData()
+createProductImagesData()
 // createOrdersData()
 // createOrdersMappingData()
-createAddressesUsersMappingData()
+// createAddressesUsersMappingData()
 
 // const createDataArr = [createUsersData, createSellersData, createProductsData, createProductImagesData, createOrdersData]
 

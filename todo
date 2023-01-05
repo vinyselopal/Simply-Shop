@@ -20,14 +20,12 @@ urgent:
 -- README
 
 -- learn context api
--- static images
 -- feature for quicker nav pagination (add page numbers, skip to a particular page, etc) *
 -- get total items to show on category page *
 -- offset instead of page *
 -- get count along with products instead of a separate api *
 -- redirect on email link click *
--- apply pagination to search results too *
--- dont place order on orderPlaced page loading *
+-- apply pagination to search results too
 -- soft delete orders
 -- order history page
 -- price filter
@@ -40,6 +38,9 @@ completed:
 -- empty cart when order placed
 -- pagination bug
 -- solve defaultValue warning issue in frontend (categories page)
+-- dont place order on orderPlaced page loading
+-- static images
+
 
 revisit:
 -- more categories
