@@ -61,8 +61,18 @@ const getSearchedProductsFromDB = async (keywords) => {
   return response.rows
 }
 
+const getProductByIDFromDB = async (productID) => {
+  console.log(productID)
+  const response = await pool.query(
+    `SELECT * FROM products
+    WHERE id = $1`, [productID]
+  )
+  return response.rows[0]
+}
+
 module.exports = {
   getFilteredProductsASCFromDB,
   getProductsCountFromDB,
-  getSearchedProductsFromDB
+  getSearchedProductsFromDB,
+  getProductByIDFromDB
 }

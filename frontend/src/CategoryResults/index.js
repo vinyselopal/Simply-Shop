@@ -109,13 +109,19 @@ function CategoryResults () {
           </Link>
         </h2>
       </div>
-      <div>
-        <select onChange={handleSortOptions} defaultValue='featured'>
-          <option>featured</option>
-          <option>price high to low</option>
-          <option>price low to high</option>
+      <div className='flex flex-row justify-between pr-4 pl-4'>
+        <div>
+          Showing {pageCount * 10} Results
+        </div>
+        <div>
+          Sort by
+          <select onChange={handleSortOptions} defaultValue='featured'>
+            <option>featured</option>
+            <option>price high to low</option>
+            <option>price low to high</option>
 
-        </select>
+          </select>
+        </div>
       </div>
       <div>
         <ProductsList products={localProducts} />

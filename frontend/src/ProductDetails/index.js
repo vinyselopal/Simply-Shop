@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import productStyle from './product.module.css'
 import { useSelectorWrapper } from '../utils'
 import { emptyImageUrl } from '../constants'
+import { getProductByID } from '../apis'
 
 function ProductDetails () {
   const navigate = useNavigate()
@@ -12,16 +13,16 @@ function ProductDetails () {
   const { id } = useParams()
 
   const items = useSelectorWrapper('cart')
-  const products = useSelectorWrapper('products')
-  console.log(products)
-  const [addedToCart, setAddedToCart] = useState(false)
 
-  const product = Object.values(products)?.find(category =>
-    category.find(product => `${product.id}` === id)
-  ).find(product => `${product.id}` === id)
+  const [addedToCart, setAddedToCart] = useState(false)
+  const [product, setProduct] = useState(null)
 
   function addToCart () {
     dispatch(addItem(product))
+  }
+
+  function goToCart () {
+    navigate('/cart')
   }
 
   useEffect(() => {
@@ -30,8 +31,18 @@ function ProductDetails () {
     }
   }, [items])
 
-  function goToCart () {
-    navigate('/cart')
+  useEffect(() => {
+    getProduct()
+  }, [])
+
+  const getProduct = async () => {
+    const { product } = await getProductByID(id)
+    console.log('productByID', product)
+    setProduct(product)
+  }
+
+  if (!product) {
+    return null
   }
 
   return (

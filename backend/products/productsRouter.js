@@ -4,10 +4,12 @@ const router = express.Router()
 const {
   getFilteredProductsController,
   getProductsCountController,
-  getSearchedProductsController
+  getSearchedProductsController,
+  getProductByIDController
 } = require('./productsController')
 
 router.get('/', getFilteredProductsController) // ?limit=10&offset=10
+router.get('/product/:productID', getProductByIDController)
 router.get('/:category', getProductsCountController) // eliminate
 router.get('/matchingProducts/:keywords', getSearchedProductsController) // ?keyword=bla
 

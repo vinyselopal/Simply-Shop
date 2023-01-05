@@ -18,9 +18,8 @@ urgent:
 -- pick up location using maps and store data
 -- deploy
 -- README
-
 -- learn context api
--- feature for quicker nav pagination (add page numbers, skip to a particular page, etc) *
+
 -- get total items to show on category page *
 -- offset instead of page *
 -- get count along with products instead of a separate api *
@@ -46,6 +45,7 @@ revisit:
 -- more categories
 
 not needed:
+-- feature for quicker nav pagination (add page numbers, skip to a particular page, etc) *
 -- change products quantity when order placed
 -- back button should clear the order from redux state
 -- better logic for handling sequence order of checkout options

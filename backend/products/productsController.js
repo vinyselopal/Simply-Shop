@@ -1,7 +1,8 @@
 const {
   getFilteredProductsASCFromDB,
   getProductsCountFromDB,
-  getSearchedProductsFromDB
+  getSearchedProductsFromDB,
+  getProductByIDFromDB
 } = require('./productsModel')
 
 const getFilteredProductsController = async (req, res) => {
@@ -26,16 +27,28 @@ const getProductsCountController = async (req, res) => {
 
 const getSearchedProductsController = async (req, res) => {
   const { keywords } = req.params
-  const searchResults = await getSearchedProductsFromDB(keywords.split(' '))
   try {
+    const searchResults = await getSearchedProductsFromDB(keywords.split(' '))
     res.json({ searchResults })
   } catch {
     res.sendStatus(404)
   }
 }
 
+const getProductByIDController = async (req, res) => {
+  const { productID } = req.params
+  console.log('here')
+  try {
+    const product = await getProductByIDFromDB(productID)
+    res.json({ product })
+  } catch (err) {
+    console.log(err)
+    res.sendStatus(404)
+  }
+}
 module.exports = {
   getFilteredProductsController,
   getProductsCountController,
-  getSearchedProductsController
+  getSearchedProductsController,
+  getProductByIDController
 }

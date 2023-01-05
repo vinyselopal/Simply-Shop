@@ -154,10 +154,17 @@ export async function registerUser (email, password) {
       body: JSON.stringify({ email, password })
     }
   )
-  console.log(response.status)
   const parsedResponse = await response.json()
   return {
     statusCode: response.status,
     body: parsedResponse
   }
+}
+
+export async function getProductByID (id) {
+  const response = await fetch(
+    `${BASE_URL}/products/product/${id}`
+  )
+  const product = await response.json()
+  return product
 }
