@@ -6,20 +6,19 @@ import productStyle from './product.module.css'
 import { useSelectorWrapper } from '../utils'
 import { emptyImageUrl } from '../constants'
 
-function ProductDetails ({ products }) {
+function ProductDetails () {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const items = useSelectorWrapper('cart')
-  const [addedToCart, setAddedToCart] = useState(false)
   const { id } = useParams()
 
-  const product = products
-    ? products.find(
-      product => `${product.id}` === id
-    )
-    : JSON.parse(localStorage.getItem('products')).find(
-      product => `${product.id}` === id
-    )
+  const items = useSelectorWrapper('cart')
+  const products = useSelectorWrapper('products')
+  console.log(products)
+  const [addedToCart, setAddedToCart] = useState(false)
+
+  const product = Object.values(products)?.find(category =>
+    category.find(product => `${product.id}` === id)
+  ).find(product => `${product.id}` === id)
 
   function addToCart () {
     dispatch(addItem(product))
@@ -29,11 +28,12 @@ function ProductDetails ({ products }) {
     if (items.find(a => a.item.id === product.id)) {
       setAddedToCart(true)
     }
-  }, [items, product])
+  }, [items])
 
   function goToCart () {
     navigate('/cart')
   }
+
   return (
     <div className={productStyle['product-page']}>
       <div className={productStyle['product-card']}>
@@ -71,6 +71,7 @@ function ProductDetails ({ products }) {
 
       </div>
     </div>
+
   )
 }
 

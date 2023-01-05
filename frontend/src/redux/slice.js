@@ -1,11 +1,23 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { getServerCart, updateServerCart } from '../apis'
+import { getServerCart, updateServerCart, getProductsOfCategory } from '../apis'
 
 export const fetchCartById = createAsyncThunk(
   'cart/fetchCartById',
   async () => {
     const response = await getServerCart()
     return response
+  }
+)
+
+export const getProductsOfCategoryThunk = createAsyncThunk(
+  'products/getProductsOfCategoryThunk',
+  async (categories) => {
+    const products = {}
+    for (let i = 0; i < categories.length; i++) {
+      const response = await getProductsOfCategory(categories[i])
+      products[categories[i]] = response
+    }
+    return products
   }
 )
 
@@ -23,7 +35,8 @@ const slice = createSlice({
   initialState: {
     cart: JSON.parse(localStorage.getItem('cart')) || [],
     token: JSON.parse(localStorage.getItem('token')),
-    order: null
+    order: null,
+    products: null
   },
 
   reducers: {
@@ -38,6 +51,7 @@ const slice = createSlice({
       cartItem.quantity++
       localStorage.setItem('cart', JSON.stringify(state.cart))
     },
+
     decrementQuantity: (state, action) => {
       const itemID = action.payload
       const cartItem = state.cart.find((a) => a.item.id === itemID)
@@ -65,6 +79,7 @@ const slice = createSlice({
     setCart: (state, action) => {
       const cart = action.payload
       state.cart = cart
+      localStorage.setItem('cart', JSON.stringify(state.cart))
     },
     setOrderAddress: (state, action) => {
       console.log('setOrderAddress triggered')
@@ -88,6 +103,10 @@ const slice = createSlice({
     builder.addCase(fetchCartById.fulfilled, (state, action) => {
       const cart = action.payload
       state.cart = JSON.parse(cart)
+    })
+    builder.addCase(getProductsOfCategoryThunk.fulfilled, (state, action) => {
+      const products = action.payload
+      state.products = products
     })
   }
 })

@@ -91,6 +91,7 @@ function CategoryResults () {
       default:
         break
     }
+    setPage(1)
   }
 
   if (!localProducts) {
@@ -109,8 +110,8 @@ function CategoryResults () {
         </h2>
       </div>
       <div>
-        <select onChange={handleSortOptions}>
-          <option selected>featured</option>
+        <select onChange={handleSortOptions} defaultValue='featured'>
+          <option>featured</option>
           <option>price high to low</option>
           <option>price low to high</option>
 

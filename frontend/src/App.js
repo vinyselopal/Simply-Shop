@@ -9,7 +9,6 @@ import SearchResults from './SearchResults'
 import Signin from './Signin'
 import Signup from './Signup'
 import Payment from './Payment'
-import Options from './Options'
 import { useEffect, useState } from 'react'
 import CategoryResults from './CategoryResults'
 import { Provider } from 'react-redux'
@@ -50,7 +49,6 @@ function App () {
             <Route path='/order_placed' element={<OrderPlaced />} />
             <Route path='/checkout' element={<Checkout />} />
             <Route path='/payment' element={<Payment />} />
-            <Route path='/options' element={<Options />} />
           </Routes>
         </Provider>
       </Router>

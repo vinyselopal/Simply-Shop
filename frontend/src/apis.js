@@ -15,8 +15,8 @@ export async function placeOrder (order) {
       'Content-type': 'application/json'
     }
   })
-  console.log(response)
-  return response
+  const parsedResponse = await response.json()
+  return parsedResponse
 }
 
 export async function createOrder (token, productsIdArray) {

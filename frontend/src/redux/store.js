@@ -1,7 +1,15 @@
 import { configureStore, createListenerMiddleware } from '@reduxjs/toolkit'
-import { cartReducer, addItem, updateCartById, incrementQuantity, decrementQuantity, removeItem } from './slice'
+import { cartReducer, setCart, addItem, updateCartById, incrementQuantity, decrementQuantity, removeItem } from './slice'
 
 const listenerMiddleware = createListenerMiddleware()
+
+listenerMiddleware.startListening({
+  actionCreator: setCart,
+  effect: (action, listenerAPI) => {
+    const cart = listenerAPI.getState().cart
+    listenerAPI.dispatch(updateCartById({ cart }))
+  }
+})
 
 listenerMiddleware.startListening({
   actionCreator: addItem,

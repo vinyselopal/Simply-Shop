@@ -1,31 +1,23 @@
 import ProductsList from './ProductsList.js'
 import { Link } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import { getProductsOfCategory } from '../../apis'
+import { useEffect } from 'react'
 import home from '../home.module.css'
+import { getProductsOfCategoryThunk } from '../../redux/slice'
+import { useDispatch, useSelector } from 'react-redux'
 
 function HomeProducts () {
-  const [localProducts, setLocalProducts] = useState({})
+  const dispatch = useDispatch()
   const categories = ['electronics', 'home-appliances', 'clothes']
 
-  useEffect(() => {
-    (async () => {
-      for (let i = 0; i < categories.length; i++) {
-        const response = await getProductsOfCategory(categories[i])
-        const categoryProducts = response
+  const products = useSelector(state => state.products)
 
-        const tempObj = {}
-        tempObj[categories[i]] = categoryProducts
-        await setLocalProducts((localProducts) => {
-          return {
-            ...localProducts,
-            ...tempObj
-          }
-        })
-      }
-    }
-    )()
+  useEffect(() => {
+    getProducts()
   }, [])
+
+  const getProducts = async () => {
+    dispatch(getProductsOfCategoryThunk(categories))
+  }
 
   return (
     <div className={home['home-products-container']}>
@@ -34,11 +26,18 @@ function HomeProducts () {
           categories.map(
             (category, index) => (
               <div className={home['home-product-list']} key={index}>
-                <h2><Link to={`/products/${category}`} style={{ textDecoration: 'none', color: 'black' }}>{category}</Link></h2>
+                <h2>
+                  <Link
+                    to={`/products/${category}`}
+                    style={{ textDecoration: 'none', color: 'black' }}
+                  >
+                    {category}
+                  </Link>
+                </h2>
                 {
-                  localProducts[category]
+                  products
                     ? (
-                      <ProductsList products={localProducts[category]} />
+                      <ProductsList products={products[category]} />
                       )
                     : null
                 }

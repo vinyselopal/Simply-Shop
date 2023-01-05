@@ -1,7 +1,7 @@
 import CartItem from './components/CartItem'
-import { useDispatch } from 'react-redux'
+import { useDispatch , dispatch } from 'react-redux'
 import { useEffect } from 'react'
-import { fetchCartById } from '../redux/slice'
+import { fetchCartById, setCart } from '../redux/slice'
 import { useNavigate } from 'react-router-dom'
 import { useSelectorWrapper } from '../utils'
 function Cart () {
@@ -10,6 +10,7 @@ function Cart () {
   const token = useSelectorWrapper('token')
 
   useEffect(() => {
+    // dispatch(setCart([]))
     dispatch(fetchCartById(token))
   }, [])
 

@@ -20,7 +20,6 @@ urgent:
 -- README
 
 -- learn context api
--- pagination bug *
 -- static images
 -- feature for quicker nav pagination (add page numbers, skip to a particular page, etc) *
 -- get total items to show on category page *
@@ -29,12 +28,23 @@ urgent:
 -- redirect on email link click *
 -- apply pagination to search results too *
 -- dont place order on orderPlaced page loading *
--- solve defaultValue warning issue in frontend *
--- divide components into further components as required
--- change products quantity when order placed
--- soft delete
+-- soft delete orders
+-- order history page
+-- price filter
+-- get payment amount from server
+-- get methods from server
+-- show order summary on OrderPlaced page
+
+completed:
+-- fix ProductDetails page bug. (use redux state to update products being viewed)
+-- empty cart when order placed
+-- pagination bug
+-- solve defaultValue warning issue in frontend (categories page)
+
+revisit:
 -- more categories
--- more filters
+
+not needed:
+-- change products quantity when order placed
 -- back button should clear the order from redux state
--- empty cart when order placed *
--- get payment amount, methods and all from server
+-- better logic for handling sequence order of checkout options
