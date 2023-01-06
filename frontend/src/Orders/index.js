@@ -18,18 +18,31 @@ function Orders () {
         <div className='flex flex-col'>
           <h3 className='border-b-2'>My Orders</h3>
         </div>
-        <div>Total number of orders</div>
-        <ul>
-          {
-          orders?.map((order, index) => (
-            <li key={index}>
-              <div className='m-4 p-2 rounded  border-2 border-slate-200'>
-                order ID : {order.id}
-              </div>
-            </li>
-          ))
+        {
+        orders.length
+          ? (
+            <div>
+              <div>Total number of orders</div>
+              <ul>
+                {
+                orders?.map((order, index) => (
+                  <li key={index}>
+                    <div className='m-4 p-2 rounded  border-2 border-slate-200'>
+                      order ID : {order.id}
+                    </div>
+                  </li>
+                ))
+                }
+              </ul>
+            </div>
+            )
+          : (
+            <div>
+              {/* add go to cart button */}
+              <div>You have no orders</div>
+            </div>
+            )
         }
-        </ul>
       </div>
     </div>
   )
