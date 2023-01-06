@@ -32,6 +32,8 @@ urgent:
 -- look into why theres only one product id in most orders
 -- add one image to each product in products table
 -- delivery date should be without time
+-- generate invoice from server before placing order
+-- filteres to order page
 
 completed:
 -- get total items to show on category page

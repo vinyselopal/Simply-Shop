@@ -54,14 +54,15 @@ function Checkout () {
 
   return (
     <div>
-      <Link
-        to='/'
-        className='no-underline text-black pl-5 position-absolute'
-      >
-        <h2>Simply Shop</h2>
-      </Link>
-      <div className='flex bg-gray-300 justify-center p-2'>
-        <h2 className='pl-5'>Checkout</h2>
+
+      <div className='flex bg-slate-200 justify-center p-2'>
+        <Link
+          to='/'
+          className='no-underline text-black pl-5 w-1/2'
+        >
+          <h2 className='mb-0'>Simply Shop</h2>
+        </Link>
+        <h2 className='pl-5 w-1/2'>Checkout</h2>
       </div>
       <div className='flex flex-row justify-center m-4'>
         <div className='flex flex-col m-4 basis-3/4'>
