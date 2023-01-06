@@ -1,7 +1,6 @@
 const { pool } = require('../config/initDB')
 
 const createOrderInDB = async (productsIdArray, userID, paymentAmount, expectedDelivery) => {
-  console.log('in createOrderDb')
   try {
     const response = await pool.query(
       `INSERT INTO orders
@@ -40,8 +39,13 @@ const deleteOrderInDB = async (orderID) => {
 const getOrdersFromDB = async (userID) => {
   try {
     const response = await pool.query(
-      `SELECT * FROM orders
-      WHERE user_id = $1`, [userID]
+      `SELECT *, o.id as order_id, p.id as product_id FROM
+      orders as o 
+      INNER JOIN 
+      products as p
+      ON
+      p.id = ANY(o.product_ids)
+      WHERE o.user_id = $1`, [userID]
     )
     return response.rows
   } catch (err) {

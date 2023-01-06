@@ -36,10 +36,13 @@ function Checkout () {
   const total = 500
 
   useEffect(() => {
-    setOrder({ ...order, address, paymentMethod })
+    setOrder(order => {
+      return { ...order, address, paymentMethod }
+    })
   }, [address, paymentMethod])
 
   const handlePlaceOrder = async () => {
+    console.log(order, 'order')
     if (order.address && order.paymentMethod) {
       const orderID = await placeOrder(order)
       if (orderID) {

@@ -26,10 +26,12 @@ function ProductDetails () {
   }
 
   useEffect(() => {
-    if (items.find(a => a.item.id === product.id)) {
-      setAddedToCart(true)
+    if (product) {
+      if (items.find(a => a.item.id === product.id)) {
+        setAddedToCart(true)
+      }
     }
-  }, [items])
+  }, [product, items])
 
   useEffect(() => {
     getProduct()

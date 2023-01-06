@@ -16,7 +16,7 @@ urgent:
 -- look for more constants
 -- Use custom breakpoints
 -- pick up location using maps and store data
--- deploy
+-- finish deployment
 -- README
 -- learn context api
 
@@ -24,11 +24,14 @@ urgent:
 -- redirect on email link click *
 -- apply pagination to search results too
 -- soft delete orders
--- order history page
 -- price filter
 -- get payment amount from server
 -- get methods from server
 -- show order summary on OrderPlaced page
+-- get total orders count along with orders
+-- look into why theres only one product id in most orders
+-- add one image to each product in products table
+-- delivery date should be without time
 
 completed:
 -- get total items to show on category page

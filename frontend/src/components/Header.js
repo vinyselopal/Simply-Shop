@@ -3,14 +3,12 @@ import { useState } from 'react'
 import { getMatchingProducts, logoutFromServer } from '../apis'
 import { useDispatch } from 'react-redux'
 import { useSelectorWrapper } from '../utils'
-import { useCookies } from 'react-cookie'
 
 import header from '../styles/header.module.css'
-import { setToken, setCart, setOrder } from '../redux/slice'
+import { setCart, setOrder } from '../redux/slice'
 
 function SearchBar ({ suggestions, setSuggestions }) {
   const [mouseDown, setMouseDown] = useState(false)
-  const [setCookie, removeCookie, cookies] = useCookies(['accessToken'])
 
   const navigate = useNavigate()
 
@@ -51,7 +49,7 @@ function SearchBar ({ suggestions, setSuggestions }) {
       <div className={`${header['header-searchbar-button-container']} flex w-100`}>
         <input
           type='text'
-          className={`${header['header-search']} items-stretch text-black p-1 h-100%`}
+          className={`${header['header-search']} items-stretch text-black h-95%`}
           onKeyDown={onSearch}
           onChange={searchSuggestions}
           autoComplete='off'
@@ -59,7 +57,7 @@ function SearchBar ({ suggestions, setSuggestions }) {
         <div>
           <button
             onClick={onSearch}
-            className='p-1.5 text-black bg-amber-500 h-100%'
+            className='p-0.5 text-black bg-amber-500 h-100%'
           >
             <span className='material-icons'>search</span>
           </button>
@@ -74,7 +72,11 @@ function SearchBar ({ suggestions, setSuggestions }) {
               suggestions.map((product, index) => {
                 return (
                   <li key={index} onMouseDown={() => setMouseDown(true)}>
-                    <Link to={`/products/product/${product.id}`} style={{ textDecoration: 'none', color: 'black' }} onClick={clickLink}>
+                    <Link
+                      to={`/products/product/${product.id}`}
+                      style={{ textDecoration: 'none', color: 'black' }}
+                      onClick={clickLink}
+                    >
                       {product.name}
                     </Link>
                   </li>
@@ -138,7 +140,7 @@ function Header ({ products }) {
         setSuggestions={setSuggestions}
         products={products}
       />
-      <button onClick = {showOrders}>
+      <button onClick={showOrders}>
         My Orders
       </button>
       {

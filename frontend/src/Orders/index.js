@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
 import { getOrdersByID } from '../apis'
+import { emptyImageUrl } from '../constants'
+import { Link } from 'react-router-dom'
+
 function Orders () {
   const [orders, setOrders] = useState(null)
 
@@ -19,7 +22,7 @@ function Orders () {
           <h3 className='border-b-2'>My Orders</h3>
         </div>
         {
-        orders.length
+        orders?.length
           ? (
             <div>
               <div>Total number of orders</div>
@@ -27,8 +30,38 @@ function Orders () {
                 {
                 orders?.map((order, index) => (
                   <li key={index}>
-                    <div className='m-4 p-2 rounded  border-2 border-slate-200'>
-                      order ID : {order.id}
+                    <div className='m-4 rounded  border-2 border-slate-200'>
+                      <div className='bg-slate-200 p-2 flex justify-between'>
+                        <div>
+                          order ID : {order.order_id}
+                        </div>
+                        <div>
+                          delivery date : {order.expected_delivery}
+                        </div>
+                      </div>
+                      <div className='pl-4 pr-4 pt-2 pb-2 flex items-center justify-between'>
+                        <div>
+                          <Link to={`/products/product/${order.product_id}`}>
+                            <img
+                              src={emptyImageUrl}
+                              height='180'
+                              width='150'
+                            />
+                          </Link>
+                        </div>
+                        <div className='flex flex-col'>
+                          <div>
+                            <strong>{order.name}</strong>
+                          </div>
+                          <div>
+                            {order.description}
+                          </div>
+                        </div>
+                        <div>
+                          <strong>Total: {order.payment_amount}</strong>
+                        </div>
+
+                      </div>
                     </div>
                   </li>
                 ))

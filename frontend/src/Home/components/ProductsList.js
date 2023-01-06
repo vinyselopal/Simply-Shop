@@ -14,7 +14,7 @@ function ProductsList ({ products }) {
                 to={`/products/product/${product.id}`}
                 style={{
                   textDecoration: 'none',
-                  color: 'blac'
+                  color: 'black'
                 }}
               >
                 <div className={home['home-product-card']}>
