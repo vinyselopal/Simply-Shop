@@ -122,6 +122,9 @@ function Header ({ products }) {
     return total
   }
 
+  const showOrders = () => {
+    navigate('/orders')
+  }
   return (
 
     <div className={`${header.header}`}>
@@ -135,7 +138,9 @@ function Header ({ products }) {
         setSuggestions={setSuggestions}
         products={products}
       />
-
+      <button onClick = {showOrders}>
+        My Orders
+      </button>
       {
             JSON.parse(localStorage.getItem('loggedIn'))
               ? (

@@ -11,6 +11,7 @@ import Signup from './Signup'
 import Payment from './Payment'
 import { useEffect, useState } from 'react'
 import CategoryResults from './CategoryResults'
+import Orders from './Orders'
 import { Provider } from 'react-redux'
 import { store } from './redux/store'
 import './styles/index.css'
@@ -25,6 +26,7 @@ const HomeTemplate = () => {
 }
 function App () {
   const [products, setProducts] = useState(null)
+
   useEffect(() => {
     (async () => {
       setProducts(JSON.parse(products))
@@ -43,6 +45,7 @@ function App () {
               <Route path='/cart' element={<Cart />} />
               <Route path='/search_results/:keyword' element={<SearchResults products={products} />} />
               <Route path='/products/:category' element={<CategoryResults products={products} />} />
+              <Route path='/orders' element={<Orders />} />
             </Route>
             <Route path='/signin' element={<Signin />} />
             <Route path='/signup' element={<Signup />} />

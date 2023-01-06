@@ -3,9 +3,11 @@ const router = express.Router()
 
 const {
   createOrderController,
-  deleteOrderController
+  deleteOrderController,
+  getOrderController
 } = require('./ordersController')
 
+router.get('/', getOrderController)
 router.post('/', createOrderController)
 router.delete('/:orderID', deleteOrderController)
 module.exports = router

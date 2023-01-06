@@ -20,9 +20,7 @@ urgent:
 -- README
 -- learn context api
 
--- get total items to show on category page *
 -- offset instead of page *
--- get count along with products instead of a separate api *
 -- redirect on email link click *
 -- apply pagination to search results too
 -- soft delete orders
@@ -33,6 +31,7 @@ urgent:
 -- show order summary on OrderPlaced page
 
 completed:
+-- get total items to show on category page
 -- fix ProductDetails page bug. (use redux state to update products being viewed)
 -- empty cart when order placed
 -- pagination bug
@@ -45,7 +44,9 @@ revisit:
 -- more categories
 
 not needed:
--- feature for quicker nav pagination (add page numbers, skip to a particular page, etc) *
+-- feature for quicker nav pagination (add page numbers, skip to a particular page, etc)
 -- change products quantity when order placed
 -- back button should clear the order from redux state
 -- better logic for handling sequence order of checkout options
+-- get count along with products instead of a separate api
+

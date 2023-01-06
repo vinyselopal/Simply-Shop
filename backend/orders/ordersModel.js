@@ -37,6 +37,18 @@ const deleteOrderInDB = async (orderID) => {
   }
 }
 
+const getOrdersFromDB = async (userID) => {
+  try {
+    const response = await pool.query(
+      `SELECT * FROM orders
+      WHERE user_id = $1`, [userID]
+    )
+    return response.rows
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 const placeOrderInDB = async (orderID, deadline, paymentAmount, products) => {
   try {
     await pool.query(
@@ -64,4 +76,4 @@ const placeOrderInDB = async (orderID, deadline, paymentAmount, products) => {
   }
 }
 
-module.exports = { createOrderInDB, deleteOrderInDB, placeOrderInDB }
+module.exports = { createOrderInDB, deleteOrderInDB, placeOrderInDB, getOrdersFromDB }

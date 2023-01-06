@@ -168,3 +168,14 @@ export async function getProductByID (id) {
   const product = await response.json()
   return product
 }
+
+export async function getOrdersByID () {
+  const response = await fetch(
+    `${BASE_URL}/orders`, {
+      credentials: 'include'
+    }
+  )
+  const orders = await response.json()
+  console.log('orders', orders)
+  return orders
+}

@@ -1,6 +1,7 @@
 const {
   createOrderInDB,
-  deleteOrderInDB
+  deleteOrderInDB,
+  getOrdersFromDB
 } = require('./ordersModel')
 
 const createOrderController = async (req, res) => {
@@ -25,4 +26,13 @@ const deleteOrderController = async (req, res) => {
   }
 }
 
-module.exports = { createOrderController, deleteOrderController }
+const getOrderController = async (req, res) => {
+  const userID = req.userID
+  try {
+    const orders = await getOrdersFromDB(userID)
+    res.status(200).json({ orders })
+  } catch (err) {
+    res.sendStatus(500)
+  }
+}
+module.exports = { createOrderController, deleteOrderController, getOrderController }
