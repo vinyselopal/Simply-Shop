@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { incrementQuantity, decrementQuantity, removeItem } from '../../redux/slice'
 import './cart.css'
+import { emptyImageUrl } from '../../constants'
 
 // use thunk to change server first
 function CartItem ({ cartItem }) {
@@ -12,7 +13,7 @@ function CartItem ({ cartItem }) {
     >
       <div className='cart-page-product-image'>
         <img
-          src={cartItem.item.image_url}
+          src={cartItem.item.image_url || emptyImageUrl}
           height='180'
           width='150'
         />

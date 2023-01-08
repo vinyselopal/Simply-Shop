@@ -51,7 +51,7 @@ const getSearchedProductsFromDB = async (keywords) => {
   
       WHERE products.name ILIKE any ($1) ;
     `
-    , [keywords.map((keyword, index) => {
+    , [keywords.map((keyword, index) => { // all in place of any
       if (index === 0) {
         return `${keyword}%`
       }

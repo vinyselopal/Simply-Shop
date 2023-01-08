@@ -45,9 +45,13 @@ const getOrdersFromDB = async (userID) => {
       products as p
       ON
       p.id = ANY(o.product_ids)
-      WHERE o.user_id = $1`, [userID]
+      WHERE o.user_id = $1
+      ORDER BY (created_at) DESC;`, [userID]
     )
-    return response.rows
+    return {
+      orders: response.rows,
+      ordersCount: response.rowCount
+    }
   } catch (err) {
     console.log(err)
   }

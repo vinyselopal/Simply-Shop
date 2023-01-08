@@ -29,8 +29,8 @@ const deleteOrderController = async (req, res) => {
 const getOrderController = async (req, res) => {
   const userID = req.userID
   try {
-    const orders = await getOrdersFromDB(userID)
-    res.status(200).json({ orders })
+    const response = await getOrdersFromDB(userID)
+    res.status(200).json(response)
   } catch (err) {
     res.sendStatus(500)
   }

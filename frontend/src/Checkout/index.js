@@ -42,7 +42,6 @@ function Checkout () {
   }, [address, paymentMethod])
 
   const handlePlaceOrder = async () => {
-    console.log(order, 'order')
     if (order.address && order.paymentMethod) {
       const orderID = await placeOrder(order)
       if (orderID) {

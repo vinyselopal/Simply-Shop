@@ -19,6 +19,7 @@ urgent:
 -- finish deployment
 -- README
 -- learn context api
+-- warehouse service
 
 -- offset instead of page *
 -- redirect on email link click *
@@ -26,14 +27,14 @@ urgent:
 -- soft delete orders
 -- price filter
 -- get payment amount from server
--- get methods from server
+-- get payment methods from server
 -- show order summary on OrderPlaced page
--- get total orders count along with orders
--- look into why theres only one product id in most orders
 -- add one image to each product in products table
--- delivery date should be without time
+-- delivery date should be without time. Handle dates in one function 
 -- generate invoice from server before placing order
--- filteres to order page
+-- cookie errors
+-- add addition deletion feature to productDetails page
+-- get a product image in cart
 
 completed:
 -- get total items to show on category page
@@ -43,10 +44,16 @@ completed:
 -- solve defaultValue warning issue in frontend (categories page)
 -- dont place order on orderPlaced page loading
 -- static images
+-- get total orders count along with orders
+-- look into why theres only one product id in most orders
+-- club products of same order into one group display
+-- orders display in recent first order
 
 
 revisit:
 -- more categories
+-- disable space search 
+
 
 not needed:
 -- feature for quicker nav pagination (add page numbers, skip to a particular page, etc)
@@ -54,4 +61,6 @@ not needed:
 -- back button should clear the order from redux state
 -- better logic for handling sequence order of checkout options
 -- get count along with products instead of a separate api
+-- filteres to order page 
+
 
