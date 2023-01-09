@@ -21,15 +21,64 @@ export const getProductsOfCategoryThunk = createAsyncThunk(
   }
 )
 
-export const updateCartById = createAsyncThunk(
-  'cart/updateCartById',
-  async (options, thunkAPI) => {
-    const { cart } = options
-    const token = thunkAPI.getState().token
-    const response = await updateServerCart({ cart }, token)
-    return response
+export const addItemToCart = createAsyncThunk(
+  'cart/addItemToCart',
+  async (item, thunkAPI) => {
+    const newCart = [...thunkAPI.getState().cart, { item, quantity: 1 }]
+    const response = await updateServerCart({ cart: newCart })
+    return newCart
   }
 )
+
+export const incrementItemQuantityInCart = createAsyncThunk(
+  'cart/incrementItemQuantityInCart',
+  async (itemID, thunkAPI) => {
+    const cart = thunkAPI.getState().cart
+    const newCart = cart.map(a => {
+      if (a.item.id === itemID) {
+        return { ...a, quantity: a.quantity + 1 }
+      }
+      return a
+    })
+    const response = await updateServerCart({ cart: newCart })
+    return newCart
+  }
+)
+
+export const decrementItemQuantityInCart = createAsyncThunk(
+  'cart/decrementItemQuantityInCart',
+  async (itemID, thunkAPI) => {
+    const cart = thunkAPI.getState().cart
+    const newCart = cart.map(a => {
+      if (a.item.id === itemID) {
+        if (a.quantity === 1) return { ...a, quantity: 1 }
+        return { ...a, quantity: a.quantity - 1 }
+      }
+      return a
+    })
+    const response = await updateServerCart({ cart: newCart })
+    return newCart
+  }
+)
+
+export const removeItemFromCart = createAsyncThunk(
+  'cart/removeItemFromCart',
+  async (itemID, thunkAPI) => {
+    const cart = thunkAPI.getState().cart
+    const newCart = cart.filter(cartItem => cartItem.item.id === itemID)
+    const response = await updateServerCart({ cart: newCart })
+    return newCart
+  }
+)
+
+export const setCart = createAsyncThunk(
+  'cart/setCart',
+  async (newCart, thunkAPI) => {
+    const response = await updateServerCart({ cart: newCart })
+    return newCart
+  }
+)
+
 const slice = createSlice({
   name: 'cart',
   initialState: {
@@ -39,66 +88,6 @@ const slice = createSlice({
     products: null
   },
 
-  reducers: {
-    addItem: (state, action) => {
-      const item = action.payload
-      state.cart.push({ item, quantity: 1 })
-      localStorage.setItem('cart', JSON.stringify(state.cart))
-    },
-    incrementQuantity: (state, action) => { // hash map with id keys
-      const itemID = action.payload
-      const cartItem = state.cart.find((a) => a.item.id === itemID)
-      cartItem.quantity++
-      localStorage.setItem('cart', JSON.stringify(state.cart))
-    },
-
-    decrementQuantity: (state, action) => {
-      const itemID = action.payload
-      const cartItem = state.cart.find((a) => a.item.id === itemID)
-      if (cartItem.quantity === 1) cartItem.quantity = 1
-      else cartItem.quantity--
-      localStorage.setItem('cart', JSON.stringify(state.cart))
-    },
-    removeItem: (state, action) => {
-      const itemID = action.payload
-      const filteredCart = state.cart.filter((a) => a.item.id !== itemID)
-      state.cart = filteredCart
-      localStorage.setItem('cart', JSON.stringify(state.cart))
-    },
-    setToken: (state, action) => {
-      const token = action.payload
-      state.token = token
-    },
-
-    setOrder: (state, action) => {
-      console.log('setOrder triggered')
-      const order = action.payload
-      state.order = order
-      localStorage.setItem('order', JSON.stringify(state.order))
-    },
-    setCart: (state, action) => {
-      const cart = action.payload
-      state.cart = cart
-      localStorage.setItem('cart', JSON.stringify(state.cart))
-    },
-    setOrderAddress: (state, action) => {
-      console.log('setOrderAddress triggered')
-      const address = action.payload
-      state.order.address = address
-      return state
-    },
-    setOrderPaymentMethod: (state, action) => {
-      console.log('setOrderPaymentMethod triggered')
-      const paymentMethod = action.payload
-      state.order.paymentMethod = paymentMethod
-      return state
-    },
-    setOrderExpectedDelivery: (state, action) => {
-      const expectedDelivery = action.payload
-      state.order.expectedDelivery = expectedDelivery
-    }
-
-  },
   extraReducers: (builder) => {
     builder.addCase(fetchCartById.fulfilled, (state, action) => {
       const cart = action.payload
@@ -108,22 +97,29 @@ const slice = createSlice({
       const products = action.payload
       state.products = products
     })
+    builder.addCase(addItemToCart.fulfilled, (state, action) => {
+      const cart = action.payload
+      state.cart = cart
+    })
+    builder.addCase(removeItemFromCart.fulfilled, (state, action) => {
+      const cart = action.payload
+      state.cart = cart
+    })
+    builder.addCase(incrementItemQuantityInCart.fulfilled, (state, action) => {
+      const cart = action.payload
+      state.cart = cart
+    })
+    builder.addCase(decrementItemQuantityInCart.fulfilled, (state, action) => {
+      const cart = action.payload
+      state.cart = cart
+    })
+    builder.addCase(setCart.fulfilled, (state, action) => {
+      const cart = action.payload
+      state.cart = cart
+    })
   }
 })
 
 export const cartReducer = slice.reducer
-
-export const {
-  addItem,
-  incrementQuantity,
-  decrementQuantity,
-  removeItem,
-  setToken,
-  setOrder,
-  setCart,
-  setOrderAddress,
-  setOrderExpectedDelivery,
-  setOrderPaymentMethod
-} = slice.actions
 
 export const cartAsyncReducer = slice.extraReducers
