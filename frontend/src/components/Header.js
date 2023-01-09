@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { useSelectorWrapper } from '../utils'
 
 import header from '../styles/header.module.css'
-import { setCart, setOrder } from '../redux/slice'
+import { setCart } from '../redux/slice'
 
 function SearchBar ({ suggestions, setSuggestions }) {
   const [mouseDown, setMouseDown] = useState(false)
@@ -105,7 +105,6 @@ function Header ({ products }) {
     if (!response.ok) return
 
     dispatch(setCart([]))
-    dispatch(setOrder(null))
 
     localStorage.setItem('loggedIn', false)
     localStorage.removeItem('cart')

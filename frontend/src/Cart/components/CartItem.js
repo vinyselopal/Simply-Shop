@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { incrementQuantity, decrementQuantity, removeItem } from '../../redux/slice'
+import { incrementItemQuantityInCart, decrementItemQuantityInCart, removeItemFromCart } from '../../redux/slice'
 import './cart.css'
 import { emptyImageUrl } from '../../constants'
 
@@ -23,14 +23,14 @@ function CartItem ({ cartItem }) {
         <div>{cartItem.item.description}</div>
         <div className='cart-page-product-update-buttons'>
           <button
-            onClick={() => dispatch(decrementQuantity(cartItem.item.id))}
+            onClick={() => dispatch(decrementItemQuantityInCart(cartItem.item.id))}
             className='cart-item-button'
           >
             -
           </button>
           <div className='cart-page-item-quantity'> {cartItem.quantity} </div>
           <button
-            onClick={() => dispatch(incrementQuantity(cartItem.item.id))}
+            onClick={() => dispatch(incrementItemQuantityInCart(cartItem.item.id))}
             className='cart-item-button'
           >
             +
@@ -38,7 +38,7 @@ function CartItem ({ cartItem }) {
         </div>
         <div>
           <button
-            onClick={() => dispatch(removeItem(cartItem.item.id))}
+            onClick={() => dispatch(removeItemFromCart(cartItem.item.id))}
             className='bg-gray-300 border-solid border-black p-1'
           >delete
           </button>

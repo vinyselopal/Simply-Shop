@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { addItem } from '../redux/slice'
+import { addItemToCart } from '../redux/slice'
 import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import productStyle from './product.module.css'
@@ -18,7 +18,7 @@ function ProductDetails () {
   const [product, setProduct] = useState(null)
 
   function addToCart () {
-    dispatch(addItem(product))
+    dispatch(addItemToCart(product))
   }
 
   function goToCart () {
