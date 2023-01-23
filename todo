@@ -35,6 +35,7 @@ urgent:
 -- cookie errors
 -- add addition deletion feature to productDetails page
 -- get a product image in cart
+-- show online/offline header
 
 completed:
 -- get total items to show on category page
