@@ -1,6 +1,5 @@
-import * as toolkitRaw from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@redux/toolkit'
 import { getServerCart, updateServerCart, getProductsOfCategory } from '../apis'
-const { createSlice, createAsyncThunk } = toolkitRaw.default ?? toolkitRaw
 
 export const fetchCartById = createAsyncThunk(
   'cart/fetchCartById',
