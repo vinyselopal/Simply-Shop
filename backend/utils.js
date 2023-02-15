@@ -2,11 +2,8 @@ require('dotenv').config()
 
 const jwt = require('jsonwebtoken')
 const nodemailer = require('nodemailer')
-const config = require('./auth.config')
 const bcrypt = require('bcrypt')
-
-const user = config.user
-const pass = config.pass
+require('dotenv').config()
 
 function generateAccessToken (obj) {
   const accessToken = jwt.sign(obj, process.env.ACCESS_TOKEN, { expiresIn: '3000s' })
@@ -21,8 +18,8 @@ function logoutHandler (req, res, next) {
 const transport = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
-    user,
-    pass
+    user: process.env.user,
+    pass: process.env.pass
   }
 })
 
@@ -30,7 +27,7 @@ const sendConfirmationEmail = (email) => {
   console.log('Check')
   const token = generateAccessToken({ email })
   transport.sendMail({
-    from: user,
+    from: process.env.user,
     to: email,
     subject: 'Please confirm your account',
     html: `<h1>Email Confirmation</h1>
