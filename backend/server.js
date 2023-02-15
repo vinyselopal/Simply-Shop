@@ -3,7 +3,7 @@ const app = express()
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const logger = require('pino-http')()
-const path = require('node:path')
+const path = require('path')
 
 const productsRouter = require('./products/productsRouter')
 const cartRouter = require('./cart/cartRouter')
