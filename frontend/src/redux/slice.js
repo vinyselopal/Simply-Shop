@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@redux/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { getServerCart, updateServerCart, getProductsOfCategory } from '../apis'
 
 export const fetchCartById = createAsyncThunk(
