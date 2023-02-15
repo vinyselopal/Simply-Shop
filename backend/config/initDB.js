@@ -9,11 +9,13 @@ const {
   createAddressesUsersMappingTable
 } = require('./queries')
 
+require('dotenv').config()
+
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'amazon_clone',
-  post: 5432
+  user: process.env.dbUser,
+  host: process.env.dbHost,
+  database: process.env.database,
+  port: process.env.port
 })
 
 async function initDB () {
