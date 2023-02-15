@@ -15,7 +15,8 @@ const pool = new Pool({
   user: process.env.dbUser,
   host: process.env.dbHost,
   database: process.env.database,
-  port: process.env.port
+  port: process.env.dbPort,
+  password: process.env.dbPass
 })
 
 async function initDB () {
